@@ -1,0 +1,65 @@
+.hero {
+    margin-top: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background-color: #fff;
+    min-height: 80vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hero-content {
+    flex: 1;
+    padding-right: 4rem;
+    max-width: 50%;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+  }
+  
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-button:hover {
+    background-color: #ff1a1a;
+  }
+  
+  .learn-more {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .learn-more:hover {
+    text-decoration: underline;
+  }
+  
+  .hero-image {
+    flex: 1;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+  }
+  
