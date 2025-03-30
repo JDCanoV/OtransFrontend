@@ -1,14 +1,26 @@
-// index.js
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css'; // Aquí van tus estilos globales
-import App from './App'; // Importamos el componente principal de nuestra app
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import Home from './HomePage/Home';
+import Login from './Login/Login';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// React.StrictMode ayuda a identificar problemas durante el desarrollo
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    <App />  {/* Renderizamos la app aquí */}
-  </React.StrictMode>,
-  document.getElementById('root')  // Este es el div con el id="root" en tu index.html
+    <Router>
+<Routes>
+<Route path="/" element={<Home />} />
+  <Route path="/login" element={<Login />} />
+
+</Routes>
+</Router>
+  </React.StrictMode>
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
