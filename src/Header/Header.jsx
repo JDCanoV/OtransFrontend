@@ -8,14 +8,16 @@ const Header = () => {
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate("/login");
-      };
+    };
+    const goToRegister = () => {
+        navigate("/register");
+    };
+
   return (
     <header>
      <div>
-
-        <button   onClick={goToLogin}>
-      iniciar sesion 
-        </button>
+        <button onClick={goToLogin}>Iniciar sesión</button>
+        <button onClick={goToRegister}>Regístrate</button>
      </div>
     </header>
   );
