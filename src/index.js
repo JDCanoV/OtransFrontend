@@ -7,6 +7,7 @@ import Home from './HomePage/Home';
 import Login from './Login/Login';
 import RegisterVehiculo from './Register/RegisterVehiculo';
 import RegisterUsuario from './Register/RegisterUsuario';
+import Recuperar from './RecuperarContra/Recuperar';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +19,7 @@ root.render(
   <Route path="/login" element={<Login />} />
   <Route path="/registervehiculo" element={<RegisterVehiculo />} />
   <Route path="/registerusuario" element={<RegisterUsuario />} />
+  <Route path="/recuperar" element={<Recuperar />} />
 
 </Routes>
 </Router>
