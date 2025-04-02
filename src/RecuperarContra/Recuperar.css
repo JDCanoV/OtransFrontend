@@ -1,0 +1,54 @@
+.recover-password-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .recover-password-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .recover-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .recover-password-form label {
+    text-align: left;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .recover-password-form input {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .recover-password-form button {
+    padding: 0.7rem;
+    font-size: 1rem;
+    background-color: #ff7243;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .recover-password-form button:hover {
+    background-color: #e45b2e;
+  }
+  
+  .message {
+    color: green;
+    font-size: 0.9rem;
+  }
+  
