@@ -10,7 +10,7 @@ const RegisterUsuario = () => {
         nombre: "", // Nombre del usuario
         apellido: "", // Apellido del usuario
         telefono: "", // Teléfono del usuario
-        telefonoSOS: "", // Teléfono de emergencia
+        telefonoSos: "", // Teléfono de emergencia
         correo: "", // Correo electrónico del usuario
         contrasena: "", // Contraseña del usuario
         nombreEmpresa: "", // Nombre de la empresa asociada
@@ -55,20 +55,54 @@ const RegisterUsuario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Evita que la página se recargue
 
+        // Crea un objeto FormData para enviar los datos como multipart/form-data
+        const data = new FormData();
+        data.append("NumIdentificacion", formData.numIdentificacion);
+        data.append("Nombre", formData.nombre);
+        data.append("Apellido", formData.apellido);
+        data.append("Telefono", formData.telefono);
+        data.append("TelefonoSos", formData.telefonoSos);
+        data.append("Correo", formData.correo);
+        data.append("Contrasena", formData.contrasena);
+        data.append("NombreEmpresa", formData.nombreEmpresa);
+        data.append("NumCuenta", formData.numCuenta);
+        data.append("Direccion", formData.direccion);
+        data.append("Nit", formData.nit);
+        data.append("Licencia", formData.licencia); // Archivo PDF
+
+        // 🔥 Nuevo campo obligatorio que faltaba
+        data.append("IdRol", "1"); // Ajusta el ID si tu sistema maneja otro valor
+
+        // Log para verificar todo
+        console.log("📝 Datos del formulario antes de enviar:");
+        for (let pair of data.entries()) {
+            console.log(`${pair[0]}:`, pair[1]);
+        }
+
         try {
-            // Envía los datos del formulario al backend
-            const response = await axios.post("/register", formData);
+            // Envía los datos al backend con el encabezado adecuado
+            const response = await axios.post("/user/registerTransportista", data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
 
             // Maneja la respuesta del backend
-            console.log(response.data.message); // Mensaje de éxito del backend
+            console.log("✅ Registro exitoso:", response.data.message);
             navigate("/login"); // Redirige al login después del registro
         } catch (error) {
             // Maneja errores
             if (error.response) {
-                console.error("Error del servidor:", error.response.data.message);
-                setError(error.response.data.message); // Muestra el error al usuario
+                console.error("❌ Error del servidor:", error.response.data);
+                if (error.response.data.errors) {
+                    console.log("🛑 Errores de validación del backend:");
+                    for (let key in error.response.data.errors) {
+                        console.log(`${key}:`, error.response.data.errors[key][0]);
+                    }
+                }
+                setError("Error al registrar. Revisa los campos.");
             } else {
-                console.error("Error de conexión:", error.message);
+                console.error("❌ Error de conexión:", error.message);
                 setError("No se pudo conectar con el servidor.");
             }
         }
@@ -137,12 +171,12 @@ const RegisterUsuario = () => {
                 {/* Tercera fila: Teléfono de Emergencia y Correo Electrónico */}
                 <div className="form-group-row">
                     <div className="form-group">
-                        <label htmlFor="telefonoSOS">Teléfono de Emergencia</label>
+                        <label htmlFor="telefonoSos">Teléfono de Emergencia</label>
                         <input
                             type="text"
-                            id="telefonoSOS"
-                            name="telefonoSOS"
-                            value={formData.telefonoSOS}
+                            id="telefonoSos"
+                            name="telefonoSos"
+                            value={formData.telefonoSos}
                             onChange={handleChange}
                             required
                         />
