@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./registerusuario.css"; // Archivo CSS para los estilos
 import { useNavigate } from "react-router-dom";
+import axios from "../config/axiosConfig"; // Importa la configuración de Axios
 
 const RegisterUsuario = () => {
     // Estado para almacenar los datos del formulario
@@ -51,19 +52,26 @@ const RegisterUsuario = () => {
     };
 
     // Maneja el envío del formulario
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // Evita que la página se recargue
-        const { numIdentificacion, nombre, apellido, telefono, telefonoSOS, correo, contrasena, nombreEmpresa, numCuenta, direccion, licencia, nit } = formData;
 
-        // Validaciones básicas: verifica que todos los campos estén completos
-        if (!numIdentificacion || !nombre || !apellido || !telefono || !telefonoSOS || !correo || !contrasena || !nombreEmpresa || !numCuenta || !direccion || !licencia || !nit) {
-            setError("Por favor, completa todos los campos y sube los archivos requeridos.");
-            return;
+        try {
+            // Envía los datos del formulario al backend
+            const response = await axios.post("/register", formData);
+
+            // Maneja la respuesta del backend
+            console.log(response.data.message); // Mensaje de éxito del backend
+            navigate("/login"); // Redirige al login después del registro
+        } catch (error) {
+            // Maneja errores
+            if (error.response) {
+                console.error("Error del servidor:", error.response.data.message);
+                setError(error.response.data.message); // Muestra el error al usuario
+            } else {
+                console.error("Error de conexión:", error.message);
+                setError("No se pudo conectar con el servidor.");
+            }
         }
-
-        // Simulación de registro exitoso
-        console.log("Datos registrados:", formData);
-        navigate("/login"); // Redirige al login después del registro
     };
 
     return (
