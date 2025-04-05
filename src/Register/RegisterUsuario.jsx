@@ -1,61 +1,61 @@
-import React, { useState } from "react";
-import "./registerusuario.css"; // Archivo CSS para los estilos
-import { useNavigate } from "react-router-dom";
-import axios from "../config/axiosConfig"; // Importa la configuración de Axios
+import React, { useState } from "react"; 
+import "./registerusuario.css"; // Importa el archivo CSS para estilos personalizados
+import { useNavigate } from "react-router-dom"; // Para redirigir al usuario después del registro
+import axios from "../config/axiosConfig"; // Configuración de Axios para realizar solicitudes HTTP
 
 const RegisterUsuario = () => {
     // Estado para almacenar los datos del formulario
     const [formData, setFormData] = useState({
-        numIdentificacion: "", // Número de identificación del usuario
+        numIdentificacion: "", // Número de identificación
         nombre: "", // Nombre del usuario
         apellido: "", // Apellido del usuario
-        telefono: "", // Teléfono del usuario
+        telefono: "", // Teléfono de contacto
         telefonoSos: "", // Teléfono de emergencia
-        correo: "", // Correo electrónico del usuario
+        correo: "", // Correo electrónico
         contrasena: "", // Contraseña del usuario
-        nombreEmpresa: "", // Nombre de la empresa asociada
+        nombreEmpresa: "", // Nombre de la empresa del usuario
         numCuenta: "", // Número de cuenta bancaria
-        direccion: "", // Dirección del usuario o empresa
+        direccion: "", // Dirección del usuario
         licencia: null, // Archivo PDF de la licencia
         nit: "", // NIT de la empresa
     });
 
-    // Estado para almacenar los nombres de los archivos subidos
+    // Estado para manejar el nombre de los archivos subidos
     const [uploadedFiles, setUploadedFiles] = useState({
-        licencia: null, // Nombre del archivo de la licencia subido
+        licencia: null, // Almacena el nombre del archivo de la licencia subido
     });
 
-    // Estado para manejar errores
+    // Estado para manejar los errores
     const [error, setError] = useState("");
 
-    // Hook para redirigir a otra página
+    // Hook para redirigir al usuario después de enviar el formulario
     const navigate = useNavigate();
 
-    // Maneja los cambios en los campos de texto
+    // Función para manejar los cambios en los campos de texto
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value }); // Actualiza el estado con el nuevo valor
+        const { name, value } = e.target; // Desestructura el evento para obtener el nombre y valor del campo
+        setFormData({ ...formData, [name]: value }); // Actualiza el estado con el nuevo valor del campo
     };
 
-    // Maneja los cambios en los campos de subida de archivos
+    // Función para manejar la carga de archivos (solo PDF en este caso)
     const handleFileChange = (e) => {
-        const { name } = e.target;
-        const file = e.target.files[0];
+        const { name } = e.target; // Obtiene el nombre del campo de archivo
+        const file = e.target.files[0]; // Obtiene el primer archivo del input
         if (file && file.type === "application/pdf") {
-            // Si el archivo es un PDF válido, actualiza el estado
-            setFormData({ ...formData, [name]: file });
-            setUploadedFiles({ ...uploadedFiles, [name]: file.name }); // Guarda el nombre del archivo subido
+            // Verifica si el archivo es un PDF válido
+            setFormData({ ...formData, [name]: file }); // Actualiza el estado con el archivo
+            setUploadedFiles({ ...uploadedFiles, [name]: file.name }); // Almacena el nombre del archivo
         } else {
-            // Si el archivo no es válido, muestra un mensaje de error
+            // Si el archivo no es un PDF válido, muestra un mensaje de error
             setError(`Por favor, sube un archivo PDF válido para ${name}.`);
         }
     };
 
-    // Maneja el envío del formulario
+    // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Evita que la página se recargue
+        e.preventDefault(); // Previene la recarga de la página
 
-        // Crea un objeto FormData para enviar los datos como multipart/form-data
+        // Crea un FormData para enviar los datos como multipart/form-data
         const data = new FormData();
         data.append("NumIdentificacion", formData.numIdentificacion);
         data.append("Nombre", formData.nombre);
@@ -68,33 +68,35 @@ const RegisterUsuario = () => {
         data.append("NumCuenta", formData.numCuenta);
         data.append("Direccion", formData.direccion);
         data.append("Nit", formData.nit);
-        data.append("Licencia", formData.licencia); // Archivo PDF
+        data.append("Licencia", formData.licencia); // Agrega el archivo de la licencia
 
-        // 🔥 Nuevo campo obligatorio que faltaba
-        data.append("IdRol", "1"); // Ajusta el ID si tu sistema maneja otro valor
+        // Campo adicional para el rol (ajustar según el sistema)
+        data.append("IdRol", "1"); // En este caso, el ID del rol es 1, pero puede variar
 
-        // Log para verificar todo
+        // Verifica los datos antes de enviarlos (útil para depuración)
         console.log("📝 Datos del formulario antes de enviar:");
         for (let pair of data.entries()) {
             console.log(`${pair[0]}:`, pair[1]);
         }
 
         try {
-            // Envía los datos al backend con el encabezado adecuado
-            const response = await axios.post("/user/registerTransportista", data, {
+            // Envia los datos al backend usando Axios
+            const response = await axios.post("http/user/registerTransportista", data, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "multipart/form-data", // Indica que el tipo de contenido es multipart (para archivos)
                 },
             });
 
-            // Maneja la respuesta del backend
+            // Si el registro es exitoso, muestra la respuesta y redirige a la página de login
             console.log("✅ Registro exitoso:", response.data.message);
             navigate("/login"); // Redirige al login después del registro
         } catch (error) {
-            // Maneja errores
+            // Maneja errores en el envío
             if (error.response) {
+                // Si el error es del servidor (response)
                 console.error("❌ Error del servidor:", error.response.data);
                 if (error.response.data.errors) {
+                    // Si hay errores de validación, los muestra en consola
                     console.log("🛑 Errores de validación del backend:");
                     for (let key in error.response.data.errors) {
                         console.log(`${key}:`, error.response.data.errors[key][0]);
@@ -102,6 +104,7 @@ const RegisterUsuario = () => {
                 }
                 setError("Error al registrar. Revisa los campos.");
             } else {
+                // Si hay un error de conexión o red
                 console.error("❌ Error de conexión:", error.message);
                 setError("No se pudo conectar con el servidor.");
             }
