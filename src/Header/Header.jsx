@@ -17,7 +17,7 @@ const Header = () => {
   <header>
       <nav class="navbar">
         <div class="nav-left">
-          <div class="logo">Uber</div>
+          <div class="logo">Otrans</div>
           <ul class="nav-menu">
             <li class="nav-item">
               <a href="#" class="nav-link">Empresa</a>

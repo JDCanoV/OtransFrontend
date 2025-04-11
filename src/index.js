@@ -6,23 +6,25 @@ import reportWebVitals from './reportWebVitals';
 import Home from './HomePage/Home';
 import Login from './Login/Login';
 import RegisterVehiculo from './Register/RegisterVehiculo';
-import RegisterUsuario from './Register/RegisterUsuario';
+import RegisterEmpresa from './Register/RegisterEmpresa';
 import Recuperar from './RecuperarContra/Recuperar';
+import RegisterSelection from "./Register/RegisterSelection";
+import RegisterCamionero from "./Register/RegisterCamionero";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-<Routes>
-<Route path="/" element={<Home />} />
-  <Route path="/login" element={<Login />} />
-  <Route path="/registervehiculo" element={<RegisterVehiculo />} />
-  <Route path="/registerusuario" element={<RegisterUsuario />} />
-  <Route path="/recuperar" element={<Recuperar />} />
-
-</Routes>
-</Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterSelection />} />
+        <Route path="/registervehiculo" element={<RegisterCamionero />} />
+        <Route path="/registerusuario" element={<RegisterEmpresa />} />
+        <Route path="/recuperar" element={<Recuperar />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
