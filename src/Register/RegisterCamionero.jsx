@@ -79,7 +79,7 @@ const RegisterCamionero = () => {
         },
       });
       console.log("✅ Registro exitoso:", response.data.message); // Muestra un mensaje de éxito en la consola
-      navigate("/login"); // Redirige al usuario a la página de inicio de sesión
+      navigate("/registervehiculo"); // Redirige al usuario a la página de inicio de sesión
     } catch (error) {
       if (error.response) {
         console.error("❌ Error del servidor:", error.response.data); // Muestra el error del servidor en la consola
