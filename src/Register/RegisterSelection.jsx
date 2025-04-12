@@ -7,7 +7,7 @@ const RegisterSelection = () => {
 
   const handleSelection = (type) => {
     if (type === "camionero") {
-      navigate("/registervehiculo"); // Redirige al formulario de camionero
+      navigate("/registertransportista"); // Redirige al formulario de camionero
     } else if (type === "empresa") {
       navigate("/registerusuario"); // Redirige al formulario de empresa
     }

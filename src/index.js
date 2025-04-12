@@ -20,7 +20,8 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterSelection />} />
-        <Route path="/registervehiculo" element={<RegisterCamionero />} />
+        <Route path="/registervehiculo" element={<RegisterVehiculo />} />
+        <Route path="/registertransportista" element={<RegisterCamionero />} />
         <Route path="/registerusuario" element={<RegisterEmpresa />} />
         <Route path="/recuperar" element={<Recuperar />} />
       </Routes>
