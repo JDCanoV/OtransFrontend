@@ -1,75 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import GoogleMapComponent from '../Components/googlemaps/GoogleMapComponent'; // Importa el componente del mapa
-import './Home.css'; // Asegúrate de tener estilos
+import HereMapComponent from '../Components/heremaps/HereMapComponent';
+import PlaceInputs from '../Components/placeinputs/PlaceInputs';
+import './Home.css';
 
 function Home() {
+  const [originCoords, setOriginCoords] = useState(null);
+  const [destinationCoords, setDestinationCoords] = useState(null);
+
   return (
     <div className="home-wrapper">
       <Header />
 
       <main>
-        
-
         <section className="hero">
           <div className="hero-left">
             <h1>Otrans</h1>
-            <div className="hero-options">
-              <button className="option-button active">Viaja</button>
-            </div>
-            <div className="hero-form">
-              <input type="text" placeholder="Punto de partida" className="form-input" />
-              <input type="text" placeholder="Entrega" className="form-input" />
-              <div className="form-options">
-              </div>
-              <button className="cta-button">Ver precios</button>
-            </div>
+            <PlaceInputs
+              setOriginCoords={setOriginCoords}
+              setDestinationCoords={setDestinationCoords}
+            />
+            <button className="cta-button">Ver precios</button>
           </div>
-          <div className="hero-right">
-            <GoogleMapComponent /> {/* Reemplaza el iframe con el componente del mapa */}
-          </div>
-        </section>
 
-        <section className="services">
-          <div className="service-card">
-            <img src="ride.jpg" alt="Viaje Uber" />
-            <h2>Pide un viaje ahora</h2>
-            <p>Solicita un viaje en cualquier momento y a cualquier lugar.</p>
-            <button className="service-btn">Solicitar viaje</button>
-          </div>
-          <div className="service-card">
-            <img src="delivery.jpg" alt="Uber Eats" />
-            <h2>Pide comida a domicilio</h2>
-            <p>Los restaurantes que te encantan, a domicilio.</p>
-            <button className="service-btn">Pedir ahora</button>
-          </div>
-          <div className="service-card">
-            <img src="business.jpg" alt="Uber Business" />
-            <h2>Uber para Empresas</h2>
-            <p>Transforma la manera en que tu empresa se mueve.</p>
-            <button className="service-btn">Conoce más</button>
-          </div>
-        </section>
-
-        <section className="features">
-          <div className="feature">
-            <i className="fas fa-shield-alt"></i>
-            <h3>Tu seguridad es importante</h3>
-            <p>Comprometidos con tu seguridad, donde sea que vayas.</p>
-            <a href="#" className="link-button">Conoce más &gt;</a>
-          </div>
-          <div className="feature">
-            <i className="fas fa-users"></i>
-            <h3>Nuestra compañía</h3>
-            <p>Descubre cómo estamos cambiando el mundo del transporte.</p>
-            <a href="#">Más información &gt;</a>
-          </div>
-          <div className="feature">
-            <i className="fas fa-newspaper"></i>
-            <h3>Últimas noticias</h3>
-            <p>Mantente al día con las últimas novedades de Uber.</p>
-            <a href="#">Ver noticias &gt;</a>
+          <div className="hero-right" style={{ height: '400px' }}>
+            <HereMapComponent
+              originCoords={originCoords}
+              destinationCoords={destinationCoords}
+            />
           </div>
         </section>
       </main>
