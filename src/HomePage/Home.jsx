@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import GoogleMapComponent from '../Components/googlemaps/GoogleMapComponent'; // Importa el componente del mapa
 import './Home.css'; // Asegúrate de tener estilos
 
 function Home() {
@@ -12,14 +13,21 @@ function Home() {
         
 
         <section className="hero">
-          <div className="hero-content">
-            <h1>Gana dinero conduciendo</h1>
-            <p>Conduce cuando quieras y genera ganancias como conductor o repartidor.</p>
-            <button className="cta-button">Regístrate para conducir</button>
-            <a href="#" className="learn-more">Conoce más sobre cómo conducir y entregar &gt;</a>
+          <div className="hero-left">
+            <h1>Otrans</h1>
+            <div className="hero-options">
+              <button className="option-button active">Viaja</button>
+            </div>
+            <div className="hero-form">
+              <input type="text" placeholder="Punto de partida" className="form-input" />
+              <input type="text" placeholder="Entrega" className="form-input" />
+              <div className="form-options">
+              </div>
+              <button className="cta-button">Ver precios</button>
+            </div>
           </div>
-          <div className="hero-image">
-            <img src="driver.jpg" alt="Conductor Uber" />
+          <div className="hero-right">
+            <GoogleMapComponent /> {/* Reemplaza el iframe con el componente del mapa */}
           </div>
         </section>
 
