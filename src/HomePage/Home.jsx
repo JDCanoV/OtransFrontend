@@ -1,39 +1,11 @@
-import React, { useState } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import HereMapComponent from '../Components/heremaps/HereMapComponent';
-import PlaceInputs from '../Components/placeinputs/PlaceInputs';
-import './Home.css';
+import React from "react";
+import GoogleMapComponent from "../Components/googlemaps/GoogleMapComponent";
 
 function Home() {
-  const [originCoords, setOriginCoords] = useState(null);
-  const [destinationCoords, setDestinationCoords] = useState(null);
-
   return (
-    <div className="home-wrapper">
-      <Header />
-
-      <main>
-        <section className="hero">
-          <div className="hero-left">
-            <h1>Otrans</h1>
-            <PlaceInputs
-              setOriginCoords={setOriginCoords}
-              setDestinationCoords={setDestinationCoords}
-            />
-            <button className="cta-button">Ver precios</button>
-          </div>
-
-          <div className="hero-right" style={{ height: '400px' }}>
-            <HereMapComponent
-              originCoords={originCoords}
-              destinationCoords={destinationCoords}
-            />
-          </div>
-        </section>
-      </main>
-
-      <Footer />
+    <div style={{ padding: "20px" }}>
+      <h1>Mapa de GoogleMaps</h1>
+      <GoogleMapComponent />
     </div>
   );
 }
