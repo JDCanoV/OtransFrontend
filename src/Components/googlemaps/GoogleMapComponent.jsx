@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Loader } from "@googlemaps/js-api-loader"; // Importar el cargador de Google Maps
+import { Loader } from "@googlemaps/js-api-loader";
+import axios from 'axios';
 
 /**
  * Componente que implementa un mapa de Google con funcionalidad de rutas
@@ -189,18 +190,73 @@ const GoogleMapComponent = () => {
       const distanceInKm = leg.distance.value / 1000;
       const precioRecomendado = distanceInKm * 10000;
 
-      setRouteInfo({
+      const routeData = {
         startAddress: leg.start_address,
         endAddress: leg.end_address,
         distance: leg.distance.text,
         duration: leg.duration.text,
         speed: ((leg.distance.value/1000)/(leg.duration.value/3600)).toFixed(2),
         price: precioRecomendado
-      });
+      };
+
+      setRouteInfo(routeData);
+
+      // Se manda la información de la ruta al backend (simulación)
+      await sendRouteData(routeData);
 
     } catch (error) {
       console.error("🚨 Error al calcular la ruta:", error);
       alert(error.message); // Mostrar mensaje de error si algo sale mal
+    }
+  };
+
+  /**
+   * Envía los datos de la ruta al servidor
+   * @param {Object} routeData - Datos de la ruta
+   */
+  const sendRouteData = async (routeData) => {
+    try {
+      // Crear objeto que coincide con ViajeDto
+      const viajeData = {
+        idViaje: 0, // El backend asignará el ID
+        destino: routeData.endAddress,
+        origen: routeData.startAddress,
+        distancia: parseFloat(routeData.distance.replace(/[^0-9.]/g, '')), // Extraer solo el número
+        fecha: new Date().toISOString().split('T')[0], // Fecha actual en formato YYYY-MM-DD
+        idEstado: 1, // Valor por defecto o según tu lógica
+        idCarga: null,
+        idTransportista: null,
+        idEmpresa: null
+      };
+
+      // Simulación de envío de datos al backend
+      console.log('📤 Datos a enviar al backend:');
+      console.log('------------------------------------------');
+      console.log('📋 Detalles del viaje:');
+      console.log(`🆔 ID Viaje: ${viajeData.idViaje}`);
+      console.log(`🏁 Origen: ${viajeData.origen}`);
+      console.log(`🎯 Destino: ${viajeData.destino}`);
+      console.log(`📏 Distancia: ${viajeData.distancia} km`);
+      console.log(`📅 Fecha: ${viajeData.fecha}`);
+      console.log(`📊 Estado: ${viajeData.idEstado}`);
+      console.log('------------------------------------------');
+
+      // Simulación de respuesta del backend
+      console.log('✅ Simulación: Datos del viaje guardados exitosamente');
+      alert('Simulación: Viaje registrado exitosamente');
+
+      // Descomentar para enviar datos al backend real
+      /*
+      const response = await axios.post('http://localhost:7229/api/viajes', viajeData);
+      if (response.status === 200) {
+        console.log('✅ Viaje guardado exitosamente');
+        alert('Viaje guardado exitosamente');
+      }
+      */
+
+    } catch (error) {
+      console.error('🚨 Error en la simulación:', error);
+      alert('Error en la simulación: ' + error.message);
     }
   };
 
@@ -359,6 +415,21 @@ const GoogleMapComponent = () => {
               <strong>Precio Recomendado:</strong> ${routeInfo.price.toLocaleString('es-CO')} COP
             </p>
           </div>
+          <button 
+            onClick={() => sendRouteData(routeInfo)}
+            style={{
+              marginTop: '15px',
+              padding: '10px 20px',
+              backgroundColor: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              width: '100%'
+            }}
+          >
+            Guardar Ruta
+          </button>
         </div>
       )}
       <div
