@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './HomePage/Home';
 import Login from './Login/Login';
+import RegisterVehiculo from './Register/RegisterVehiculo';
+import RegisterEmpresa from './Register/RegisterEmpresa';
 import Recuperar from './RecuperarContra/Recuperar';
 import IndexEmpresa from './RolEmpresa/Index/IndexEmpresa';
 import SolicitarServicio from './RolEmpresa/Funcionalidades/SolicitarServicio';
@@ -17,6 +19,8 @@ import CalificacionesT from './RolTransportista/Funcionalidades/CalificacionesT'
 
 
 
+import RegisterSelection from "./Register/RegisterSelection";
+import RegisterCamionero from "./Register/RegisterCamionero";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -39,6 +43,16 @@ root.render(
 
 </Routes>
 </Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterSelection />} />
+        <Route path="/registervehiculo" element={<RegisterVehiculo />} />
+        <Route path="/registertransportista" element={<RegisterCamionero />} />
+        <Route path="/registerusuario" element={<RegisterEmpresa />} />
+        <Route path="/recuperar" element={<Recuperar />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 

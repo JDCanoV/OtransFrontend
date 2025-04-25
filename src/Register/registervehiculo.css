@@ -1,0 +1,219 @@
+/* Contenedor principal del formulario */
+.register-container {
+    display: flex; /* Usa flexbox para centrar el contenido */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    min-height: 100vh; /* Altura mínima del contenedor */
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: 2rem auto; /* Centra el formulario horizontalmente */
+    padding: 2rem; /* Espaciado interno */
+    background-color: #f9f9f9; /* Fondo claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    font-family: Arial, sans-serif; /* Fuente del formulario */
+}
+
+/* Tarjeta del formulario */
+.register-card {
+    background: #ffffff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    padding: 30px; /* Espaciado interno */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    max-width: 400px; /* Ancho máximo */
+}
+
+/* Título del formulario */
+.register-title {
+    font-size: 24px; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+    color: #333333; /* Color del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+    text-align: center; /* Centra el texto */
+}
+
+/* Formulario */
+.register-form {
+    display: flex; /* Usa flexbox */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    gap: 15px; /* Espaciado entre los elementos */
+}
+
+/* Título del formulario dentro del formulario */
+.register-form h2 {
+    text-align: center; /* Centra el texto */
+    margin-bottom: 1.5rem; /* Espaciado inferior */
+    color: #333; /* Color del texto */
+}
+
+/* Grupos de formulario */
+.register-form .form-group {
+    margin-bottom: 1.5rem; /* Espaciado inferior */
+}
+
+/* Etiquetas de los campos */
+.register-form label {
+    display: block; /* Hace que la etiqueta ocupe toda la línea */
+    margin-bottom: 0.5rem; /* Espaciado inferior */
+    font-weight: bold; /* Texto en negrita */
+    color: #555; /* Color del texto */
+}
+
+/* Campos de entrada */
+.register-form input {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 0.75rem; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Campos de entrada con estilo adicional */
+.register-input {
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #cccccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Efecto de enfoque en los campos de entrada */
+.register-input:focus {
+    outline: none; /* Elimina el borde predeterminado */
+    border-color: #007bff; /* Cambia el color del borde al azul */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+/* Botón de registro */
+.register-button {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 0.75rem; /* Espaciado interno */
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 1rem; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    transition: background-color 0.3s ease; /* Transición suave para hover */
+}
+
+/* Efecto hover para el botón de registro */
+.register-button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Enlace de registro */
+.register-link {
+    margin-top: 10px; /* Espaciado superior */
+    text-align: center; /* Centra el texto */
+    font-size: 14px; /* Tamaño de fuente */
+    color: #007bff; /* Color azul */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Efecto hover para el enlace */
+.register-link:hover {
+    text-decoration: underline; /* Subraya el texto al pasar el mouse */
+}
+
+/* Campos de entrada para archivos */
+.form-group input[type="file"] {
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 0.5rem; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red; /* Texto rojo */
+    font-size: 0.9rem; /* Tamaño de fuente */
+    margin-bottom: 1rem; /* Espaciado inferior */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el campo select */
+.styled-select {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 0.75rem; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Color del texto */
+    appearance: none; /* Oculta el estilo predeterminado del navegador */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23333' d='M2 0L0 2h4z'/%3E%3C/svg%3E"); /* Flecha personalizada */
+    background-repeat: no-repeat; /* No repite la imagen */
+    background-position: right 0.75rem center; /* Posición de la flecha */
+    background-size: 0.65rem auto; /* Tamaño de la flecha */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el campo */
+}
+
+/* Efecto de enfoque en el campo select */
+.styled-select:focus {
+    outline: none; /* Elimina el borde predeterminado */
+    border-color: #007bff; /* Cambia el color del borde al azul */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+/* Botón de selección de archivo */
+.file-input {
+    display: none; /* Oculta el input real */
+}
+
+/* Botón de selección de archivo en color naranja */
+.file-input-label {
+    display: inline-block; /* Hace que el botón sea un bloque en línea */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 0.75rem; /* Espaciado interno */
+    border: 1px solid #ff9800; /* Borde naranja */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    background-color: #ff9800; /* Fondo naranja */
+    color: white; /* Texto blanco */
+    text-align: center; /* Centra el texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave para hover */
+}
+
+/* Efecto hover para el botón de selección de archivo */
+.file-input-label:hover {
+    background-color: #e68900; /* Naranja más oscuro al pasar el mouse */
+    border-color: #e68900; /* Cambia el color del borde */
+}
+
+/* Efecto de enfoque en el botón de selección de archivo */
+.file-input-label:focus {
+    outline: none; /* Elimina el borde predeterminado */
+    border-color: #e68900; /* Cambia el color del borde */
+    box-shadow: 0 0 4px rgba(230, 137, 0, 0.5); /* Sombra naranja */
+}
+
+/* Estilo para mostrar el archivo subido */
+.uploaded-file {
+    display: flex; /* Usa flexbox para alinear los elementos */
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: space-between; /* Espacia los elementos horizontalmente */
+    background-color: #e6ffe6; /* Fondo verde claro */
+    border: 1px solid #28a745; /* Borde verde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 0.75rem; /* Espaciado interno */
+    color: #28a745; /* Color del texto verde */
+    font-size: 1rem; /* Tamaño de fuente */
+}
+
+/* Nombre del archivo subido */
+.file-name {
+    font-weight: bold; /* Texto en negrita */
+    overflow: hidden; /* Oculta el texto que excede el ancho */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* Ícono de verificación */
+.check-icon {
+    font-size: 1.2rem; /* Tamaño del ícono */
+    color: #28a745; /* Color verde */
+    margin-left: 0.5rem; /* Espaciado a la izquierda */
+}

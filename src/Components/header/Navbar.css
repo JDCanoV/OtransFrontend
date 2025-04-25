@@ -1,16 +1,16 @@
-/* src/Header.css */
+/* Navbar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f35520;
-    padding: 1mm;
+    background-color: #f43d00;
+    padding: 1rem;
     color: white;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
   .nav-left {
@@ -49,7 +49,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
-    background-color: #777;
+    background-color: #555;
     color: white;
     margin-left: 0.5rem;
   }
