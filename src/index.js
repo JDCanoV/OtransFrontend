@@ -26,33 +26,25 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-<Routes>
-<Route path="/" element={<Home />} />
-  <Route path="/login" element={<Login />} />
-  <Route path="/recuperar" element={<Recuperar />} />
-  <Route path="/indexEmpresa" element={<IndexEmpresa/>} />
-  <Route path="/solicitarServicio" element={<SolicitarServicio/>} />
-  <Route path="/viaje" element={<Viaje/>} />
-  <Route path="/viajes" element={<Viajes/>} />
-  <Route path="/ofrecemos" element={<Ofrecemos/>} />
-  <Route path="/ofertas" element={<Ofertas/>} />
-  <Route path="/calificaciones" element={<Calificaciones/>} />
-  <Route path="/calificacionesT" element={<CalificacionesT/>} />
-
-
-</Routes>
+<Router>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/recuperar" element={<Recuperar />} />
+    <Route path="/indexEmpresa" element={<IndexEmpresa/>} />
+    <Route path="/solicitarServicio" element={<SolicitarServicio/>} />
+    <Route path="/viaje" element={<Viaje/>} />
+    <Route path="/viajes" element={<Viajes/>} />
+    <Route path="/ofrecemos" element={<Ofrecemos/>} />
+    <Route path="/ofertas" element={<Ofertas/>} />
+    <Route path="/calificaciones" element={<Calificaciones/>} />
+    <Route path="/calificacionesT" element={<CalificacionesT/>} />
+    <Route path="/register" element={<RegisterSelection />} />
+    <Route path="/registervehiculo" element={<RegisterVehiculo />} />
+    <Route path="/registertransportista" element={<RegisterCamionero />} />
+    <Route path="/registerusuario" element={<RegisterEmpresa />} />
+  </Routes>
 </Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterSelection />} />
-        <Route path="/registervehiculo" element={<RegisterVehiculo />} />
-        <Route path="/registertransportista" element={<RegisterCamionero />} />
-        <Route path="/registerusuario" element={<RegisterEmpresa />} />
-        <Route path="/recuperar" element={<Recuperar />} />
-      </Routes>
-    </Router>
   </React.StrictMode>
 );
 
