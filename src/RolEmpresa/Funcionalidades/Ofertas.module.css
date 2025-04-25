@@ -1,0 +1,120 @@
+.container {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f7f3eb;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.exploraButton {
+  background-color: #f48c06;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 50px;
+}
+
+.exploraButton:hover {
+  background-color: #f35520;
+}
+
+.flotasContainer {
+  margin-bottom: 30px;
+}
+
+.flotasTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.sliderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.slider {
+  display: flex;
+  width: 80%; /* Ajusta el contenedor para 3 imágenes */
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.imageCard {
+  background-color: #ffdb58;
+  width: 32%; /* Ajustado para que tres imágenes caben */
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.arrowButton {
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #f48c06;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.arrowButton:hover {
+  color: #f35520;
+}
+
+.arrowButton:first-of-type {
+  left: 10px;
+}
+
+.arrowButton:last-of-type {
+  right: 10px;
+}
+
+.registerContainer {
+  margin-top: 50px;
+}
+
+.registerButton {
+  background-color: #f48c06;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s;
+}
+
+.registerButton:hover {
+  background-color: #f35520;
+}

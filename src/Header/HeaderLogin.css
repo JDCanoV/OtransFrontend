@@ -1,21 +1,20 @@
 .header {
-    background-color: #ff7243;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%; /* Para que ocupe todo el ancho de la pantalla */
-    height: 60px; /* Ajusta el valor según la altura que desees */
-  }
-  
-  
-  .logo-container {
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .logo {
-    width: 120px; /* Ajusta el tamaño del logo según lo necesites */
-    height: 90px;
-  }
-  
+  background-color: #080808;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%; /* Para que ocupe todo el ancho de la pantalla */
+  height: 60px; /* Ajusta el valor según la altura que desees */
+}
+
+
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 120px; /* Ajusta el tamaño del logo según lo necesites */
+  height: 90px;
+}

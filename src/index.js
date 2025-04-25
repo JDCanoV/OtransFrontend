@@ -6,6 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import Home from './HomePage/Home';
 import Login from './Login/Login';
 import Recuperar from './RecuperarContra/Recuperar';
+import IndexEmpresa from './RolEmpresa/Index/IndexEmpresa';
+import SolicitarServicio from './RolEmpresa/Funcionalidades/SolicitarServicio';
+import Viaje from './RolTransportista/Funcionalidades/Viaje';
+import Viajes from './RolEmpresa/Funcionalidades/Viajes';
+import Ofrecemos from './RolEmpresa/Funcionalidades/Ofrecemos';
+import Ofertas from './RolEmpresa/Funcionalidades/Ofertas';
+import Calificaciones from './RolEmpresa/Funcionalidades/Calificaciones';
+import CalificacionesT from './RolTransportista/Funcionalidades/CalificacionesT';
+
+
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,6 +27,15 @@ root.render(
 <Route path="/" element={<Home />} />
   <Route path="/login" element={<Login />} />
   <Route path="/recuperar" element={<Recuperar />} />
+  <Route path="/indexEmpresa" element={<IndexEmpresa/>} />
+  <Route path="/solicitarServicio" element={<SolicitarServicio/>} />
+  <Route path="/viaje" element={<Viaje/>} />
+  <Route path="/viajes" element={<Viajes/>} />
+  <Route path="/ofrecemos" element={<Ofrecemos/>} />
+  <Route path="/ofertas" element={<Ofertas/>} />
+  <Route path="/calificaciones" element={<Calificaciones/>} />
+  <Route path="/calificacionesT" element={<CalificacionesT/>} />
+
 
 </Routes>
 </Router>

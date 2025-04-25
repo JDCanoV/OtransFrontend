@@ -1,0 +1,77 @@
+
+
+.cotizacion-container {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Alinea el contenido en la parte superior */
+  padding: 20px;
+  width: 600%;  /* Ajusta el tamaño del contenedor */
+  max-width: 1200px; /* Establece un ancho máximo */
+  padding-top: 100px;
+  gap: 200px; /* Espacio entre los elementos del formulario y el mapa */
+  padding-top: 150px; 
+}
+
+.form-container {
+  width: 50%; /* Ajusta el tamaño del formulario */
+  padding: 20px;
+  justify-content: center;
+/* Sombra suave */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 28px; /* Tamaño más grande para el título */
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 400;
+  color: #333;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+
+.cotizar-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cotizar-btn:hover {
+  background-color: #555;
+}
+
+.map-container {
+  width: 50%;  /* Ajusta el tamaño del mapa */
+  background-color: orange;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(5, 5, 5);
+  font-size: 24px;
+  border-radius: 8px;
+}

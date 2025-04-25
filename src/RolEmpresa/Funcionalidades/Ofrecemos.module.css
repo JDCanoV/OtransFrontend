@@ -1,0 +1,97 @@
+.container {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+  }
+  
+  /* Imagen de portada */
+  .headerImage {
+ 
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .headerTitle {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    background-color: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Sección introductoria */
+  .intro {
+    text-align: center;
+    padding: 50px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .intro h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .intro p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  /* Columnas con imágenes */
+  .columnSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+  
+  .column {
+    flex: 1 1 300px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .column img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+  }
+  
+  /* Sección Otrans */
+  .infoOtrans {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+  }
+  
+  .card {
+    background-color: #f48c06;
+    padding: 40px 20px;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+  }
+  
+  .textoFinal {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
