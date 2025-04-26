@@ -6,7 +6,7 @@ function Footer() {
     <footer>
       <div className="footer-content">
         {/* Aquí puedes agregar el contenido del footer */}
-        <p>&copy; 2025 Uber. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Otrans. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

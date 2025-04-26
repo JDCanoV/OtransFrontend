@@ -1,115 +1,80 @@
-/* Asegúrate de que el body y html ocupen toda la altura */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Estructura de la página */
-  .home-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  /* Parte central del contenido */
-  .home-content {
-    flex: 1; /* Esto hace que ocupe el espacio restante entre header y footer */
-    padding: 2rem;
-    background-color: #f5f5f5; /* Opcional: fondo claro */
-  }
+/* Estilos generales para la página */
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+/* Sección del mapa */
+.map-section {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f8f8f8;
+}
+
+.map-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.map-section .google-map {
+  width: 100%;
+  height: 500px; /* Ajusta la altura del mapa según lo necesites */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos del resto de la página (hero, services, features) */
 .hero {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px;
-  gap: 20px;
 }
 
-.hero-left {
+.hero-content {
   flex: 1;
   max-width: 50%;
 }
 
-.hero-right {
-  flex: 1;
-  max-width: 45%; /* Ajusta el ancho */
-  height: 900px; /* Ajusta la altura */
-  border-radius: 35px; /* Redondea las esquinas */
-  overflow: hidden; /* Asegúrate de que el contenido no se salga del borde redondeado */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra para un mejor diseño */
+.hero-image img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hero-options {
+.services {
   display: flex;
-  gap: 10px;
-  margin: 10px 0;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
 }
 
-.option-button {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  cursor: pointer;
-}
-
-.option-button.active {
-  background-color: #000;
-  color: #fff;
-}
-
-.hero-form {
-  margin: 20px 0;
-}
-
-.form-input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.form-options {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.form-button {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  cursor: pointer;
-}
-
-.cta-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  cursor: pointer;
+.service-card {
   text-align: center;
-  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hero-right iframe {
+.service-card img {
   width: 100%;
-  height: 100%;
+  height: 200px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
-.distance-display,
-.price-display {
-  margin-top: 10px;
+.features {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.feature {
+  flex: 1;
+  text-align: center;
   padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  color: #333;
 }
