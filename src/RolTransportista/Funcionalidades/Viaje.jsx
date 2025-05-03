@@ -1,18 +1,55 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 import HeaderTrans from "../../Header/HeaderTrans";
 import styles from './Viaje.module.css';
 
 const Viaje = () => {
   const [viajes, setViajes] = useState([
-    { id: 1, origen: "", destino: "" },
-    { id: 2, origen: "", destino: "" },
-    { id: 3, origen: "", destino: "" },
-    { id: 4, origen: "", destino: "" },
-    { id: 5, origen: "", destino: "" },
+    { 
+      id: 1, 
+      origen: "", 
+      destino: "", 
+      empresa: "", 
+      precio: "", 
+      tipoCarga: ""
+    },
+    { 
+      id: 2, 
+      origen: "", 
+      destino: "", 
+      empresa: "", 
+      precio: "", 
+      tipoCarga: "" 
+    },
+    { 
+      id: 3, 
+      origen: "", 
+      destino: "", 
+      empresa: "", 
+      precio: "", 
+      tipoCarga: "" 
+    },
+    { 
+      id: 4, 
+      origen: "", 
+      destino: "", 
+      empresa: "", 
+      precio: "", 
+      tipoCarga: "" 
+    },
+    { 
+      id: 5, 
+      origen: "", 
+      destino: "", 
+      empresa: "", 
+      precio: "", 
+      tipoCarga: "" 
+    },
   ]);
-
   const [indiceActual, setIndiceActual] = useState(0);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+
+  const navigate = useNavigate();  // Hook para la redirección
 
   const siguienteViaje = () => {
     if (indiceActual < viajes.length - 1) {
@@ -43,10 +80,15 @@ const Viaje = () => {
     }
   };
 
+  // Función para redirigir al hacer clic en "Aceptar"
+  const aceptarViaje = () => {
+    navigate('/GuiaServicio');  // Redirige a la ruta '/guia-servicio'
+  };
+
   if (viajes.length === 0) {
     return (
       <>
-        <HeaderTrans/>
+        <HeaderTrans />
         <div className={styles.containerPrincipal}>
           <h3>Viajes Solicitados</h3>
           <p>No hay viajes solicitados.</p>
@@ -82,11 +124,20 @@ const Viaje = () => {
             <p className={styles.origenDestino}>Destino:</p>
             <div className={styles.labelInfo}>{viaje.destino || "Por definir..."}</div>
 
+            <p className={styles.origenDestino}>Empresa:</p>
+            <div className={styles.labelInfo}>{viaje.empresa || "Por definir..."}</div>
+
+            <p className={styles.origenDestino}>Precio:</p>
+            <div className={styles.labelInfo}>{viaje.precio || "Por definir..."}</div>
+
+            <p className={styles.origenDestino}>Tipo de carga:</p>
+            <div className={styles.labelInfo}>{viaje.tipoCarga || "Por definir..."}</div>
+
             <div className={styles.botones}>
               <button className={styles.cancelar} onClick={confirmarCancelar}>
                 Cancelar
               </button>
-              <button className={styles.Aceptar}>Aceptar</button>
+              <button className={styles.Aceptar} onClick={aceptarViaje}>Aceptar</button>
             </div>
           </div>
 

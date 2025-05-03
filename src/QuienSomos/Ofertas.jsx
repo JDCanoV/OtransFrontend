@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HeaderEmpresa from "../../Header/HeaderEmpresa";
+import HeaderEmpresa from "../Header/HeaderEmpresa";
 import styles from './Ofertas.module.css';
 
 const Ofertas = () => {

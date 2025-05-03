@@ -1,95 +1,76 @@
-/* src/Footer.css */
-footer {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 4rem;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    padding: 2rem;
-    background-color: #333;
-    color: white;
-    margin-bottom: 2rem;
-  }
-  
-  .footer-section h4 {
-    margin-bottom: 1rem;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-section ul li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .footer-section a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .footer-section a:hover {
-    text-decoration: underline;
-  }
-  
-  .social-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .social-links a {
-    font-size: 1.5rem;
-  }
-  
-  .social-links a:hover {
-    color: #ff4d4d;
-  }
-  
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #222;
-    color: white;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-    margin-right: 1rem;
-  }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-  
-  .app-buttons {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .app-buttons button {
-    padding: 0.5rem 1rem;
-    border: 1px solid white;
-    background-color: #555;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 0.5rem;
-  }
-  
-  .app-buttons button:hover {
-    background-color: #777;
-  }
-  
+/* Contenedor principal que engloba todo */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos del footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000000;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  margin-top: 50px; /* Puedes ajustar este valor para mayor separación */
+}
+
+/* Resto de tus estilos */
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-img {
+  width: 45px;  /* Ajusta el tamaño de las imágenes */
+  height: 35px;
+  transition: transform 0.3s ease;
+}
+
+.social-img:hover {
+  transform: scale(1.2);  /* Aumenta el tamaño de las imágenes al pasar el ratón */
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-img {
+  width: 30px;  /* Tamaño de la imagen de ubicación */
+  height: 29px;
+}
+
+.location span {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-info .email,
+.contact-info .phone {
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
+}

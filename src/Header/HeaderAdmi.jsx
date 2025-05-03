@@ -4,7 +4,7 @@ import './HeaderAdmi.css';
 import logo from '../../src/Imagenes/Otrans.png';
 import avatarIcon from '../../src/Imagenes/AvatarIcon.png';
 
-const HeaderEmpresa = () => {
+const HeaderAdmi = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,12 +17,10 @@ const HeaderEmpresa = () => {
           <button className="logo-btn" onClick={() => navigate('/')}>
             <img src={logo} alt="Logo Otrans" className="logo-img" />
           </button>
-          <button className="nav-btn" onClick={() => navigate('/solicitarServicio')}>
-            Solicitar Servicio
+          <button className="nav-btn" onClick={() => navigate('/UsuariosPendientes')}>
+            Revisar Documentos
           </button>
-          <button className="nav-btn" onClick={() => navigate('/viajes')}>
-            Viajes
-          </button>
+          
         </div>
 
         <div className="nav-right">
@@ -72,4 +70,4 @@ const HeaderEmpresa = () => {
   );
 };
 
-export default HeaderEmpresa;
+export default HeaderAdmi;

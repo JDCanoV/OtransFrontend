@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import GoogleMapComponent from '../Components/googlemaps/GoogleMapComponent'; // Asegúrate de que el componente del mapa esté bien importado
 import './Home.css'; // Asegúrate de tener los estilos
 
@@ -59,7 +58,7 @@ function Home() {
         </section>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

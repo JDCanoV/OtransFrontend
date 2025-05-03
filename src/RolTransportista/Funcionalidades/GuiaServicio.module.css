@@ -1,0 +1,247 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+  padding-top: 150px;  
+}
+
+h3 {
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+h4{
+  font-size: 30px;
+  font-weight: 900;
+  color: #f38b0d;
+}
+.infoViaje {
+  display: flex;
+  justify-content: space-between;
+  gap: 90px;
+  width: 90%;
+  
+}
+
+.infoLeft {
+  width: 40%;
+  background-color: #f7f3eb;
+  padding: 20px;
+  border-radius: 10px;
+  
+}
+
+.mapa {
+  width: 50%;
+  background-color: #f38b0d;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.estadoViaje {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.estados {
+  display: flex;
+  gap: 20px;
+}
+
+.estado {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  text-align: center;
+}
+
+.estado:hover {
+  background-color: #e6e6e6;
+}
+
+.selected {
+  background-color:#f38b0d;
+  color: white;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.estadoModal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.estrellas {
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.star {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star:hover,
+.star:active {
+  color: #f38b0d;
+}
+
+.reseñaInput {
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.guardarBtn {
+  background-color:#f38b0d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.guardarBtn:hover {
+  background-color: #f38b0d;
+}
+
+
+.radioEstados {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.estadoOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.estadoOption input {
+  display: none;
+}
+
+.radioCustom {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid black;
+  display: inline-block;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.radioCustom.activo {
+  background-color: #f38b0d;
+  border-color: #f38b0d;
+}
+
+.estadoLabel {
+  margin-left: 4px;
+  font-weight: 600;
+  color: #333;
+}
+.cerrarModal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.cerrarModal:hover {
+  color: #000;
+}
+.fotosCarga {
+  margin-top: 20px;
+}
+
+.fotosCarga h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.galeriaCarga {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  min-height: 100px;
+}
+
+.galeriaCarga img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.estadoViaje {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.estadoTitulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #f38b0d;
+  margin-bottom: 15px;
+}
+
+.radioEstadosVertical {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}

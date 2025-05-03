@@ -1,0 +1,137 @@
+.container {
+  padding: 2rem;
+  background-color: #f7f3eb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Imagen de portada */
+.headerImage {
+  height: 250px;
+  background: url('https://source.unsplash.com/1600x250/?truck,logistics') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerTitle {
+  color: rgb(246, 140, 19);
+  font-size: 3rem;
+ 
+  padding: 0.2rem 2rem;
+  border-radius: 10px;
+}
+
+/* Introducción */
+.intro {
+  text-align: center;
+
+}
+
+.titleWithIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.iconSpin {
+  width: 50px;
+  height: 50px;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #444;
+  margin-top: 0.5rem;
+}
+
+/* Sostenibilidad */
+.emotiveSection {
+  margin: 3rem 0;
+  padding: 2rem;
+  background-color: #f7f3eb;
+  border-radius: 12px;
+}
+
+.emotiveContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.emotiveImage {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.emotiveText {
+  flex: 1;
+  max-width: 500px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.emotiveText h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ff9d00;
+}
+
+/* Tarjetas */
+.infoOtrans {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.card {
+  background-color: rgb(10, 10, 10);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.card h4 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+}
+
+.textoFinal {
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  color: #333;
+}

@@ -1,77 +1,106 @@
+.otrans-landing {
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  margin: 0; /* Elimina el margen */
+  padding: 0; /* Elimina el padding */
+}
 
-
-.cotizacion-container {
-  
+.hero {
   display: flex;
-  justify-content: center;
-  align-items: center; /* Alinea el contenido en la parte superior */
-  padding: 20px;
-  width: 600%;  /* Ajusta el tamaño del contenedor */
-  max-width: 1200px; /* Establece un ancho máximo */
-  padding-top: 100px;
-  gap: 200px; /* Espacio entre los elementos del formulario y el mapa */
-  padding-top: 150px; 
+  justify-content: space-between;
+  background-color: #f58220;
+  padding: 40px 40px; /* Ajustamos el padding para dar espacio a los lados */
+  color: #000;
+  margin: 0; /* Elimina el margen */
 }
 
-.form-container {
-  width: 50%; /* Ajusta el tamaño del formulario */
-  padding: 20px;
-  justify-content: center;
-/* Sombra suave */
+.hero-text {
+  max-width: 60%;
+  padding-right: 50px; /* Añadimos espacio a la derecha */
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 28px; /* Tamaño más grande para el título */
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 400;
-  color: #333;
-}
-
-.input-group input,
-.input-group select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  font-weight: 400;
-  color: #666;
-}
-
-.cotizar-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.cotizar-btn:hover {
-  background-color: #555;
-}
-
-.map-container {
-  width: 50%;  /* Ajusta el tamaño del mapa */
-  background-color: orange;
-  height: 400px;
+.hero-image {
+  width: 35%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: rgb(5, 5, 5);
-  font-size: 24px;
-  border-radius: 8px;
+  justify-content: center;
+  padding-left: 20px; /* Añadimos espacio a la izquierda */
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.hero-text span {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.sub {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.description {
+  margin-top: 10px;
+  font-size: 14px;
+  max-width: 500px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  background-color: #000;
+  color: #f7f3eb;
+  border: none;
+  padding: 12px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  background-color: #222;
+}
+
+.image-placeholder {
+  width: 200px;
+  height: 200px;
+  background-color: #f7f3eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.requirements {
+  padding: 40px 40px;
+  background-color: #f7f3eb;
+  text-align: center;
+}
+
+.requirements h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-left: 0; /* Eliminamos el padding de la izquierda */
+  text-align: center;
+}
+
+.requirements-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-left: 0;
+}
+
+.requirements-list ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.8;
 }

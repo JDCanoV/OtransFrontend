@@ -1,64 +1,43 @@
 import React, { useState, useEffect } from "react";
 import "./login.css";
-import axios from "../config/axiosConfig";
+import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import HeaderLogin from "../Header/HeaderLogin"; // Asegúrate de que este sea el nombre correcto
 
 
 function Login() {
-  const navigate = useNavigate();
-  const goToRecuperar = () => {
-    navigate("/recuperar");
-  };
-   
-  const goToIndexEmpresa = () => {
-    navigate("/indexEmpresa");
-  };
-
-  const [email, setEmail] = useState("");  // Cambié el estado para manejar el correo
+  const { login, setLoading } = useAuth(); // Usamos las funciones del contexto
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setPopupMessage("");
-  
+
     if (email === "" || password === "") {
       setError("Por favor completa todos los campos.");
       return;
     }
-  
+
+    setLoading(true); // Establecer el loading en true mientras hacemos la solicitud
+
     try {
-      const response = await axios.post("/User/Login", {
-        correo: email,
-        contrasena: password
-      });
-    
-      // Verifica que la respuesta sea exitosa
-      if (response.data.respuesta === 1) { // Asumiendo que 'respuesta' es 1 para éxito
-        const { token, usuario } = response.data;
-    
-        // Guardar el token en localStorage si lo necesitas para autenticación
-        localStorage.setItem("token", token);
-        
-        // Redirigir al dashboard (o al que quieras)
-        navigate("/indexEmpresa"); // Rediriges solo si el login es exitoso
+      const response = await login(email, password, false); // Usamos la función de login del contexto
+
+      if (response.status === 200) {
+        navigate("/indexEmpresa"); // Redirigir al dashboard
       } else {
-        setPopupMessage(response.data.mensaje || "Error al iniciar sesión.");
+        setError(response.data.mensaje || "Error al iniciar sesión.");
       }
     } catch (error) {
-      if (error.response) {
-        // Si el servidor respondió con un error específico
-        const msg = error.response.data.mensaje || "Error al iniciar sesión.";
-        setPopupMessage(msg);
-      } else {
-        // Error de red u otros
-        setPopupMessage("No se pudo conectar al servidor.");
-      }
+      setError("Error al iniciar sesión.");
+    } finally {
+      setLoading(false); // Desactivar el loading
     }
-    
   };
   
   // useEffect para manejar el cierre del popup después de 4 segundos

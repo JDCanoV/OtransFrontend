@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 150px; /* ← Esto da espacio debajo del header fijo */
+  padding-top: 150px;   /* ← Esto da espacio debajo del header fijo */
     min-height: 100vh;
     background-color: #f7f3eb;
   }
