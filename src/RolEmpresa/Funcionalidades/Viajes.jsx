@@ -141,39 +141,43 @@ const Viajes = () => {
           )}
 {vistaActual === 'estados' && (
   <div className={styles.estadoContainer}>
-    <table className={styles.estadoTable}>
-      <thead>
-        <tr>
-          <th className={styles.estadoHeader}>Recolección</th>
-          <th className={styles.estadoHeader}>En camino</th>
-          <th className={styles.estadoHeader}>Finalizado</th>
-        </tr>
-      </thead>
-      <tbody>
-        {viajes.map((viaje) => (
-          <tr key={viaje.id}>
-            <td>
-              <p>id viaje: {viaje.id}</p>
-              <p>Transportista: {viaje.transportista || "Por definir"}</p>
-              <p>Valor: {viaje.valor || "Por definir"}</p>
-            </td>
-            <td>
-              <p>id viaje: {viaje.id}</p>
-              <p>Transportista: {viaje.transportista || "Por definir"}</p>
-              <p>Valor: {viaje.valor || "Por definir"}</p>
-            </td>
-            <td>
-              <p>id viaje: {viaje.id}</p>
-              <p>Transportista: {viaje.transportista || "Por definir"}</p>
-              <p>Valor: {viaje.valor || "Por definir"}</p>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    {/* Recolección */}
+    <div className={styles.estadoBox}>
+      <div className={styles.estadoHeader}>Recolección</div>
+      {viajes.filter(viaje => viaje.estado === "recoleccion").map((viaje) => (
+        <div key={viaje.id} className={styles.estadoCard}>
+          <p>id viaje: {viaje.id}</p>
+          <p>Transportista: {viaje.transportista || "Por definir"}</p>
+          <p>Valor: {viaje.valor || "Por definir"}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* En camino */}
+    <div className={styles.estadoBox}>
+      <div className={styles.estadoHeader}>En camino</div>
+      {viajes.filter(viaje => viaje.estado === "encamino").map((viaje) => (
+        <div key={viaje.id} className={styles.estadoCard}>
+          <p>id viaje: {viaje.id}</p>
+          <p>Transportista: {viaje.transportista || "Por definir"}</p>
+          <p>Valor: {viaje.valor || "Por definir"}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* Finalizado */}
+    <div className={styles.estadoBox}>
+      <div className={styles.estadoHeader}>Finalizado</div>
+      {viajes.filter(viaje => viaje.estado === "finalizado").map((viaje) => (
+        <div key={viaje.id} className={styles.estadoCard}>
+          <p>id viaje: {viaje.id}</p>
+          <p>Transportista: {viaje.transportista || "Por definir"}</p>
+          <p>Valor: {viaje.valor || "Por definir"}</p>
+        </div>
+      ))}
+    </div>
   </div>
 )}
-
 
           {vistaActual === 'calificaciones' && <p>No hay calificaciones disponibles.</p>}
         </div>

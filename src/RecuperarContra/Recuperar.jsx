@@ -28,12 +28,22 @@ const Recuperar = () => {
       console.log(response); // Verificar respuesta
 
       if (response.status === 200) {
-        setMessage("Se ha enviado un correo exitosamente.");
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
+        // Accede al mensaje en la respuesta y asegúrate de que sea un string
+        const message = response.data.message; // Aquí se accede a la propiedad 'message' del objeto
+        setMessage(message); // Mostrar el mensaje específico que viene desde la API
+
+        if (message === "Correo enviado con la nueva contraseña") {
+          // Asegúrate de que la redirección se hace después de que el mensaje se haya actualizado
+          setTimeout(() => {
+            navigate("/login"); // Redirigir a login después de 2 segundos
+          }, 2000);
+        }
+      } else {
+        setMessage(response.data.message || "Hubo un error al enviar el correo.");
       }
     } catch (error) {
+      console.log({ correo: email });  // Verifica que el correo esté bien estructurado
+
       console.error("Error al enviar el correo:", error); // Para ver detalles del error
       setMessage("Hubo un error al enviar el correo. Por favor, intenta nuevamente.");
     }
