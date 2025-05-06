@@ -43,11 +43,13 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/recuperar" element={<Recuperar />} />
           <Route path="/indexTransportista" element={<IndexTransportista />} />
+          <Route path="/register" element={<RegisterSelection />} />
+          <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
+          <Route path="/registerTransportista" element={<RegisterCamionero />} />
 
           {/* Rutas protegidas para 'empresa' */}
           <Route element={<PrivateRoute allowedRoles={[3]} />}>
             <Route path="/indexEmpresa" element={<IndexEmpresa />} />
-            <Route path="/solicitarServicio" element={<SolicitarServicio />} />
             <Route path="/viajes" element={<Viajes />} />
             <Route path="/ofrecemos" element={<Ofrecemos />} />
             <Route path="/ofertas" element={<Ofertas />} />
@@ -65,6 +67,22 @@ root.render(
           <Route element={<PrivateRoute allowedRoles={[1]} />}>
             <Route path="/revisionDocumentos" element={<UsuariosPendientes />} />
             <Route path="/usuarioDetalle" element={<UsuarioDetalle />} />
+            <Route path="/viaje" element={<Viaje />} />
+            <Route path="/calificacionesT" element={<CalificacionesT />} />
+            <Route path="/guiaServicio" element={<GuiaServicio />} />
+            <Route path="/indexEmpresa" element={<IndexEmpresa />} />
+            <Route path="/solicitarServicio" element={<SolicitarServicio />} />
+            <Route path="/viajes" element={<Viajes />} />
+            <Route path="/ofrecemos" element={<Ofrecemos />} />
+            <Route path="/ofertas" element={<Ofertas />} />
+            <Route path="/calificaciones" element={<Calificaciones />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/recuperar" element={<Recuperar />} />
+            <Route path="/indexTransportista" element={<IndexTransportista />} />
+            <Route path="/register" element={<RegisterSelection />} />
+            <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
+            <Route path="/registerTransportista" element={<RegisterCamionero />} />
           </Route>
 
         </Routes>

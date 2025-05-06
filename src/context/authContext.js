@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error durante el login", error);
+      console.error("Error durante el login", URL_LOGIN);
       return error.response?.data || "Error en la autenticación";
     } finally {
       setLoading(false);

@@ -9,7 +9,7 @@ const RegisterSelection = () => {
     if (type === "camionero") {
       navigate("/registertransportista"); // Redirige al formulario de camionero
     } else if (type === "empresa") {
-      navigate("/registerusuario"); // Redirige al formulario de empresa
+      navigate("/registerEmpresa"); // Redirige al formulario de empresa
     }
   };
 

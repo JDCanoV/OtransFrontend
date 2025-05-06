@@ -1,5 +1,3 @@
-// src/Components/googlemaps/GoogleMapComponent.jsx
-
 import React, { useState, useRef, useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import './googlemapcomponent.css';
@@ -73,30 +71,37 @@ function GoogleMapComponent({
     }
 
     setLoading(true);
-    directionsService.route(
-      {
-        origin: startPoint,
-        destination: endPoint,
-        travelMode: googleApi.maps.TravelMode.DRIVING,
-        avoidHighways: false,
-        avoidTolls: false,
-      },
-      (result, status) => {
-        setLoading(false);
-        if (status === googleApi.maps.DirectionsStatus.OK) {
-          directionsRenderer.setDirections(result);
 
-          // enviamos distancia y duración al padre
-          if (onRouteCalculated) {
-            const leg = result.routes[0].legs[0];
-            onRouteCalculated(leg.distance, leg.duration);
+    const delayRouteCalculation = setTimeout(() => {
+      directionsService.route(
+        {
+          origin: startPoint,
+          destination: endPoint,
+          travelMode: googleApi.maps.TravelMode.DRIVING,
+          avoidHighways: false,
+          avoidTolls: false,
+        },
+        (result, status) => {
+          setLoading(false);
+          if (status === googleApi.maps.DirectionsStatus.OK) {
+            directionsRenderer.setDirections(result);
+
+            // enviamos distancia y duración al padre
+            if (onRouteCalculated) {
+              const leg = result.routes[0].legs[0];
+              onRouteCalculated(leg.distance, leg.duration);
+            }
+          } else {
+            console.error("Error al calcular la ruta:", status);
+            alert("Error al calcular la ruta: " + status);
           }
-        } else {
-          console.error("Error al calcular la ruta:", status);
-          alert("Error al calcular la ruta: " + status);
         }
-      }
-    );
+      );
+    }, 5000);  // Retraso de 2 segundos (ajustable)
+
+    // Limpiar el timeout si la ruta no es solicitada después de un cambio en los inputs
+    return () => clearTimeout(delayRouteCalculation);
+
   }, [
     manual,
     routeRequested,
