@@ -1,20 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Header/Header';
-import GoogleMapComponent from '../Components/googlemaps/GoogleMapComponent'; // Asegúrate de que el componente del mapa esté bien importado
-import './Home.css'; // Asegúrate de tener los estilos
+import GoogleMapComponent from '../Components/googlemaps/GoogleMapComponent';
+import './Home.css';
 
 function Home() {
+  const [origen, setOrigen] = useState('');
+  const [destino, setDestino] = useState('');
+  const [routeRequested, setRouteRequested] = useState(false);
+  const [quote, setQuote] = useState(null);
+
+  const calculatePrice = (km, min) => {
+    const baseFare = 10000;
+    const perKm = 15000;
+    const perMinute = 200;
+    return baseFare + km * perKm + min * perMinute;
+  };
+
+  const handleCotizar = () => {
+    if (!origen || !destino) return;
+    setQuote(null);
+    setRouteRequested(true);
+  };
+
+  const handleRouteCalculated = (distance, duration) => {
+    const distKm = distance.value / 1000;
+    const durMin = duration.value / 60;
+    const price = calculatePrice(distKm, durMin);
+    setQuote({
+      distanceText: distance.text,
+      durationText: duration.text,
+      priceText: price.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }),
+    });
+    setRouteRequested(false);
+  };
+
+  const onOrigenChange = e => {
+    setOrigen(e.target.value);
+    setRouteRequested(false);
+    setQuote(null);
+  };
+  const onDestinoChange = e => {
+    setDestino(e.target.value);
+    setRouteRequested(false);
+    setQuote(null);
+  };
+
   return (
     <div className="home-wrapper">
       <Header />
-
       <main>
-        {/* Reemplazar la sección hero con el mapa */}
         <section className="map-section">
-          <h2>Consulta el Mapa</h2>
-          <GoogleMapComponent /> {/* Aquí agregamos el mapa */}
+          <div className="map-content">
+            <div className="map-controls">
+              <h2 className="controls-title">Cotiza tu viaje en Otrans</h2>
+
+              <div className="input-group">
+                <label htmlFor="startInput">Ubicación de salida</label>
+                <input
+                  id="startInput"
+                  type="text"
+                  placeholder="Ej. Calle 123, Bogotá"
+                  value={origen}
+                  onChange={onOrigenChange}
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="endInput">Ubicación de llegada</label>
+                <input
+                  id="endInput"
+                  type="text"
+                  placeholder="Ej. Carrera 45, Bogotá"
+                  value={destino}
+                  onChange={onDestinoChange}
+                />
+              </div>
+              <button
+                className="calcular-btn"
+                onClick={handleCotizar}
+                disabled={!origen || !destino || routeRequested}
+              >
+                {routeRequested ? 'Calculando…' : 'Cotizar viaje'}
+              </button>
+
+              {quote && (
+                <div className="quote-container">
+                  <h3>Resumen de tu cotización</h3>
+                  <p><strong>Distancia:</strong> {quote.distanceText}</p>
+                  <p><strong>Duración:</strong> {quote.durationText}</p>
+                  <p><strong>Precio estimado:</strong> {quote.priceText}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="map-container">
+              <GoogleMapComponent
+                startPoint={origen}
+                endPoint={destino}
+                setStartPoint={setOrigen}
+                setEndPoint={setDestino}
+                manual={true}
+                routeRequested={routeRequested}
+                onRouteCalculated={handleRouteCalculated}
+              />
+            </div>
+          </div>
         </section>
 
+        {/* Sección de servicios */}
         <section className="services">
           <div className="service-card">
             <img src="ride.jpg" alt="Viaje Otrans" />
@@ -36,6 +128,7 @@ function Home() {
           </div>
         </section>
 
+        {/* Sección de características */}
         <section className="features">
           <div className="feature">
             <i className="fas fa-shield-alt"></i>
@@ -57,8 +150,6 @@ function Home() {
           </div>
         </section>
       </main>
-
-
     </div>
   );
 }

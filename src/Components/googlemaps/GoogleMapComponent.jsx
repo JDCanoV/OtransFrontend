@@ -1,112 +1,116 @@
-import './googlemapcomponent.css';
+// src/Components/googlemaps/GoogleMapComponent.jsx
+
 import React, { useState, useRef, useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
+import './googlemapcomponent.css';
 
-function GoogleMapComponent({ startPoint, endPoint, setStartPoint, setEndPoint }) {
+function GoogleMapComponent({
+  startPoint,
+  endPoint,
+  setStartPoint,
+  setEndPoint,
+  manual = false,
+  routeRequested = false,
+  onRouteCalculated       // <--- nuevo prop
+}) {
   const mapRef = useRef(null);
   const [googleApi, setGoogleApi] = useState(null);
   const [directionsService, setDirectionsService] = useState(null);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
-  const [debounceTimeout, setDebounceTimeout] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // 1) Inicializar mapa y autocomplete
   useEffect(() => {
     const initMap = async () => {
       try {
-        // Cargar la API de Google Maps
         const loader = new Loader({
-          apiKey: "AIzaSyBRnZf_ARo6HvMx86Yjqg9tHar0Ou51vPo",  // Asegúrate de que esta sea tu clave de Google Maps
+          apiKey: "AIzaSyBRnZf_ARo6HvMx86Yjqg9tHar0Ou51vPo",
           version: "weekly",
-          libraries: ["places"], // Asegúrate de incluir la librería 'places' para el autocompletado
+          libraries: ["places"],
         });
+        const google = await loader.load();
+        setGoogleApi(google);
 
-        const googleInstance = await loader.load();
-        setGoogleApi(googleInstance);
-
-        const map = new googleInstance.maps.Map(mapRef.current, {
-          center: { lat: 4.73245, lng: -74.26419 }, // Coordenadas predeterminadas
+        const map = new google.maps.Map(mapRef.current, {
+          center: { lat: 4.73245, lng: -74.26419 },
           zoom: 10,
-          mapTypeControl: true,
-          streetViewControl: true,
         });
 
-        // Servicios de direcciones y autocompletado
-        const directionsServiceInstance = new googleInstance.maps.DirectionsService();
-        const directionsRendererInstance = new googleInstance.maps.DirectionsRenderer({
-          map,
-        });
+        const svc = new google.maps.DirectionsService();
+        const rdr = new google.maps.DirectionsRenderer({ map });
+        setDirectionsService(svc);
+        setDirectionsRenderer(rdr);
 
-        setDirectionsService(directionsServiceInstance);
-        setDirectionsRenderer(directionsRendererInstance);
-
-        // Configuración de Autocompletado
-        const autocompleteInputStart = new googleInstance.maps.places.Autocomplete(
-          document.getElementById("startInput"), 
+        const acStart = new google.maps.places.Autocomplete(
+          document.getElementById("startInput"),
           { componentRestrictions: { country: "CO" } }
         );
-        const autocompleteInputEnd = new googleInstance.maps.places.Autocomplete(
-          document.getElementById("endInput"), 
+        const acEnd = new google.maps.places.Autocomplete(
+          document.getElementById("endInput"),
           { componentRestrictions: { country: "CO" } }
         );
 
-        // Actualizar el estado de las direcciones cuando se selecciona una opción en el autocompletado
-        autocompleteInputStart.addListener("place_changed", () => {
-          const place = autocompleteInputStart.getPlace();
-          setStartPoint(place.formatted_address);  // Actualizamos el punto de partida
+        acStart.addListener("place_changed", () => {
+          const place = acStart.getPlace();
+          place.formatted_address && setStartPoint(place.formatted_address);
         });
-
-        autocompleteInputEnd.addListener("place_changed", () => {
-          const place = autocompleteInputEnd.getPlace();
-          setEndPoint(place.formatted_address);  // Actualizamos el punto de destino
+        acEnd.addListener("place_changed", () => {
+          const place = acEnd.getPlace();
+          place.formatted_address && setEndPoint(place.formatted_address);
         });
-        
       } catch (error) {
         console.error("Error al cargar Google Maps:", error);
       }
     };
-
     initMap();
-  }, []);
+  }, [setStartPoint, setEndPoint]);
 
-  // Función para calcular la ruta con debounce
+  // 2) Cálculo de ruta (auto o manual según prop)
   useEffect(() => {
-    if (startPoint && endPoint && directionsService && directionsRenderer) {
-      if (debounceTimeout) clearTimeout(debounceTimeout);
-
-      // Arrancamos el timeout para debounce
-      const timeout = setTimeout(() => {
-        setLoading(true);  // <<< Activamos el overlay
-
-        const request = {
-          origin: startPoint,
-          destination: endPoint,
-          travelMode: googleApi.maps.TravelMode.DRIVING,
-          avoidHighways: false,
-          avoidTolls: false,
-        };
-
-        directionsService.route(request, (result, status) => {
-          if (status === googleApi.maps.DirectionsStatus.OK) {
-            directionsRenderer.setDirections(result);
-          } else {
-            console.error("Error al calcular la ruta:", status);
-            alert("Error al calcular la ruta: " + status);
-          }
-          setLoading(false);  // <<< Desactivamos el overlay al terminar
-        });
-      }, 5000); // debounce de 5s
-
-      setDebounceTimeout(timeout);
+    if (manual && !routeRequested) return;
+    if (!startPoint || !endPoint || !directionsService || !directionsRenderer || !googleApi) {
+      return;
     }
-  }, [startPoint, endPoint, directionsService, directionsRenderer, googleApi]);
+
+    setLoading(true);
+    directionsService.route(
+      {
+        origin: startPoint,
+        destination: endPoint,
+        travelMode: googleApi.maps.TravelMode.DRIVING,
+        avoidHighways: false,
+        avoidTolls: false,
+      },
+      (result, status) => {
+        setLoading(false);
+        if (status === googleApi.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(result);
+
+          // enviamos distancia y duración al padre
+          if (onRouteCalculated) {
+            const leg = result.routes[0].legs[0];
+            onRouteCalculated(leg.distance, leg.duration);
+          }
+        } else {
+          console.error("Error al calcular la ruta:", status);
+          alert("Error al calcular la ruta: " + status);
+        }
+      }
+    );
+  }, [
+    manual,
+    routeRequested,
+    startPoint,
+    endPoint,
+    googleApi,
+    directionsService,
+    directionsRenderer,
+    onRouteCalculated
+  ]);
 
   return (
     <div className="map-container">
-      {loading && (
-        <div className="loading-overlay">
-          Calculando ruta…
-        </div>
-      )}
+      {loading && <div className="loading-overlay">Calculando ruta…</div>}
       <div ref={mapRef} className="map-element" />
     </div>
   );
