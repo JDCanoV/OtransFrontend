@@ -1,55 +1,65 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';  // Importa useNavigate
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'; 
+import axios from '../../config/axiosConfig';  // Aquí importas tu configuración de axios
 import HeaderTrans from "../../Header/HeaderTrans";
 import styles from './Viaje.module.css';
+import { useAuth } from "../../context/authContext";
 
 const Viaje = () => {
-  const [viajes, setViajes] = useState([
-    { 
-      id: 1, 
-      origen: "", 
-      destino: "", 
-      empresa: "", 
-      precio: "", 
-      tipoCarga: ""
-    },
-    { 
-      id: 2, 
-      origen: "", 
-      destino: "", 
-      empresa: "", 
-      precio: "", 
-      tipoCarga: "" 
-    },
-    { 
-      id: 3, 
-      origen: "", 
-      destino: "", 
-      empresa: "", 
-      precio: "", 
-      tipoCarga: "" 
-    },
-    { 
-      id: 4, 
-      origen: "", 
-      destino: "", 
-      empresa: "", 
-      precio: "", 
-      tipoCarga: "" 
-    },
-    { 
-      id: 5, 
-      origen: "", 
-      destino: "", 
-      empresa: "", 
-      precio: "", 
-      tipoCarga: "" 
-    },
-  ]);
+  const { user } = useAuth(); // Usamos el hook useAuth para obtener el usuario
+  const [viajes, setViajes] = useState([]);
   const [indiceActual, setIndiceActual] = useState(0);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);  // Estado para gestionar la carga
+  const [errorMessage, setErrorMessage] = useState("");  // Estado para manejar errores
+  const [errorDetails, setErrorDetails] = useState("");  // Detalles del error
 
-  const navigate = useNavigate();  // Hook para la redirección
+  const navigate = useNavigate();
+  const transportistaId = 1;  // Puedes obtener este valor de tu contexto o algún otro lugar
+
+
+  // Verifica que el usuario esté autenticado y que el idUsuario esté disponible
+  const idTransportista = user?.idUsuario; // Usamos el idUsuario del contexto
+  console.log("ID Transportista:", idTransportista); // Depuración
+  // Función para obtener los viajes desde la API
+  const fetchViajes = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`/user/viajes-por-carroceria/${idTransportista}`);
+      
+      // Si la respuesta tiene datos
+      if (response.data) {
+        if (response.data.length === 0) {
+          setErrorMessage("No se encontraron viajes con el estado 4 para este transportista.");
+          setErrorDetails("Este transportista no tiene viajes pendientes con estado 4.");
+        } else {
+          setViajes(response.data);  // Asigna los viajes obtenidos
+        }
+      } else {
+        setErrorMessage("No se encontraron viajes para este transportista.");
+        setErrorDetails("La respuesta no contiene datos de viajes.");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      if (error.response) {
+        // Si la API responde con un error
+        setErrorMessage(`Error al cargar los viajes. Código de estado: ${error.response.status}`);
+        setErrorDetails(`Detalles del error: ${error.response.data || error.response.statusText}`);
+      } else if (error.request) {
+        // Si la solicitud fue realizada pero no hay respuesta del servidor
+        setErrorMessage("No se recibió respuesta del servidor.");
+        setErrorDetails(`Detalles del error: ${error.request}`);
+      } else {
+        // Otro tipo de error
+        setErrorMessage("Hubo un problema al realizar la solicitud.");
+        setErrorDetails(`Detalles del error: ${error.message}`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchViajes();
+  }, [transportistaId]);  // Se ejecuta cada vez que cambie transportistaId
 
   const siguienteViaje = () => {
     if (indiceActual < viajes.length - 1) {
@@ -80,10 +90,23 @@ const Viaje = () => {
     }
   };
 
-  // Función para redirigir al hacer clic en "Aceptar"
   const aceptarViaje = () => {
-    navigate('/GuiaServicio');  // Redirige a la ruta '/guia-servicio'
+    navigate('/GuiaServicio');
   };
+
+
+  if (errorMessage) {
+    return (
+      <>
+        <HeaderTrans />
+        <div className={styles.containerPrincipal}>
+          <h3>Viajes Solicitados</h3>
+          <p className={styles.errorMessage}>{errorMessage}</p>
+          {errorDetails && <pre className={styles.errorDetails}>{errorDetails}</pre>}
+        </div>
+      </>
+    );
+  }
 
   if (viajes.length === 0) {
     return (

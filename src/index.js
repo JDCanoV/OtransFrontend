@@ -23,6 +23,8 @@ import CalificacionesT from './RolTransportista/Funcionalidades/CalificacionesT'
 import UsuariosPendientes from './RolAdministrador/Funcionalidades/UsuariosPendientes'; 
 import UsuarioDetalle from './RolAdministrador/Funcionalidades/UsuarioDetalle';
 import IndexTransportista from './RolTransportista/Index/IndexTransportista';
+import ViajeInfo from './RolTransportista/Funcionalidades/ViajeInfo';
+
 
 
 
@@ -46,11 +48,12 @@ root.render(
           <Route path="/register" element={<RegisterSelection />} />
           <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
           <Route path="/registerTransportista" element={<RegisterCamionero />} />
+          <Route path="/registervehiculo" element={<RegisterVehiculo />} />
 
           {/* Rutas protegidas para 'empresa' */}
           <Route element={<PrivateRoute allowedRoles={[3]} />}>
-            <Route path="/indexEmpresa" element={<IndexEmpresa />} />
             <Route path="/viajes" element={<Viajes />} />
+            <Route path="/indexEmpresa" element={<IndexEmpresa />} />
             <Route path="/ofrecemos" element={<Ofrecemos />} />
             <Route path="/ofertas" element={<Ofertas />} />
             <Route path="/calificaciones" element={<Calificaciones />} />
@@ -83,6 +86,7 @@ root.render(
             <Route path="/register" element={<RegisterSelection />} />
             <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
             <Route path="/registerTransportista" element={<RegisterCamionero />} />
+            <Route path="/viajeInfo" element={<ViajeInfo />} />
           </Route>
 
         </Routes>

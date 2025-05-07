@@ -97,7 +97,7 @@ function GoogleMapComponent({
           }
         }
       );
-    }, 5000);  // Retraso de 2 segundos (ajustable)
+    }, 2500);  // Retraso de 2 segundos (ajustable)
 
     // Limpiar el timeout si la ruta no es solicitada después de un cambio en los inputs
     return () => clearTimeout(delayRouteCalculation);

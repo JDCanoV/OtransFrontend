@@ -1,28 +1,27 @@
-import React, { useState, useRef } from "react"; // Importa React y hooks como useState y useRef
-import "./SolicitarServicio.css"; // Importa los estilos CSS para la página
-import { useNavigate } from "react-router-dom"; // hook para redireccionar a otras páginas
-import axios from "../../config/axiosConfig"; // Importa la configuración de axios para realizar solicitudes HTTP
-import HeaderEmpresa from "../../Header/HeaderEmpresa"; // Importa el componente del encabezado
-import GoogleMapComponent from "../../Components/googlemaps/GoogleMapComponent"; // Importa el componente del mapa de Google
+import React, { useState, useRef } from "react"; 
+import "./SolicitarServicio.css"; 
+import { useNavigate } from "react-router-dom"; 
+import axios from "../../config/axiosConfig"; 
+import HeaderEmpresa from "../../Header/HeaderEmpresa"; 
+import GoogleMapComponent from "../../Components/googlemaps/GoogleMapComponent"; 
 
 const SolicitarServicio = () => {
-  // Definición de hooks de estado
-  const navigate = useNavigate(); // Usado para redirigir al usuario a otras rutas
-  const [origen, setOrigen] = useState(""); // Estado para almacenar el valor del origen
-  const [destino, setDestino] = useState(""); // Estado para almacenar el valor del destino
-  const [tipoCarroceria, setTipoCarroceria] = useState("");  // Estado para almacenar tipo de carrocería
-  const [tamanoVeh, setTamanoVeh] = useState("");  // Estado para almacenar tamaño del vehículo
-  const [tipoCarga, setTipoCarga] = useState(""); // Estado para almacenar el tipo de carga
-  const [peso, setPeso] = useState(""); // Estado para almacenar el peso
-  const [descripcion, setDescripcion] = useState(""); // Estado para almacenar la descripción
-  const [evidencias, setEvidencias] = useState([]); // Estado para almacenar las imágenes seleccionadas
-  const [idCarga, setIdCarga] = useState(null); // Estado para almacenar el id de la carga
-  const fileInputRef = useRef(null); // Referencia al input de tipo archivo (para seleccionar imágenes)
+  const navigate = useNavigate();
+  const [origen, setOrigen] = useState(""); 
+  const [destino, setDestino] = useState(""); 
+  const [tipoCarroceria, setTipoCarroceria] = useState("");  
+  const [tamanoVeh, setTamanoVeh] = useState("");  
+  const [tipoCarga, setTipoCarga] = useState(""); 
+  const [peso, setPeso] = useState(""); 
+  const [descripcion, setDescripcion] = useState(""); 
+  const [evidencias, setEvidencias] = useState([]); 
+  const [idCarga, setIdCarga] = useState(null); 
+  const [price, setPrice] = useState(null);
+  const [distance, setDistance] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const fileInputRef = useRef(null); 
 
-  // Definimos las opciones válidas para el tamaño del vehículo
   const validTamanoVeh = ["2_ejesP", "2_ejesG", "3_ejes", "6_ejes"];
-
-  // Opciones de carga por tipo de carrocería
   const cargasPorCarroceria = {
     estacas: [
       "Carga agrícola",
@@ -64,37 +63,58 @@ const SolicitarServicio = () => {
     ]
   };
 
-  // Filtra las opciones de tipo de carga según el tipo de carrocería seleccionado
   const tiposDeCargaDisponibles = cargasPorCarroceria[tipoCarroceria] || [];
 
-  // Función para subir imágenes y obtener el id_carga
+  // Tarifa por tipo de carrocería
+  const carroceriaRates = {
+    estacas: 12000,       // Estacas
+    furgon: 16000,        // Furgón
+    carrotanque: 22000,   // Carrotanque
+    volqueta: 25000,      // Volqueta
+    portacontenedor: 18000, // Portacontenedor
+    refrigerador: 24000   // Refrigerador
+  };
+
+  const carroceriaNames = {
+    estacas: 'Estacas',
+    furgon: 'Furgón',
+    carrotanque: 'Carrotanque',
+    volqueta: 'Volqueta',
+    portacontenedor: 'Portacontenedor',
+    refrigerador: 'Refrigerador'
+  };
+
+  const calculatePrice = (km, min, tipoCarroceria) => {
+    const baseFare = 10000;  // Tarifa base
+    const perMinute = 200;   // Tarifa por minuto
+    const perKm = carroceriaRates[tipoCarroceria] || carroceriaRates['estacas']; // Tarifa por carrocería
+    return baseFare + km * perKm + min * perMinute;  // Cálculo del precio total
+  };
+
   const uploadImages = async () => {
     if (evidencias.length === 0) {
       console.error("No se han seleccionado imágenes para cargar.");
       alert("Por favor, selecciona al menos una imagen.");
-      return null; // Si no se seleccionaron imágenes, no continuamos
+      return null; 
     }
 
-    const formData = new FormData(); // Crea un objeto FormData para enviar las imágenes
-    // Añadir imágenes al FormData
+    const formData = new FormData(); 
     evidencias.forEach((file, index) => {
       formData.append(`Imagen${index + 1}`, file);
     });
 
     try {
       console.log("Enviando imágenes al backend...");
-      // Realiza la solicitud POST para subir las imágenes al servidor
       const response = await axios.post("/User/subir-imagenes-carga", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Tipo de contenido necesario para enviar imágenes
+          "Content-Type": "multipart/form-data",
         },
       });
 
-      // Si la respuesta contiene un idCarga, lo asignamos
       if (response.data && response.data.idCarga) {
         console.log("Imágenes subidas con éxito. ID de carga:", response.data.idCarga);
-        setIdCarga(response.data.idCarga); // Guardamos el idCarga en el estado
-        return response.data.idCarga; // Regresamos el idCarga
+        setIdCarga(response.data.idCarga);
+        return response.data.idCarga;
       } else {
         console.error("La respuesta del servidor no contiene un IdCarga válido.");
         alert("Hubo un error al procesar las imágenes. Intenta nuevamente.");
@@ -102,7 +122,6 @@ const SolicitarServicio = () => {
       }
     } catch (error) {
       console.error("Error al subir las imágenes:", error);
-      // Manejo de errores en la solicitud
       if (error.response) {
         console.error("Error de respuesta del servidor:", error.response);
         alert(`Error del servidor: ${error.response.statusText}`);
@@ -117,9 +136,23 @@ const SolicitarServicio = () => {
     }
   };
 
-  // Función para validar los datos del formulario antes de enviarlos
+  const handleRouteCalculated = (distance, duration) => {
+    // Convertir la distancia a kilómetros (especificando que la distancia está en metros)
+    const distKm = distance.value / 1000;  // distance.value es en metros, lo convertimos a kilómetros
+
+    // Asegurarnos de que la distancia esté en formato numérico con decimales (por ejemplo, 421.5 km)
+    const distanceInKm = parseFloat(distKm.toFixed(2));  // Esto asegura que solo tengamos el valor numérico
+
+    const durMin = duration.value / 60;  // Convertimos la duración a minutos
+    const precio = calculatePrice(distanceInKm, durMin, tipoCarroceria);  // Calculamos el precio
+
+    // Actualizamos el estado de la distancia y el precio
+    setPrice(precio);
+    setDistance(distanceInKm);  // Establecemos la distancia en kilómetros (como número)
+    setDuration(duration.text);  // Establecemos la duración como texto (en minutos)
+  };
+
   const validateForm = () => {
-    // Verificamos si los campos necesarios están completos
     if (!origen || !destino) {
       alert("Por favor ingresa origen y destino válidos.");
       return false;
@@ -140,37 +173,23 @@ const SolicitarServicio = () => {
       return false;
     }
 
-    // Validamos si el tamaño del vehículo es válido
-    if (!validTamanoVeh.includes(tamanoVeh)) {
-      alert("El tamaño de vehículo seleccionado no es válido.");
-      return false;
-    }
-
-    // Validamos si el peso es un número
-    if (!peso || isNaN(peso)) {
-      alert("Por favor ingresa un peso válido.");
-      return false;
-    }
-
     return true;
   };
 
-  // Función para enviar el formulario con los datos del viaje
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Previene el comportamiento predeterminado de la forma
+    e.preventDefault();
 
     if (!validateForm()) {
-      return; // Si la validación falla, no se envía el formulario
+      return;
     }
 
-    // Subir imágenes y obtener el id_carga
     const idCarga = await uploadImages();
     if (!idCarga) {
       alert("No se ha podido obtener el ID de carga.");
-      return; // Si no se pudo obtener el id_carga, no continuamos
+      return;
     }
 
-    // Crear objeto con los datos del viaje
+    // Creamos el objeto con los datos del viaje, incluyendo distancia y precio calculados
     const viajeData = {
       origen,
       destino,
@@ -179,26 +198,26 @@ const SolicitarServicio = () => {
       tipoCarga,
       peso,
       descripcion,
-      idCarga, // Asignamos el id_carga
+      idCarga,
+      distancia: distance,  // Distancia como número
+      precio: price.toString(),  // Convertimos el precio a string
+      dto: ""  // Agrega aquí el campo dto (si es necesario, ajusta según lo que se espera)
     };
 
     try {
-      // Realizamos la solicitud POST para registrar el viaje
+      // Enviamos los datos al backend
       const response = await axios.post("/user/registrarViaje", viajeData);
       if (response && response.data) {
         console.log("Viaje registrado con éxito:", response.data);
-        navigate("/viajes"); // Redirige a la página de viajes después de la solicitud exitosa
+        navigate("/viajes");  // Redirige a la página de viajes
       } else {
         console.error("La respuesta del servidor no contiene datos válidos.");
         alert("Hubo un error al registrar el viaje. Intenta nuevamente.");
       }
     } catch (error) {
-      // Manejo de errores en la respuesta del servidor
       if (error.response) {
         console.error("Error de respuesta del servidor:", error.response);
-        console.log("Detalles completos de la respuesta:", error.response.data);
         if (error.response.status === 400) {
-          // Error 400: Bad Request
           const errorMessages = error.response.data.errors;
           let errorMsg = "Hubo un problema con los datos ingresados:\n";
           for (const key in errorMessages) {
@@ -218,37 +237,34 @@ const SolicitarServicio = () => {
     }
   };
 
-  // Manejo de los archivos seleccionados (imágenes)
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files); // Convierte la lista de archivos a un array
-    const nuevas = [...evidencias, ...files].slice(0, 10); // Añade los nuevos archivos al estado, con un límite de 10
+    const files = Array.from(e.target.files);
+    const nuevas = [...evidencias, ...files].slice(0, 10);
     setEvidencias(nuevas);
-    e.target.value = ""; // Limpia el campo de entrada para permitir seleccionar el mismo archivo si es necesario
+    e.target.value = "";
   };
 
-  // Eliminar un archivo de la lista
   const removeEvidencia = (idx) => {
-    setEvidencias(evidencias.filter((_, i) => i !== idx)); // Elimina el archivo de la lista por su índice
+    setEvidencias(evidencias.filter((_, i) => i !== idx));
   };
 
   return (
     <>
-      <HeaderEmpresa /> {/* Muestra el encabezado de la empresa */}
+      <HeaderEmpresa />
       <div className="solicitar-servicio-container">
         <div className="menu">
-          <label>Solicitar Servicio</label> {/* Título de la página */}
+          <label>Solicitar Servicio</label>
         </div>
 
         <div className="form-and-map-container">
           <form className="form-container" onSubmit={handleSubmit}>
-            {/* Formulario para ingresar datos del viaje */}
             <div className="input-group">
               <input
                 id="startInput"
                 type="text"
                 placeholder="Ingresa origen"
                 value={origen}
-                onChange={(e) => setOrigen(e.target.value)} // Actualiza el estado del origen
+                onChange={(e) => setOrigen(e.target.value)}
               />
             </div>
             <div className="input-group">
@@ -257,16 +273,16 @@ const SolicitarServicio = () => {
                 type="text"
                 placeholder="Ingresa destino"
                 value={destino}
-                onChange={(e) => setDestino(e.target.value)} // Actualiza el estado del destino
+                onChange={(e) => setDestino(e.target.value)}
               />
             </div>
-            {/* Tipo de Carrocería */}
+
             <div className="input-group">
               <select
                 value={tipoCarroceria}
                 onChange={(e) => {
                   setTipoCarroceria(e.target.value);
-                  setTipoCarga(""); // Reset tipo carga cuando cambie carrocería
+                  setTipoCarga(""); 
                 }}
               >
                 <option value="" disabled>Tipo de carrocería</option>
@@ -279,7 +295,6 @@ const SolicitarServicio = () => {
               </select>
             </div>
 
-            {/* Tipo de carga */}
             <div className="input-group">
               <select
                 value={tipoCarga}
@@ -293,7 +308,6 @@ const SolicitarServicio = () => {
               </select>
             </div>
 
-            {/* Tamaño de vehículo */}
             <div className="input-group">
               <select
                 value={tamanoVeh}
@@ -312,33 +326,27 @@ const SolicitarServicio = () => {
                 type="text"
                 placeholder="Peso del cargamento (kg)"
                 value={peso}
-                onChange={(e) => setPeso(e.target.value)} // Actualiza el peso del cargamento
+                onChange={(e) => setPeso(e.target.value)}
               />
             </div>
             <div className="input-group">
               <textarea
                 placeholder="Descripción del cargamento"
                 value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)} // Actualiza la descripción
+                onChange={(e) => setDescripcion(e.target.value)}
               />
             </div>
 
-            {/* Subir hasta 10 archivos */}
             <div className="input-group file-upload">
               <label>Fotos del cargamento:</label>
               <button
                 type="button"
                 className="button"
                 disabled={evidencias.length >= 10}
-                onClick={() => fileInputRef.current.click()} // Abre el selector de archivos
+                onClick={() => fileInputRef.current.click()}
               >
                 <svg className="svgIcon" viewBox="0 0 384 512">
-                  <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 
-                    160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 
-                    45.3 0L160 141.2V448c0 17.7 14.3 32 
-                    32 32s32-14.3 32-32V141.2L329.4 
-                    246.6c12.5 12.5 32.8 12.5 45.3 
-                    0s12.5-32.8 0-45.3l-160-160z" />
+                  <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
                 </svg>
               </button>
               <input
@@ -346,11 +354,10 @@ const SolicitarServicio = () => {
                 type="file"
                 multiple
                 style={{ display: "none" }}
-                onChange={handleFileChange} // Maneja los archivos seleccionados
+                onChange={handleFileChange}
               />
             </div>
 
-            {/* Lista de archivos seleccionados */}
             {evidencias.length > 0 && (
               <ul className="file-list">
                 {evidencias.map((file, idx) => (
@@ -359,7 +366,7 @@ const SolicitarServicio = () => {
                     <button
                       type="button"
                       className="remove-btn"
-                      onClick={() => removeEvidencia(idx)} // Elimina el archivo de la lista
+                      onClick={() => removeEvidencia(idx)}
                     >
                       &times;
                     </button>
@@ -377,8 +384,18 @@ const SolicitarServicio = () => {
               endPoint={destino}
               setStartPoint={setOrigen}
               setEndPoint={setDestino}
+              onRouteCalculated={handleRouteCalculated}
             />
           </div>
+
+          {price && (
+            <div className="quote-container">
+              <h3>Resumen de tu cotización</h3>
+              <p><strong>Distancia:</strong> {distance}</p>
+              <p><strong>Duración:</strong> {duration}</p>
+              <p><strong>Precio estimado:</strong> {price.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
+            </div>
+          )}
         </div>
       </div>
     </>
