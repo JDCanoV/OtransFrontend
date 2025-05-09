@@ -20,7 +20,7 @@ const HeaderTrans = () => {
           <button className="nav-btn" onClick={() => navigate('/Viaje')}>
            Viajes
           </button>
-          <button className="nav-btn" onClick={() => navigate('/GuiaServicio')}>
+          <button className="nav-btn" onClick={() => navigate('/ViajeInfo')}>
             Guia del servicio
           </button>
         </div>
@@ -63,7 +63,7 @@ const HeaderTrans = () => {
                 <Link to="/historial-pagos" className="modal-item">Historial de Pagos</Link>
                 <Link to="/CalificacionesT" className="modal-item">Calificaciones</Link>
                 <Link to="/gestion-cuenta" className="modal-item">Gestión de Cuenta</Link>
-                <button className="modal-item">Cerrar Sesión</button>
+                <Link to="/" className="modal-item"> Cerra Sesion</Link>
               </div>
             )}
           </div>

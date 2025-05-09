@@ -65,7 +65,7 @@ const HeaderEmpresa = () => {
                   <Link to="/historial-pagos" className="modal-item">Historial de Pagos</Link>
                   <Link to="/calificaciones" className="modal-item">Calificaciones</Link>
                   <Link to="/gestion-cuenta" className="modal-item">Gestión de Cuenta</Link>
-                  <button className="modal-item">Cerrar Sesión</button>
+                  <Link to="/" className="modal-item"> Cerra Sesion</Link>
                 </div>
               )}
             </div>

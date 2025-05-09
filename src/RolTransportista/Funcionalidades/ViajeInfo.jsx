@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./viajeinfo.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../config/axiosConfig";
-import HeaderEmpresa from "../../Header/HeaderEmpresa";
+import HeaderTrans from "../../Header/HeaderTrans"; // Asegúrate de que la ruta sea correcta
 import GoogleMapComponent from "../../Components/googlemaps/GoogleMapComponent";
 import { useAuth } from "../../context/authContext"; // Importa el contexto de autenticación
 
@@ -23,7 +23,7 @@ const ViajeInfo = () => {
   const [viajeData, setViajeData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(""); // Estado para manejar mensajes de error
 
-  const idTransportista = user?.idUsuario; // Usamos el idUsuario del contexto
+  const idTransportista = user?.usuario?.idUsuario; // Usamos el idUsuario del contexto
 
   // Función para obtener los datos del viaje desde la API
   const fetchViajeData = async () => {
@@ -89,7 +89,7 @@ const ViajeInfo = () => {
 
   return (
     <>
-      <HeaderEmpresa />
+      <HeaderTrans />
       <div className="solicitar-servicio-container">
         <div className="menu">
           <label>Viaje Info</label>
@@ -197,7 +197,15 @@ const ViajeInfo = () => {
                         src={transformedUrl}
                         alt={`Evidencia ${index}`}
                         className="image"
+                        style={{
+                          position: "absolute",
+                          top: "-50px",  // Ajusta esto según lo que necesites
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          zIndex: 10
+                        }}
                       />
+
                     ) : (
                       <p key={index}>Error al cargar la imagen.</p>
                     );

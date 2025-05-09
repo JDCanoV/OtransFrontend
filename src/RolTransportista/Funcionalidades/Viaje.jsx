@@ -19,7 +19,7 @@ const Viaje = () => {
 
 
   // Verifica que el usuario esté autenticado y que el idUsuario esté disponible
-  const idTransportista = user?.idUsuario; // Usamos el idUsuario del contexto
+  const idTransportista = user?.usuario?.idUsuario; // Usamos el idUsuario del contexto
   console.log("ID Transportista:", idTransportista); // Depuración
   // Función para obtener los viajes desde la API
   const fetchViajes = async () => {

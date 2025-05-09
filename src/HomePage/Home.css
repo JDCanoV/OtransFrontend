@@ -19,7 +19,7 @@
 body,
 .home-wrapper {
   font-family: var(--primary-font);
-  background-color: #fff;
+  background-color: #f7f3eb;
 }
 
 /* Empuja el contenido por debajo del navbar */
@@ -30,7 +30,7 @@ body,
 /* Sección del mapa */
 .map-section {
   padding: 40px 20px;
-  background-color: #f8f8f8;
+  background-color: #f7f3eb;
   text-align: left;
 }
 
@@ -50,7 +50,7 @@ body,
   flex-direction: column;
   justify-content: center;
   gap: 24px;
-  background: #fff;
+  background: #f7f3eb;
   padding: 36px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -127,7 +127,7 @@ body,
 }
 
 .calcular-btn:disabled {
-  background: #444;
+  background: #ff7a0d;
   cursor: default;
 }
 

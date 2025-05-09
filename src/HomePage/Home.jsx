@@ -157,48 +157,36 @@ function Home() {
         </section>
 
         {/* Sección de servicios adicionales */}
-        <section className="services">
-          <div className="service-card">
-            <img src="ride.jpg" alt="Viaje Otrans" />
-            <h2>Pide un viaje ahora</h2>
-            <p>Solicita un viaje en cualquier momento y a cualquier lugar.</p>
-            <button className="service-btn">Solicitar viaje</button>
-          </div>
-          <div className="service-card">
-            <img src="delivery.jpg" alt="Otrans Eats" />
-            <h2>Pide comida a domicilio</h2>
-            <p>Los restaurantes que te encantan, a domicilio.</p>
-            <button className="service-btn">Pedir ahora</button>
-          </div>
-          <div className="service-card">
-            <img src="business.jpg" alt="Otrans Business" />
-            <h2>Otrans para Empresas</h2>
-            <p>Transforma la manera en que tu empresa se mueve.</p>
-            <button className="service-btn">Conoce más</button>
-          </div>
-        </section>
+        <section className="requirements">
+        <h3>Beneficios clave para tu empresa</h3>
+        <div className="requirements-list">
+          <ul>
+            <li>✓ Acceso a una red amplia de transportistas</li>
+            <li>✓ Administra tus pedidos, rutas y pagos de manera fácil y eficiente a través de nuestra plataforma.</li>
+            <li>✓ Obtén tarifas transparentes y servicios de calidad, optimizando costos en cada traslado.</li>
+            <li>✓ La plataforma cuenta con un sistema de validación para garantizar que los transportistas cumplen con los estándares legales y técnicos.</li>
+          </ul>
+         
+        </div>
+      </section>
+      <section className="requirements">
+        <h3>Que necesitas para registrarte y disfrutar de Otrans</h3>
+        <div className="requirements-list">
+          <ul>
+            <li>✓ Ser mayor de 18 años</li>
+            <li>✓ Certificado de antecedentes (policívos o de tránsito)</li>
+          </ul>
+          <ul>
+            <li>📄 Licencia de conducción vigente</li>
+            <li>📄 Soat vigente</li>
+            <li>📄 Tarjeta de propiedad del vehículo actual</li>
+            <li>📄 Revisión técnico-mecánica vigentes</li>
+          </ul>
+        </div>
+      </section>
 
         {/* Sección de características */}
-        <section className="features">
-          <div className="feature">
-            <i className="fas fa-shield-alt"></i>
-            <h3>Tu seguridad es importante</h3>
-            <p>Comprometidos con tu seguridad, donde sea que vayas.</p>
-            <a href="#" className="link-button">Conoce más &gt;</a>
-          </div>
-          <div className="feature">
-            <i className="fas fa-users"></i>
-            <h3>Nuestra compañía</h3>
-            <p>Descubre cómo estamos cambiando el mundo del transporte.</p>
-            <a href="#">Más información &gt;</a>
-          </div>
-          <div className="feature">
-            <i className="fas fa-newspaper"></i>
-            <h3>Últimas noticias</h3>
-            <p>Mantente al día con las últimas novedades de Otrans.</p>
-            <a href="#">Ver noticias &gt;</a>
-          </div>
-        </section>
+   
       </main>
     </div>
   );

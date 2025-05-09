@@ -1,39 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../config/axiosConfig"; // Ya incluye el token con el interceptor
 import HeaderEmpresa from "../../Header/HeaderEmpresa";
 import styles from './Viajes.module.css';
 
 const Viajes = () => {
   const [vistaActual, setVistaActual] = useState('solicitados');
-  const [viajes, setViajes] = useState([
-    { id: 1, origen: "", destino: "", estadoVisible: false },
-    { id: 2, origen: "", destino: "", estadoVisible: false },
-    { id: 3, origen: "", destino: "", estadoVisible: false },
-    { id: 4, origen: "", destino: "", estadoVisible: false },
-    { id: 5, origen: "", destino: "", estadoVisible: false },
-    { id: 6, origen: "", destino: "", estadoVisible: false },
-  ]);
-
+  const [viajes, setViajes] = useState([]);
   const [indiceActual, setIndiceActual] = useState(0);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [viajeAEliminar, setViajeAEliminar] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [viajeEnModal, setViajeEnModal] = useState(null);
   const [estadoViaje, setEstadoViaje] = useState("recoleccion");
-
-  const [calificacion, setCalificacion] = useState(0); // Estado para las estrellas
-  const [reseña, setReseña] = useState(""); // Estado para la reseña
-
+  const [calificacion, setCalificacion] = useState(0);
+  const [reseña, setReseña] = useState("");
   const navigate = useNavigate();
+
+  // ✅ Traer datos del backend
+  useEffect(() => {
+    const obtenerViajes = async () => {
+      try {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        const idUsuario = user?.usuario?.idUsuario;  // Obtener el idUsuario del sessionStorage
+
+        console.log("idUsuario desde sessionStorage:", idUsuario);
+        
+        if (!idUsuario) {
+          console.error("No se encontró el idUsuario en los datos del usuario");
+          return;
+        }
+
+        const response = await axios.get(`/User/listarViaje/${idUsuario}`);  // Pasamos el idUsuario como parámetro a la API
+        console.log("🔄 Datos de viajes recibidos:", response.data);
+
+        const viajesDesdeApi = response.data.map(v => ({
+          id: v.idViaje,
+          origen: v.origen,
+          destino: v.destino,
+          estado: mapearEstado(v.idEstado),
+          transportista: v.idTransportista || "Por definir",
+          nombreT: v.nombreTransportista,
+          estadoVisible: false
+        }));
+
+        setViajes(viajesDesdeApi);
+      } catch (error) {
+        console.error("Error al obtener viajes", error);
+      }
+    };
+
+    obtenerViajes();
+  }, []); // Se ejecuta una vez cuando el componente se monta
+
+  // Asocia los valores de los estados a sus respectivos nombres
+  const mapearEstado = (idEstado) => {
+    switch (idEstado) {
+      case 4: return "solicitados";    // Estado 2 es Solicitado
+      case 5: return "aceptados";      // Estado 3 es Aceptado
+      case 6: return "recoleccion";   // Estado 4 es Recolección
+      case 7: return "encamino";      // Estado 5 es En Camino
+      case 8: return "finalizado";    // Estado 6 es Finalizado
+      default: return "pendiente";    // Cualquier otro valor es pendiente
+    }
+  };
 
   const confirmarCancelar = (viajeId) => {
     setViajeAEliminar(viajeId);
     setMostrarConfirmacion(true);
   };
 
-  const cancelarEliminacion = () => {
-    setMostrarConfirmacion(false);
-  };
+  const cancelarEliminacion = () => setMostrarConfirmacion(false);
 
   const eliminarViaje = () => {
     setViajes(viajes.filter((viaje) => viaje.id !== viajeAEliminar));
@@ -43,17 +80,7 @@ const Viajes = () => {
     }
   };
 
-  const verMas = (viajeId) => {
-    navigate(`/detalle/${viajeId}`);
-  };
-
-  const toggleEstado = (id) => {
-    setViajes(prev =>
-      prev.map(v =>
-        v.id === id ? { ...v, estadoVisible: !v.estadoVisible } : v
-      )
-    );
-  };
+  const verMas = (viajeId) => navigate(`/detalle/${viajeId}`);
 
   const abrirModalEstado = (viaje) => {
     setViajeEnModal(viaje);
@@ -67,7 +94,7 @@ const Viajes = () => {
 
   const guardarCalificacion = () => {
     console.log("Calificación guardada:", calificacion, reseña);
-    setModalVisible(false); // Cierra el modal después de guardar
+    setModalVisible(false);
   };
 
   if (viajes.length === 0) {
@@ -76,7 +103,7 @@ const Viajes = () => {
         <HeaderEmpresa />
         <div className={styles.containerPrincipal}>
           <h3>Viajes Solicitados</h3>
-          <p>No hay viajes solicitados.</p>
+          <p>No hay viajes solicitados para tu empresa.</p>
         </div>
       </>
     );
@@ -105,10 +132,10 @@ const Viajes = () => {
         <div className={styles.content}>
           {vistaActual === 'solicitados' && (
             <div className={styles.viajesContainer}>
-              {viajes.map((viaje) => (
+              {viajes.filter(viaje => viaje.estado === "solicitados").map((viaje) => (
                 <div key={viaje.id} className={styles.card}>
                   <p className={styles.titulo}>Viaje {viaje.id}</p>
-                  <div className={styles.imagen}>Imagen carga</div>
+                  
                   <p className={styles.origenDestino}>Origen:</p>
                   <div className={styles.labelInfo}>{viaje.origen || "Por definir..."}</div>
                   <p className={styles.origenDestino}>Destino:</p>
@@ -124,61 +151,70 @@ const Viajes = () => {
 
           {vistaActual === 'aceptados' && (
             <div className={styles.viajesContainer}>
-              {viajes.map((viaje) => (
-                <div key={viaje.id} className={styles.card}>
-                  <p className={styles.titulo}>Viaje {viaje.id}</p>
-                  <div className={styles.imagenAceptado}>Imagen carga</div>
-                  <p className={styles.origenDestino}>Origen destino</p>
-                  <div className={styles.botones}>
-                    <div className={styles.nombreConductor}>Nombre conductor</div>
-                    <button className={styles.verEstado} onClick={() => abrirModalEstado(viaje)}>
-                      Ver estado de mi viaje
-                    </button>
-                  </div>
+            {viajes.filter(viaje => viaje.estado === "aceptados").map((viaje) => (
+              <div key={viaje.id} className={styles.card}>
+                <p className={styles.titulo}>Viaje {viaje.id}</p>
+                
+          
+                {/* Mostrar Origen y Destino con el texto antes */}
+                <div className={styles.labelInfo}>
+                  <strong>Origen:</strong> {viaje.origen || "Por definir..."}
                 </div>
-              ))}
+                <div className={styles.labelInfo}>
+                  <strong>Destino:</strong> {viaje.destino || "Por definir..."}
+                </div>
+                <div className={styles.labelInfo}>
+                  <strong>Transportista:</strong> {viaje.nombreT || "Por definir..."}
+                </div>
+          
+                <div className={styles.botones}>
+                  <button className={styles.verEstado} onClick={() => abrirModalEstado(viaje)}>
+                    Ver estado de mi viaje
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          )}
+          {vistaActual === 'estados' && (
+            <div className={styles.estadoContainer}>
+              {/* Recolección */}
+              <div className={styles.estadoBox}>
+                <div className={styles.estadoHeader}>Recolección</div>
+                {viajes.filter(viaje => viaje.estado === "recoleccion").map((viaje) => (
+                  <div key={viaje.id} className={styles.estadoCard}>
+                    <p>id viaje: {viaje.id}</p>
+                    <p>Transportista: {viaje.nombreT || "Por definir"}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* En camino */}
+              <div className={styles.estadoBox}>
+                <div className={styles.estadoHeader}>En camino</div>
+                {viajes.filter(viaje => viaje.estado === "encamino").map((viaje) => (
+                  <div key={viaje.id} className={styles.estadoCard}>
+                    <p>id viaje: {viaje.id}</p>
+                    <p>Transportista: {viaje.transportista || "Por definir"}</p>
+                    <p>Valor: {viaje.valor || "Por definir"}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Finalizado */}
+              <div className={styles.estadoBox}>
+                <div className={styles.estadoHeader}>Finalizado</div>
+                {viajes.filter(viaje => viaje.estado === "finalizado").map((viaje) => (
+                  <div key={viaje.id} className={styles.estadoCard}>
+                    <p>id viaje: {viaje.id}</p>
+                    <p>Transportista: {viaje.transportista || "Por definir"}</p>
+                    <p>Valor: {viaje.valor || "Por definir"}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-{vistaActual === 'estados' && (
-  <div className={styles.estadoContainer}>
-    {/* Recolección */}
-    <div className={styles.estadoBox}>
-      <div className={styles.estadoHeader}>Recolección</div>
-      {viajes.filter(viaje => viaje.estado === "recoleccion").map((viaje) => (
-        <div key={viaje.id} className={styles.estadoCard}>
-          <p>id viaje: {viaje.id}</p>
-          <p>Transportista: {viaje.transportista || "Por definir"}</p>
-          <p>Valor: {viaje.valor || "Por definir"}</p>
-        </div>
-      ))}
-    </div>
-
-    {/* En camino */}
-    <div className={styles.estadoBox}>
-      <div className={styles.estadoHeader}>En camino</div>
-      {viajes.filter(viaje => viaje.estado === "encamino").map((viaje) => (
-        <div key={viaje.id} className={styles.estadoCard}>
-          <p>id viaje: {viaje.id}</p>
-          <p>Transportista: {viaje.transportista || "Por definir"}</p>
-          <p>Valor: {viaje.valor || "Por definir"}</p>
-        </div>
-      ))}
-    </div>
-
-    {/* Finalizado */}
-    <div className={styles.estadoBox}>
-      <div className={styles.estadoHeader}>Finalizado</div>
-      {viajes.filter(viaje => viaje.estado === "finalizado").map((viaje) => (
-        <div key={viaje.id} className={styles.estadoCard}>
-          <p>id viaje: {viaje.id}</p>
-          <p>Transportista: {viaje.transportista || "Por definir"}</p>
-          <p>Valor: {viaje.valor || "Por definir"}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-
           {vistaActual === 'calificaciones' && <p>No hay calificaciones disponibles.</p>}
         </div>
       </div>
