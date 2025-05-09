@@ -1,0 +1,270 @@
+/* src/pages/Home.css */
+
+/* Importa Montserrat para un look fuerte */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  --primary-font: 'Montserrat', sans-serif;
+  --button-bg: #000;
+  --button-hover: #333;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+.home-wrapper {
+  font-family: var(--primary-font);
+  background-color: #f7f3eb;
+}
+
+/* Empuja el contenido por debajo del navbar */
+.home-wrapper > main {
+  margin-top: 70px;
+}
+
+/* Sección del mapa */
+.map-section {
+  padding: 40px 20px;
+  background-color: #f7f3eb;
+  text-align: left;
+}
+
+/* Grid principal */
+.map-content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  align-items: stretch; /* estira filas según el más alto */
+  margin: 0;
+}
+
+/* Panel de controles (inputs, botón y cotización) */
+.map-controls {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  background: #f7f3eb;
+  padding: 36px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Título del panel */
+.controls-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+/* Etiquetas de inputs */
+.map-controls label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Inputs formales */
+.map-controls .input-group {
+  width: 100%;
+}
+
+.map-controls .input-group input,
+.map-controls .input-group select,
+.map-controls .input-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1.125rem;
+  background: #fafafa;
+  transition: border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              background-color 0.3s ease;
+}
+
+.map-controls .input-group input::placeholder {
+  color: #888;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.map-controls .input-group input:focus,
+.map-controls .input-group select:focus,
+.map-controls .input-group textarea:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+/* Botón “Cotizar viaje” */
+.calcular-btn {
+  align-self: flex-start;
+  padding: 14px 28px;
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.calcular-btn:hover:not(:disabled) {
+  background: var(--button-hover);
+}
+
+.calcular-btn:disabled {
+  background: #ff7a0d;
+  cursor: default;
+}
+
+/* Panel de cotización dentro de los controles */
+.quote-container {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.quote-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.quote-container p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Contenedor del mapa ocupa 3/5 columnas y se ajusta */
+.map-container {
+  grid-column-start: 3;
+  grid-column: span 3;
+  grid-row: span 5;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e0e0e0;
+  align-self: stretch; /* estira según la altura del panel */
+  display: flex;
+}
+
+.map-container .map-element {
+  flex: 1; /* ocupa todo el espacio del contenedor */
+}
+
+/* Overlay mientras calcula */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #333;
+  z-index: 1000;
+}
+
+/* Sección de servicios */
+.services {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+.service-card {
+  width: 30%;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.service-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.service-card p {
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.service-card .service-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.service-card .service-btn:hover {
+  background: var(--button-hover);
+}
+
+/* Sección de características */
+.features {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 20px;
+  background-color: #f8f8f8;
+}
+
+.feature {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+}
+
+.feature h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.feature p {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.feature .link-button {
+  font-weight: 600;
+  color: var(--button-bg);
+  text-decoration: none;
+}
+
+.feature .link-button:hover {
+  color: var(--button-hover);
+}

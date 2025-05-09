@@ -1,3 +1,7 @@
+/* Añade estos estilos en tu archivo index.css o App.css */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 :root {
   --primary-color: #000000;
   --secondary-color: #276EF1;

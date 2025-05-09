@@ -1,0 +1,255 @@
+.navbar {
+  background-color: #000000;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 5px;
+  align-items: center;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 120px;
+  height: 90px;
+}
+
+.logo-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-btn {
+  background-color: #000000; /* naranja Otrans */
+  border: none;
+  padding: 10px 20px;
+  color: rgb(241, 131, 27);
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* separación entre texto y flechita */
+}
+
+.nav-btn:hover {
+  background-color: #f7aa61;
+  color: rgb(10, 10, 10);
+}
+
+.dropdown {
+  position: relative;
+  margin-right: 30px; 
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background-color:#f7f3eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 240px;
+  padding: 5px 0;
+}
+
+.dropdown-item {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  font-weight: 500;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: #f38b0d;
+}
+
+.avatar-section {
+  position: relative;
+}
+
+.avatar-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.avatar-icon {
+  height: 50px;
+  width: 50px;
+}
+
+.avatar-modal {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color:  rgb(251, 172, 93);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  min-width: 180px;
+}
+
+.modal-item {
+  background-color: transparent;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.modal-item:hover {
+  background-color: #f5a209;
+}
+
+/* === Estilos de flechita desplegable === */
+.arrow-down {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* Gira la flecha cuando el menú está abierto */
+.dropdown-toggle.open .arrow-down {
+  transform: rotate(180deg);
+}
+/* Modal avatar pro con encabezado */
+.avatar-modal {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: rgb(249, 248, 246);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  border-radius: 16px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  min-width: 280px;
+  padding: 16px;
+}
+
+/* Encabezado avatar */
+.avatar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.avatar-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.avatar-info .avatar-name {
+  font-weight: bold;
+  margin: 0;
+  color: black;
+}
+
+.avatar-info .avatar-email {
+  font-size: 13px;
+  color: #0d0d0d;
+  margin: 2px 0 0 0;
+}
+
+.avatar-modal hr {
+  border: none;
+  border-top: 1px solid #fb8917;
+  margin: 10px 0;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Ajusta según tu diseño */
+  background-color: #000; /* O el color que uses */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000; /* Para que quede encima de todo */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombrilla bonita opcional */
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000;
+  color: white;
+  font-family: 'Inter', sans-serif;
+ /* Línea púrpura en la parte superior */
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  color: #ff7f00;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #fff;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location i {
+  font-size: 18px;
+}
+
+.location span {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-info .email,
+.contact-info .phone {
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
+}
+
+
+

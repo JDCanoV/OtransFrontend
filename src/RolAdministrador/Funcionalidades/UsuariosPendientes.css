@@ -1,0 +1,47 @@
+
+  .menuup{
+    margin-top: 100px;
+    text-align: center; 
+    font-size: 30px;
+    font-weight: 900;
+    color: #e67607;
+
+  }
+  
+  
+  /* Contenedor de la tabla */
+  .usuarios-table-container {
+    margin-top: 120px; /* Ajusta el margen para mayor espacio entre el header y la tabla */
+    overflow: auto;
+    max-height: 400px; /* Ajusta el tamaño máximo del contenedor */
+    border-radius: 8px;
+  }
+  
+  /* Estilo para la tabla */
+  .usuarios-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .usuarios-table th {
+    background-color: #f4f4f4;
+  }
+  
+  /* Estilos para el botón */
+  .ver-detalles-btn {
+    padding: 5px 10px;
+    background-color: #6bd21c;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .ver-detalles-btn:hover {
+    background-color: #000000;
+  }

@@ -1,0 +1,106 @@
+.otrans-landing {
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  margin: 0; /* Elimina el margen */
+  padding: 0; /* Elimina el padding */
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f58220;
+  padding: 40px 40px; /* Ajustamos el padding para dar espacio a los lados */
+  color: #000;
+  margin: 0; /* Elimina el margen */
+}
+
+.hero-text {
+  max-width: 60%;
+  padding-right: 50px; /* Añadimos espacio a la derecha */
+}
+
+.hero-image {
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px; /* Añadimos espacio a la izquierda */
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.hero-text span {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.sub {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.description {
+  margin-top: 10px;
+  font-size: 14px;
+  max-width: 500px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  background-color: #000;
+  color: #f7f3eb;
+  border: none;
+  padding: 12px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  background-color: #222;
+}
+
+.image-placeholder {
+  width: 200px;
+  height: 200px;
+  background-color: #f7f3eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.requirements {
+  padding: 40px 40px;
+  background-color: #f7f3eb;
+  text-align: center;
+}
+
+.requirements h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-left: 0; /* Eliminamos el padding de la izquierda */
+  text-align: center;
+}
+
+.requirements-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-left: 0;
+}
+
+.requirements-list ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.8;
+}

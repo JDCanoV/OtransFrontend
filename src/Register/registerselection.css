@@ -1,0 +1,82 @@
+/* Contenedor principal */
+.register-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 2rem;
+}
+
+.register-selection-container h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* Contenedor de las tarjetas */
+.selection-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Estilo base para las tarjetas */
+.selection-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.selection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos de las tarjetas */
+.selection-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Descripción dentro de las tarjetas */
+.selection-card p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Botones dentro de las tarjetas */
+.selection-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.selection-card.camionero .selection-button {
+  background-color: #007bff;
+}
+
+.selection-card.camionero .selection-button:hover {
+  background-color: #0056b3;
+}
+
+.selection-card.empresa .selection-button {
+  background-color: #28a745;
+}
+
+.selection-card.empresa .selection-button:hover {
+  background-color: #1e7e34;
+}

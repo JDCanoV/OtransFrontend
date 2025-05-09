@@ -1,0 +1,76 @@
+/* Contenedor principal que engloba todo */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos del footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000000;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  margin-top: 50px; /* Puedes ajustar este valor para mayor separación */
+}
+
+/* Resto de tus estilos */
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-img {
+  width: 45px;  /* Ajusta el tamaño de las imágenes */
+  height: 35px;
+  transition: transform 0.3s ease;
+}
+
+.social-img:hover {
+  transform: scale(1.2);  /* Aumenta el tamaño de las imágenes al pasar el ratón */
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-img {
+  width: 30px;  /* Tamaño de la imagen de ubicación */
+  height: 29px;
+}
+
+.location span {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-info .email,
+.contact-info .phone {
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
+}
