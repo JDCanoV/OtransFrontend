@@ -45,6 +45,7 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/recuperar" element={<Recuperar />} />
           <Route path="/indexTransportista" element={<IndexTransportista />} />
+          <Route path="/indexEmpresa" element={<IndexEmpresa/>} />
           <Route path="/register" element={<RegisterSelection />} />
           <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
           <Route path="/registerTransportista" element={<RegisterCamionero />} />
@@ -53,10 +54,14 @@ root.render(
           <Route path="/detalle/:idViaje" element={<Detalle viajes={Viajes} />} />
           <Route path="/viajes" element={<Viajes />} />
           <Route path="/solicitarServicio" element={<SolicitarServicio />} />
-
+  <Route path="/usuariosPendientes" element={<UsuariosPendientes />} />
+            <Route path="/usuarioDetalle/:id" element={<UsuarioDetalle />} />
+               
+            <Route path="/ofrecemos" element={<Ofrecemos />} />
+            <Route path="/ofertas" element={<Ofertas />} />
           {/* Rutas protegidas para 'empresa' */}
           <Route element={<PrivateRoute allowedRoles={[3]} />}>
-            <Route path="/indexEmpresa" element={<IndexEmpresa />} />
+       
             <Route path="/ofrecemos" element={<Ofrecemos />} />
             <Route path="/ofertas" element={<Ofertas />} />
             <Route path="/calificaciones" element={<Calificaciones />} />
@@ -71,20 +76,17 @@ root.render(
 
           {/* Rutas protegidas para 'admin' */}
           <Route element={<PrivateRoute allowedRoles={[1]} />}>
-            <Route path="/revisionDocumentos" element={<UsuariosPendientes />} />
-            <Route path="/usuarioDetalle" element={<UsuarioDetalle />} />
+          
             <Route path="/calificacionesT" element={<CalificacionesT />} />
             <Route path="/guiaServicio" element={<GuiaServicio />} />
-            <Route path="/indexEmpresa" element={<IndexEmpresa />} />
+           
             
-            
-            <Route path="/ofrecemos" element={<Ofrecemos />} />
-            <Route path="/ofertas" element={<Ofertas />} />
+         
             <Route path="/calificaciones" element={<Calificaciones />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/recuperar" element={<Recuperar />} />
-            <Route path="/indexTransportista" element={<IndexTransportista />} />
+           
             <Route path="/register" element={<RegisterSelection />} />
             <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
             <Route path="/registerTransportista" element={<RegisterCamionero />} />

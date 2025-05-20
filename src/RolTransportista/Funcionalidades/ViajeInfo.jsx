@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./viajeinfo.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../config/axiosConfig";
-import HeaderTrans from "../../Header/HeaderTrans"; // Asegúrate de que la ruta sea correcta
+import HeaderTrans from "../../Header/HeaderTrans";
 import GoogleMapComponent from "../../Components/googlemaps/GoogleMapComponent";
-import { useAuth } from "../../context/authContext"; // Importa el contexto de autenticación
+import { useAuth } from "../../context/authContext";
+import ModalImage from "react-modal-image";
 
 const ViajeInfo = () => {
   const navigate = useNavigate();
-  const { user } = useAuth(); // Usamos el hook useAuth para obtener el usuario
+  const { user } = useAuth();
   const [origen, setOrigen] = useState("");
   const [destino, setDestino] = useState("");
   const [tipoCarroceria, setTipoCarroceria] = useState("");
@@ -17,40 +18,36 @@ const ViajeInfo = () => {
   const [precio, setPrecio] = useState("");
   const [peso, setPeso] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [imagenes, setImagenes] = useState([]); // Aquí almacenamos las imágenes
+  const [imagenes, setImagenes] = useState([]);
   const [idCarga, setIdCarga] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [viajeData, setViajeData] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(""); // Estado para manejar mensajes de error
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const idTransportista = user?.usuario?.idUsuario; // Usamos el idUsuario del contexto
+  const idTransportista = user?.usuario?.idUsuario;
 
-  // Función para obtener los datos del viaje desde la API
   const fetchViajeData = async () => {
     if (!idTransportista) {
-      setErrorMessage("No se encontró el ID del transportista. Asegúrate de haber iniciado sesión.");
+      setErrorMessage(
+        "No se encontró el ID del transportista. Asegúrate de haber iniciado sesión."
+      );
       setIsLoading(false);
       return;
     }
 
     try {
       const response = await axios.get(`/user/${idTransportista}/viaje`);
+      console.log("Respuesta de viaje:", response.data);
       if (response.data) {
         setViajeData(response.data);
-        if (response.data.imagenes && response.data.imagenes.length > 0) {
-          setImagenes(response.data.imagenes); // Almacenamos las imágenes si hay
-        } else {
-          setErrorMessage("No hay imágenes disponibles.");
-        }
-        setIsLoading(false);
       } else {
-        setIsLoading(false);
         setErrorMessage("No hay viaje disponible para este transportista.");
       }
     } catch (error) {
       console.error("Error al obtener el viaje", error);
-      setIsLoading(false);
       setErrorMessage("Error al cargar los datos del viaje. Intente nuevamente.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,6 +57,17 @@ const ViajeInfo = () => {
 
   useEffect(() => {
     if (viajeData) {
+      console.log("Datos del viaje recibidos:", viajeData);
+
+      // Usar directamente viajeData.imagenes que es un array de URLs
+      const imgs = Array.isArray(viajeData.imagenes)
+        ? viajeData.imagenes.filter((url) => url && url.trim() !== "")
+        : [];
+
+      console.log("URLs de imágenes filtradas:", imgs);
+
+      setImagenes(imgs);
+
       setOrigen(viajeData.origen);
       setDestino(viajeData.destino);
       setTipoCarroceria(viajeData.tipoCarroceria);
@@ -71,21 +79,6 @@ const ViajeInfo = () => {
       setPrecio(viajeData.precio);
     }
   }, [viajeData]);
-
-  // Función para transformar la URL de Google Drive
-  const transformDriveUrl = (url) => {
-    console.log("URL recibida de Google Drive:", url); // Imprimir la URL que llega del backend
-
-    const match = url.match(/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (match && match[1]) {
-      const transformedUrl = `https://drive.google.com/thumbnail?id=${match[1]}`;
-      console.log("URL transformada:", transformedUrl); // Imprimir la URL transformada
-      return transformedUrl;
-    } else {
-      console.error("Error: La URL no tiene el formato esperado para Google Drive:", url);
-      return null; // Si la URL no tiene el formato adecuado, devolvemos null
-    }
-  };
 
   return (
     <>
@@ -134,7 +127,9 @@ const ViajeInfo = () => {
                 <select value={tipoCarga} disabled>
                   <option value="Carga agrícola">Carga agrícola</option>
                   <option value="Ganado">Ganado</option>
-                  <option value="Materiales de construcción">Materiales de construcción</option>
+                  <option value="Materiales de construcción">
+                    Materiales de construcción
+                  </option>
                   <option value="Electrodomésticos">Electrodomésticos</option>
                   <option value="Electrónica">Electrónica</option>
                 </select>
@@ -186,30 +181,19 @@ const ViajeInfo = () => {
                 </div>
               </div>
 
-              {/* Muestra las imágenes directamente desde el enlace transformado */}
               <div className="image-container">
-                {imagenes && imagenes.length > 0 ? (
-                  imagenes.map((image, index) => {
-                    const transformedUrl = transformDriveUrl(image); // Transformamos la URL
-                    return transformedUrl ? (
-                      <img
-                        key={index}
-                        src={transformedUrl}
-                        alt={`Evidencia ${index}`}
-                        className="image"
-                        style={{
-                          position: "absolute",
-                          top: "-50px",  // Ajusta esto según lo que necesites
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          zIndex: 10
-                        }}
-                      />
-
-                    ) : (
-                      <p key={index}>Error al cargar la imagen.</p>
-                    );
-                  })
+                {imagenes.length > 0 ? (
+                  imagenes.map((url, idx) => (
+                    <ModalImage
+                      key={idx}
+                      small={url}
+                      large={url}
+                      alt={`Evidencia ${idx + 1}`}
+                      hideDownload={false}
+                      hideZoom={false}
+                      showRotate={true}
+                    />
+                  ))
                 ) : (
                   <p>No se encontraron imágenes disponibles.</p>
                 )}

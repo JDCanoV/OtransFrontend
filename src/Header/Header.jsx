@@ -23,10 +23,10 @@ const Header = () => {
           <div className="logo">Otrans</div>
           <ul className="nav-menu">
             <li className="nav-item">
-              <a href="#" className="nav-link">Empresa</a>
+              <a className="nav-link" onClick={() => navigate('/IndexEmpresa')}>Empresa</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Transportista</a>
+              <a className="nav-link"onClick={() => navigate('/IndexTransportista')}>Transportista</a>
             </li>
            
           </ul>
@@ -35,7 +35,7 @@ const Header = () => {
           <div className="nav-buttons">
           
             <button onClick={goToLogin}>Iniciar sesión</button>
-            <button className="signup-btn">Regístrate</button>
+            <button onClick={goToRegister}>Registrarse</button>
           </div>
         </div>
       </nav>

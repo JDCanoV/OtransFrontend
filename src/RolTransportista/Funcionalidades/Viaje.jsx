@@ -1,65 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'; 
-import axios from '../../config/axiosConfig';  // Aquí importas tu configuración de axios
+import axios from '../../config/axiosConfig';
 import HeaderTrans from "../../Header/HeaderTrans";
 import styles from './Viaje.module.css';
 import { useAuth } from "../../context/authContext";
+import ModalImage from "react-modal-image"; // 👈 Importación añadida
 
 const Viaje = () => {
-  const { user } = useAuth(); // Usamos el hook useAuth para obtener el usuario
+  const { user } = useAuth();
   const [viajes, setViajes] = useState([]);
   const [indiceActual, setIndiceActual] = useState(0);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);  // Estado para gestionar la carga
-  const [errorMessage, setErrorMessage] = useState("");  // Estado para manejar errores
-  const [errorDetails, setErrorDetails] = useState("");  // Detalles del error
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorDetails, setErrorDetails] = useState("");
 
   const navigate = useNavigate();
-  const transportistaId = 1;  // Puedes obtener este valor de tu contexto o algún otro lugar
+  const idTransportista = user?.usuario?.idUsuario;
 
-
-  // Verifica que el usuario esté autenticado y que el idUsuario esté disponible
-  const idTransportista = user?.usuario?.idUsuario; // Usamos el idUsuario del contexto
-  console.log("ID Transportista:", idTransportista); // Depuración
-  // Función para obtener los viajes desde la API
   const fetchViajes = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(`/user/viajes-por-carroceria/${idTransportista}`);
-      
-      // Si la respuesta tiene datos
       if (response.data) {
         if (response.data.length === 0) {
           setErrorMessage("No se encontraron viajes con el estado 4 para este transportista.");
           setErrorDetails("Este transportista no tiene viajes pendientes con estado 4.");
         } else {
-          setViajes(response.data);  // Asigna los viajes obtenidos
+          setViajes(response.data);
         }
       } else {
         setErrorMessage("No se encontraron viajes para este transportista.");
         setErrorDetails("La respuesta no contiene datos de viajes.");
       }
     } catch (error) {
-      setIsLoading(false);
       if (error.response) {
-        // Si la API responde con un error
         setErrorMessage(`Error al cargar los viajes. Código de estado: ${error.response.status}`);
         setErrorDetails(`Detalles del error: ${error.response.data || error.response.statusText}`);
       } else if (error.request) {
-        // Si la solicitud fue realizada pero no hay respuesta del servidor
         setErrorMessage("No se recibió respuesta del servidor.");
         setErrorDetails(`Detalles del error: ${error.request}`);
       } else {
-        // Otro tipo de error
         setErrorMessage("Hubo un problema al realizar la solicitud.");
         setErrorDetails(`Detalles del error: ${error.message}`);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchViajes();
-  }, [transportistaId]);  // Se ejecuta cada vez que cambie transportistaId
+  }, [idTransportista]);
 
   const siguienteViaje = () => {
     if (indiceActual < viajes.length - 1) {
@@ -93,7 +85,6 @@ const Viaje = () => {
   const aceptarViaje = () => {
     navigate('/GuiaServicio');
   };
-
 
   if (errorMessage) {
     return (
@@ -139,7 +130,29 @@ const Viaje = () => {
 
           <div className={styles.card}>
             <p className={styles.titulo}>Viaje {viaje.id}</p>
-            <div className={styles.imagen}>Imagen carga</div>
+
+            {/* Mostrar Imágenes del Viaje */}
+            <div className={styles.imagen}>
+              {Array.isArray(viaje.imagenes) && viaje.imagenes.length > 0 ? (
+                <div className={styles.imageGrid}>
+                  {viaje.imagenes.map((url, idx) =>
+                    url?.trim() !== "" ? (
+                      <ModalImage
+                        key={idx}
+                        small={url}
+                        large={url}
+                        alt={`Evidencia ${idx + 1}`}
+                        hideDownload={false}
+                        hideZoom={false}
+                        showRotate={true}
+                      />
+                    ) : null
+                  )}
+                </div>
+              ) : (
+                <p>No hay imágenes disponibles.</p>
+              )}
+            </div>
 
             <p className={styles.origenDestino}>Origen:</p>
             <div className={styles.labelInfo}>{viaje.origen || "Por definir..."}</div>

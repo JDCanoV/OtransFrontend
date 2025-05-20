@@ -2,7 +2,7 @@ import React, { useState } from "react"; // Importa React y el hook useState
 import "./registerempresa.css"; // Importa el archivo CSS para estilos
 import { useNavigate } from "react-router-dom"; // Importa el hook useNavigate para redireccionar
 import axios from "../config/axiosConfig"; // Importa la configuración de Axios para realizar solicitudes HTTP
-
+import Header from "../Header/Header";
 const RegisterEmpresa = () => {
   // Estado inicial para los datos del formulario
   const [formData, setFormData] = useState({
@@ -99,6 +99,8 @@ const RegisterEmpresa = () => {
   };
 
   return (
+      <>
+      <Header />
     <div className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Registro de Empresa</h2>
@@ -274,6 +276,7 @@ const RegisterEmpresa = () => {
         </button>
       </form>
     </div>
+     </>
   );
 };
 
