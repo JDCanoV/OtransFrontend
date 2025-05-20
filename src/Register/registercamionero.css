@@ -3,7 +3,7 @@
     max-width: 800px; /* Aumenta el ancho para acomodar dos columnas */
     margin: 2rem auto; /* Centra el formulario vertical y horizontalmente */
     padding: 2rem; /* Espaciado interno del formulario */
-    background-color: #f9f9f9; /* Fondo claro */
+    background-color: #f7f3eb; /* Fondo claro */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
     font-family: Arial, sans-serif; /* Fuente del formulario */
@@ -35,7 +35,7 @@
 .form-group input[type="password"] {
     width: 100%; /* Ocupa todo el ancho del contenedor */
     padding: 0.75rem; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde gris claro */
+    border: 1px solid #f7f3eb; /* Borde gris claro */
     border-radius: 4px; /* Bordes redondeados */
     font-size: 1rem; /* Tamaño de fuente */
 }
@@ -61,7 +61,7 @@
     border-radius: 4px; /* Bordes redondeados */
     font-size: 1rem; /* Tamaño de fuente */
     background-color: #ff9800; /* Fondo naranja */
-    color: white; /* Texto blanco */
+    color: #f7f3eb; /* Texto blanco */
     text-align: center; /* Centra el texto */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave para hover */
@@ -78,7 +78,7 @@
     display: flex; /* Usa flexbox para alinear los elementos */
     align-items: center; /* Alinea verticalmente los elementos */
     justify-content: space-between; /* Espacia los elementos horizontalmente */
-    background-color: #e6ffe6; /* Fondo verde claro */
+    background-color: #f7f3eb; /* Fondo verde claro */
     border: 1px solid #28a745; /* Borde verde */
     border-radius: 4px; /* Bordes redondeados */
     padding: 0.75rem; /* Espaciado interno */
@@ -105,8 +105,8 @@
 .register-button {
     width: 100%; /* Ocupa todo el ancho del contenedor */
     padding: 0.75rem; /* Espaciado interno */
-    background-color: #007bff; /* Fondo azul */
-    color: white; /* Texto blanco */
+    background-color:#333; /* Fondo azul */
+    color: #f7f3eb; /* Texto blanco */
     border: none; /* Sin borde */
     border-radius: 4px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
@@ -117,7 +117,7 @@
 
 /* Efecto hover para el botón de envío */
 .register-button:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+    background-color: #333; /* Azul más oscuro al pasar el mouse */
 }
 
 /* Mensaje de error */

@@ -2,7 +2,7 @@ import React, { useState } from "react"; // Importa React y el hook useState
 import "./registercamionero.css"; // Importa el archivo CSS para estilos
 import { useNavigate } from "react-router-dom"; // Importa el hook useNavigate para redireccionar
 import axios from "../config/axiosConfig"; // Importa la configuración de Axios para realizar solicitudes HTTP
-
+import Header from "../Header/Header";
 const RegisterCamionero = () => {
   // Estado inicial para los datos del formulario
   const [formData, setFormData] = useState({
@@ -92,6 +92,8 @@ const RegisterCamionero = () => {
   };
 
   return (
+   <>
+      <Header />
     <div className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Registro de Camionero</h2>
@@ -269,6 +271,7 @@ const RegisterCamionero = () => {
         </button>
       </form>
     </div>
+     </>
   );
 };
 
