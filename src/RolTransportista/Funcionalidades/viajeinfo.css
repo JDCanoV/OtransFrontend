@@ -1,28 +1,26 @@
-/* src/RolEmpresa/Funcionalidades/SolicitarServicio.css */
-
 /* Contenedor principal */
 .solicitar-servicio-container {
     padding: 100px 20px 20px;
     background: #f5f5f5;
     min-height: 100vh;
-  }
-  
-  .menu {
+}
+
+.menu {
     text-align: center;
     margin-bottom: 20px;
-  }
-  .menu label {
+}
+.menu label {
     font-size: 2rem;
     font-weight: 600;
     color: #333;
-  }
-  
-  .form-and-map-container {
+}
+
+.form-and-map-container {
     display: flex;
     gap: 20px;
-  }
-  
-  .form-container {
+}
+
+.form-container {
     flex: 1;
     background: #fff;
     padding: 20px;
@@ -31,23 +29,23 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .input-group input,
-  .input-group select,
-  .input-group textarea {
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
-  }
-  
-  .input-group textarea {
+}
+
+.input-group textarea {
     resize: vertical;
     min-height: 80px;
-  }
-  
-  .solicitar-btn {
+}
+
+.solicitar-btn {
     margin-top: 10px;
     padding: 12px;
     background: #276ef1;
@@ -56,27 +54,27 @@
     border-radius: 6px;
     font-size: 1.1rem;
     cursor: pointer;
-  }
-  .solicitar-btn:hover {
+}
+.solicitar-btn:hover {
     background: #1f5bcc;
-  }
-  
-  /* Mapa */
-  .map-container {
+}
+
+/* Mapa */
+.map-container {
     flex: 2;
     position: relative;
     border-radius: 12px;
     overflow: hidden;
     background: #e0e0e0;
     height: 500px;
-  }
-  
-  .map-element {
+}
+
+.map-element {
     width: 100%;
     height: 100%;
-  }
-  
-  .loading-overlay {
+}
+
+.loading-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -89,22 +87,22 @@
     font-size: 1.5rem;
     z-index: 1000;
     border-radius: 12px;
-  }
-  
-  /* Botón animado “Subir Archivos” */
-  .file-upload {
+}
+
+/* Botón animado “Subir Archivos” */
+.file-upload {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  
-  .file-upload label {
+}
+
+.file-upload label {
     font-size: 1rem;
     font-weight: 500;
     color: #060606;
-  }
-  
-  .button {
+}
+
+.button {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -118,54 +116,54 @@
     transition-duration: 0.3s;
     position: relative;
     overflow: hidden;
-  }
-  
-  .svgIcon {
+}
+
+.svgIcon {
     width: 12px;
     transition-duration: 0.3s;
-  }
-  
-  .svgIcon path {
+}
+
+.svgIcon path {
     fill: white;
-  }
-  
-  .button:hover {
+}
+
+.button:hover {
     width: 140px;
     border-radius: 50px;
     background-color: #ffc6a0;
-  }
-  
-  .button:hover .svgIcon {
+}
+
+.button:hover .svgIcon {
     transform: translateY(-200%);
-  }
-  
-  .button::before {
+}
+
+.button::before {
     position: absolute;
     bottom: -20px;
     content: "Subir Archivos";
     color: white;
     font-size: 0px;
     transition-duration: 0.3s;
-  }
-  
-  .button:hover::before {
+}
+
+.button:hover::before {
     font-size: 13px;
     opacity: 1;
     bottom: unset;
     transition-duration: 0.3s;
-  }
-  
-  /* Lista de archivos */
-  .file-list {
+}
+
+/* Lista de archivos */
+.file-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
     list-style: none;
     padding: 0;
-  }
-  
-  .file-item {
+}
+
+.file-item {
     display: flex;
     align-items: center;
     background: #fff;
@@ -173,17 +171,17 @@
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 0.9rem;
-  }
-  
-  .file-name {
+}
+
+.file-name {
     margin-right: 6px;
     max-width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  
-  .remove-btn {
+}
+
+.remove-btn {
     background: transparent;
     border: none;
     font-size: 1.2rem;
@@ -191,11 +189,12 @@
     color: #333;
     cursor: pointer;
     padding: 0;
-  }
-  .remove-btn:hover {
+}
+.remove-btn:hover {
     color: #f00;
-  }
-  #checklist {
+}
+
+#checklist {
     --background: #fff;
     --text: #414856;
     --check: #4f29f0;
@@ -209,14 +208,14 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  
-  #checklist div {
+}
+
+#checklist div {
     display: flex;
     align-items: center;
-  }
-  
-  #checklist input[type="checkbox"] {
+}
+
+#checklist input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 20px;
@@ -226,26 +225,26 @@
     margin-right: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
-  }
-  
-  #checklist label {
+}
+
+#checklist label {
     color: var(--text);
     cursor: pointer;
     font-size: 16px;
     display: inline-block;
     transition: color 0.3s ease;
-  }
-  
-  #checklist input[type="checkbox"]:checked {
+}
+
+#checklist input[type="checkbox"]:checked {
     background-color: var(--check);
     border-color: var(--check);
-  }
-  
-  #checklist input[type="checkbox"]:checked + label {
+}
+
+#checklist input[type="checkbox"]:checked + label {
     color: var(--disabled);
-  }
-  
-  #checklist input[type="checkbox"]:checked + label::before {
+}
+
+#checklist input[type="checkbox"]:checked + label::before {
     content: "\2713";  /* Check mark */
     color: var(--background);
     font-size: 18px;
@@ -253,14 +252,14 @@
     left: 4px;
     top: 0;
     font-weight: bold;
-  }
-  
-  #checklist input[type="checkbox"]:focus {
+}
+
+#checklist input[type="checkbox"]:focus {
     outline: none;
     box-shadow: 0 0 3px 3px rgba(79, 41, 240, 0.4);
-  }
-  
-  #checklist label::before {
+}
+
+#checklist label::before {
     content: "";
     position: absolute;
     top: 0;
@@ -270,17 +269,43 @@
     background-color: transparent;
     border-radius: 50%;
     transition: background-color 0.3s ease;
-  }
-  
-  .image-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 100px;
-  }
-  
-  .image {
-    max-width: 1000px;
-    max-height: 1000px;
-    object-fit: cover;
-  }
-  
+}
+
+/* Estilo para las imágenes dentro del formulario */
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajuste responsivo */
+    gap: 10px;
+    padding: 10px 0;
+    max-width: 25%;
+    margin: 0 auto;
+}
+
+.image-container img {
+  max-width: 2500px;
+  max-height: 2500px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* Limitar tamaño máximo y centrar imagen grande en el modal de react-modal-image */
+.ReactModal__Content img {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
