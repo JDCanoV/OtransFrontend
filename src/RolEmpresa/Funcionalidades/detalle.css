@@ -56,3 +56,37 @@
   .formulario-detalle button:hover {
     background-color: #e68900;
   }
+  .image-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px 0;
+  max-width: 80%; /* Puedes ajustar a 100% si quieres más ancho */
+  margin: 0 auto;
+}
+
+.image-container img {
+  max-width: 2500px;
+  max-height: 2500px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+}
+
+.ReactModal__Content img {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

@@ -1,13 +1,14 @@
 /* Contenedor principal del formulario */
 .register-container {
-    max-width: 800px; /* Aumenta el ancho para acomodar dos columnas */
-    margin: 2rem auto; /* Centra el formulario vertical y horizontalmente */
-    padding: 2rem; /* Espaciado interno del formulario */
-    background-color: #f9f9f9; /* Fondo claro */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
-    font-family: Arial, sans-serif; /* Fuente del formulario */
+  max-width: 800px; /* Aumenta el ancho para acomodar dos columnas */
+  padding: 2rem; /* Espaciado interno del formulario */
+  background-color: #f9f9f9; /* Fondo claro */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  font-family: Arial, sans-serif; /* Fuente del formulario */
+  margin-top: 200px; /* Separación desde el header */
 }
+
 
 /* Título del formulario */
 .register-form h2 {

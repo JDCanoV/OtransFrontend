@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #f7f3eb;
   padding: 2rem;
 }
 
@@ -25,8 +25,8 @@
 
 /* Estilo base para las tarjetas */
 .selection-card {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #f7f3eb;
+  border: 1px solid #f7f3eb;
   border-radius: 8px;
   padding: 2rem;
   width: 300px;
@@ -61,22 +61,22 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: white;
+  color: #f7f3eb;
   transition: background-color 0.3s ease;
 }
 
 .selection-card.camionero .selection-button {
-  background-color: #007bff;
+  background-color: #ff8c00;
 }
 
 .selection-card.camionero .selection-button:hover {
-  background-color: #0056b3;
+  background-color: #ff8c00;
 }
 
 .selection-card.empresa .selection-button {
-  background-color: #28a745;
+  background-color: #ff8c00;
 }
 
 .selection-card.empresa .selection-button:hover {
-  background-color: #1e7e34;
+  background-color: #ff8c00;
 }

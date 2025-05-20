@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import HeaderEmpresa from "../Header/HeaderEmpresa";
+import Header from "../Header/Header";
 import styles from './Ofertas.module.css';
+import Joel from '../../src/Imagenes/Joel.png';
+import tatis from '../../src/Imagenes/tatis.jpeg';
+import furgon from '../../src/Imagenes/furgon.jpeg';
 
+import { useNavigate } from "react-router-dom";
 const Ofertas = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+ const navigate = useNavigate();
   const images = [
     "imagen1.jpg", "imagen2.jpg", "imagen3.jpg", "imagen4.jpg",
     "imagen5.jpg", "imagen6.jpg", "imagen7.jpg", "imagen8.jpg",
@@ -24,7 +28,7 @@ const Ofertas = () => {
 
   return (
     <>
-      <HeaderEmpresa />
+      <Header />
       <div className={styles.container}>
         <h2 className={styles.title}>Ofertas de OTRANS</h2>
         <p className={styles.subtitle}>Descubre los beneficios que tenemos para Empresas y transportistas</p>
@@ -39,13 +43,13 @@ const Ofertas = () => {
             </button>
             <div className={styles.slider}>
               <div className={styles.imageCard}>
-                <img src={`/imagenes/${images[currentIndex]}`} alt="Carro 1" className={styles.image} />
+                <img src={Joel} alt="Carro 1" className={styles.image} />
               </div>
               <div className={styles.imageCard}>
-                <img src={`/imagenes/${images[(currentIndex + 1) % totalImages]}`} alt="Carro 2" className={styles.image} />
+                <img src={tatis} alt="Carro 2" className={styles.image} />
               </div>
               <div className={styles.imageCard}>
-                <img src={`/imagenes/${images[(currentIndex + 2) % totalImages]}`} alt="Carro 3" className={styles.image} />
+                <img src={furgon} alt="Carro 3" className={styles.image} />
               </div>
             </div>
             <button className={styles.arrowButton} onClick={nextImage}>
@@ -54,10 +58,20 @@ const Ofertas = () => {
           </div>
         </div>
 
-        <div className={styles.registerContainer}>
-          <button className={styles.registerButton}>Regístrate para hacer viajes</button>
-          <button className={styles.registerButton}>Regístrate para conducir</button>
-        </div>
+        <div className=".registerContainer">
+      <button 
+        className="btn-primary" 
+        onClick={() => navigate("/RegisterTransportista")}
+      >
+        Registrate para conducir
+      </button>
+      <button 
+        className="btn-secondary" 
+        onClick={() => navigate("/login")}
+      >
+        Inicia sesion 
+      </button>
+    </div>
       </div>
     </>
   );

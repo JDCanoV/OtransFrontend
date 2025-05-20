@@ -88,7 +88,7 @@ function Login() {
             <button
               type="button"
               className="login-btn secondary"
-              onClick={() => navigate("/registerselection")}
+              onClick={() => navigate("/Register")}
             >
               Registrarse
             </button>

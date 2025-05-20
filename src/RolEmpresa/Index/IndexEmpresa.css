@@ -17,6 +17,41 @@
 .hero-text {
   max-width: 60%;
   padding-right: 50px; /* Añadimos espacio a la derecha */
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.sub {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start; /* Alinea a la izquierda */
+}
+
+.btn-primary,
+.btn-secondary {
+  background-color: #000;
+  color: #f7f3eb;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  width: max-content; /* Que no se estiren */
+}
+
+.btn-secondary {
+  background-color: #222;
 }
 
 .hero-image {
@@ -27,55 +62,16 @@
   padding-left: 20px; /* Añadimos espacio a la izquierda */
 }
 
-.hero-text h2 {
-  font-size: 28px;
-  margin: 5px 0;
-  text-align: left;
-}
-
-.hero-text span {
-  font-weight: bold;
-  font-size: 32px;
-}
-
-.sub {
-  font-weight: bold;
-  margin-top: 15px;
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .description {
   margin-top: 10px;
   font-size: 14px;
   max-width: 500px;
-}
-
-.buttons {
-  margin-top: 20px;
-}
-
-.btn-primary,
-.btn-secondary {
-  background-color: #000;
-  color: #f7f3eb;
-  border: none;
-  padding: 12px 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-secondary {
-  background-color: #222;
-}
-
-.image-placeholder {
-  width: 200px;
-  height: 200px;
-  background-color: #f7f3eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
 }
 
 .requirements {
