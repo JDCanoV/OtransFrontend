@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./registerselection.css"; // Archivo CSS para estilos personalizados
-
+import Header from "../Header/Header";
 const RegisterSelection = () => {
   const navigate = useNavigate();
 
@@ -14,6 +14,8 @@ const RegisterSelection = () => {
   };
 
   return (
+    <>
+      <Header/>
     <div className="register-selection-container">
       <h2>¿Cómo deseas registrarte?</h2>
       <div className="selection-cards">
@@ -42,6 +44,7 @@ const RegisterSelection = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

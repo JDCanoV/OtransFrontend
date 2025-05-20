@@ -103,7 +103,7 @@
   margin-top: 50px;
 }
 
-.registerButton {
+.btn-primary {
   background-color: #f48c06;
   color: white;
   border: none;
@@ -115,6 +115,6 @@
   transition: background-color 0.3s;
 }
 
-.registerButton:hover {
+.btn-secondary {
   background-color: #f35520;
 }
