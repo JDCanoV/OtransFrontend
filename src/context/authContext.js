@@ -38,21 +38,10 @@ export const AuthProvider = ({ children }) => {
 
       if (response.data.respuesta === 1) {
         const { token, idRol, usuario } = response.data;  // Obtener todo el objeto 'usuario'
-        
-        console.log("✅ Nuevo token recibido:", token);  // Log para verificar el token
-        console.log("✅ Usuario recibido:", usuario);  // Log para verificar los detalles del usuario
-
         // Guardar el usuario completo sin cifrar
         const userData = { token, idRol, usuario }; 
         sessionStorage.setItem("user", JSON.stringify(userData));  // Guardamos el usuario sin cifrar
         setUser(userData); // Actualiza el contexto con los datos del usuario
-
-        // Si el usuario seleccionó recordar sesión, guardamos en localStorage
-        if (remember) {
-          localStorage.setItem("rememberSession", "true");
-        } else {
-          localStorage.removeItem("rememberSession");
-        }
 
         return response;
       } else {
@@ -71,8 +60,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setUser(null);
       sessionStorage.removeItem("user");
-      localStorage.removeItem("rememberSession");
-      await axios.post("/auth/logout", {}, { withCredentials: true });
+      //await axios.post("/auth/logout", {}, { withCredentials: true });
     } catch (error) {
       console.error("Error durante logout", error);
     }

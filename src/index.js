@@ -54,17 +54,14 @@ root.render(
           <Route path="/detalle/:idViaje" element={<Detalle viajes={Viajes} />} />
           <Route path="/viajes" element={<Viajes />} />
           <Route path="/solicitarServicio" element={<SolicitarServicio />} />
-  <Route path="/usuariosPendientes" element={<UsuariosPendientes />} />
-            <Route path="/usuarioDetalle/:id" element={<UsuarioDetalle />} />
-               
-            <Route path="/ofrecemos" element={<Ofrecemos />} />
-            <Route path="/ofertas" element={<Ofertas />} />
-          {/* Rutas protegidas para 'empresa' */}
-          <Route element={<PrivateRoute allowedRoles={[3]} />}>
-       
-            <Route path="/ofrecemos" element={<Ofrecemos />} />
-            <Route path="/ofertas" element={<Ofertas />} />
-            <Route path="/calificaciones" element={<Calificaciones />} />
+          <Route path="/usuariosPendientes" element={<UsuariosPendientes />} />
+          <Route path="/usuarioDetalle/:id" element={<UsuarioDetalle />} />     
+          <Route path="/ofrecemos" element={<Ofrecemos />} />
+          <Route path="/ofertas" element={<Ofertas />} />
+          <Route element={<PrivateRoute allowedRoles={[3]} />}>       
+          <Route path="/ofrecemos" element={<Ofrecemos />} />
+          <Route path="/ofertas" element={<Ofertas />} />
+          <Route path="/calificaciones" element={<Calificaciones />} />
           </Route>
 
           {/* Rutas protegidas para 'transportista' */}

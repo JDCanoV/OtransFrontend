@@ -1,69 +1,154 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./login.css";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import HeaderLogin from "../Header/HeaderLogin"; // Asegúrate de que este sea el nombre correcto
+import HeaderLogin from "../Header/HeaderLogin";
+import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL || "https://localhost:7229";
+
+const mapUrlKey = (nombreDocumento) => {
+  switch (nombreDocumento) {
+    case "Documento Identidad":
+      return "archiDocu";
+    case "NIT":
+      return "nit";
+    case "Licencia Conducción":
+      return "licencia";
+    case "Soat":
+      return "soat";
+    case "Técnico Mecánica":
+      return "tecnomecanico";
+    case "Licencia Tránsito":
+      return "licenciaTransito";
+    default:
+      return "";
+  }
+};
+
+function maskPassword(pwd) {
+  const rev = pwd.split("").reverse().join("");
+  return btoa(rev);
+}
 
 function Login() {
-  const { login, setLoading } = useAuth(); // Usamos las funciones del contexto
+  const { login, setLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [popupMessage, setPopupMessage] = useState("");
+  const [missing, setMissing] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [files, setFiles] = useState({});
+  const [loginUserId, setLoginUserId] = useState(null);
+  const [messagePopup, setMessagePopup] = useState(null); // {type, text}
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    setPopupMessage("");
+  // Referencia al modal para hacer scroll
+  const modalRef = useRef(null);
 
-    if (email === "" || password === "") {
-      setError("Por favor completa todos los campos.");
-      return;
+  // Cuando showModal cambia a true, hace scroll suave al modal
+  useEffect(() => {
+    if (showModal && modalRef.current) {
+      modalRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+  }, [showModal]);
 
-    setLoading(true); // Establecer el loading en true mientras hacemos la solicitud
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  setError("");
+  if (!email || !password) {
+    setError("Por favor completa todos los campos.");
+    return;
+  }
+  setLoading(true);
+  const pwdMask = maskPassword(password);
+
+  try {
+    const response = await login(email, pwdMask, false);
+
+    if (response.status === 200) {
+      const idRol = response.data.idRol;
+      let redirectPath = "";
+
+      if (idRol === 1) {
+        redirectPath = "/indexAdmin";
+      } else if (idRol === 3) {
+        redirectPath = "/indexEmpresa";
+      } else if (idRol === 2) {
+        redirectPath = "/indexTransportista";
+      } else {
+        setError("Rol de usuario no reconocido.");
+        return;
+      }
+
+      const userId = response.data.usuario.idUsuario;
+      setLoginUserId(userId);
+
+      // Obtener detalle y revisar documentos faltantes
+      const { data: detalle } = await axios.get(`${API}/User/detalle/${userId}`);
+
+      const faltantes = detalle.documentos
+        .filter((d) => !detalle[mapUrlKey(d.nombreDocumento)])
+        .map((d) => d.nombreDocumento);
+
+      if (faltantes.length > 0) {
+        setMissing(faltantes);
+        setShowModal(true);
+      } else {
+        navigate(redirectPath);
+      }
+    } else {
+      setError(response.data.mensaje || "Error al iniciar sesión.");
+    }
+  } catch (error) {
+    setError("Error al iniciar sesión.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  const handleReupload = async (e) => {
+    e.preventDefault();
+    if (!loginUserId) return;
+
+    const form = new FormData();
+    form.append("IdUsuario", loginUserId);
+    missing.forEach((doc, i) => {
+      form.append(`Documentos[${i}].NombreDocumento`, doc);
+      form.append(`Documentos[${i}].Archivo`, files[doc]);
+    });
 
     try {
-      const response = await login(email, password, false); // Usamos la función de login del contexto
-
-      if (response.status === 200) {
-        navigate("/indexEmpresa"); // Redirigir al dashboard
-      } else {
-        setError(response.data.mensaje || "Error al iniciar sesión.");
-      }
-    } catch (error) {
-      setError("Error al iniciar sesión.");
-    } finally {
-      setLoading(false); // Desactivar el loading
+      await axios.post(`${API}/User/reupload-documentos`, form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setMessagePopup({
+        type: "success",
+        text: "Documentos subidos correctamente. Por favor ingresa de nuevo.",
+      });
+      setShowModal(false);
+      setMissing([]);
+      setFiles({});
+    } catch (err) {
+      console.error(err);
+      setMessagePopup({ type: "error", text: "Error al subir los documentos" });
     }
   };
-  
-  // useEffect para manejar el cierre del popup después de 4 segundos
-  useEffect(() => {
-    if (popupMessage) {
-      const timer = setTimeout(() => {
-        setPopupMessage(""); // Limpiamos el mensaje del popup
-      }, 3000); // 3 segundos
-
-      return () => clearTimeout(timer); // Limpiar el timer si el mensaje cambia
-    }
-  }, [popupMessage]);
 
   return (
     <>
-      <HeaderLogin /> {/* Mostrar solo en Login */}
+      <HeaderLogin />
       <div className="login-container">
         <h2>Iniciar Sesión</h2>
         <form className="login-form" onSubmit={handleLogin}>
           <label htmlFor="email">Correo electrónico</label>
           <input
-            type="email"  // Cambié el tipo de input a email
+            type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}  // Actualizamos el estado de email
-            required  // Añadí un requerimiento de campo obligatorio
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <label htmlFor="password">Contraseña</label>
@@ -72,11 +157,13 @@ function Login() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required  // Añadí un requerimiento de campo obligatorio
+            required
           />
 
           {error && <p className="error">{error}</p>}
+
           <button type="submit">Iniciar sesión</button>
+
           <div className="login-links">
             <a href="/recuperar" className="forgot-password">
               ¿Olvidaste tu contraseña?
@@ -88,18 +175,58 @@ function Login() {
             <button
               type="button"
               className="login-btn secondary"
-              onClick={() => navigate("/Register")}
+              onClick={() => navigate("/registerselection")}
             >
               Registrarse
             </button>
           </div>
         </form>
 
-        {popupMessage && (
-          <div className="popup">
-            <div className="popup-content">
-              <p>{popupMessage}</p>
+        {showModal && (
+          <div
+            ref={modalRef}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-1000"
+          >
+            <div className="modal-docs">
+              <h3>Documentos Faltantes</h3>
+              <form onSubmit={handleReupload} className="space-y-4">
+                {missing.map((doc) => (
+                  <div key={doc}>
+                    <label className="block font-medium mb-1">{doc}:</label>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) =>
+                        setFiles((f) => ({ ...f, [doc]: e.target.files[0] }))
+                      }
+                      required
+                    />
+                  </div>
+                ))}
+                <div className="flex justify-end mt-4">
+                  <button type="submit" className="upload-btn">
+                    Subir Documentos
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className="cancel-btn"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
             </div>
+          </div>
+        )}
+
+        {messagePopup && (
+          <div
+            className="message-popup"
+            onClick={() => setMessagePopup(null)}
+            role="alert"
+          >
+            <div className="message-popup-content">{messagePopup.text}</div>
           </div>
         )}
       </div>
@@ -108,3 +235,4 @@ function Login() {
 }
 
 export default Login;
+

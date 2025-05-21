@@ -3,10 +3,15 @@ import { useNavigate, Link } from "react-router-dom";
 import './HeaderAdmi.css';
 import logo from '../../src/Imagenes/Otrans.png';
 import avatarIcon from '../../src/Imagenes/AvatarIcon.png';
+import { useAuth } from "../context/authContext";
 
 const HeaderAdmi = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const correo = user?.usuario?.correo;
+  const nombre = user?.usuario?.nombre;
+  const apellido = user?.usuario?.apellido;
 
   const navigate = useNavigate();
 
@@ -53,14 +58,25 @@ const HeaderAdmi = () => {
                 <div className="avatar-header">
                   <img src={avatarIcon} alt="Avatar" className="avatar-circle" />
                   <div className="avatar-info">
-                    <p className="avatar-name">Carol Juliana</p>
-                    <p className="avatar-email">caroljulianarianogamboa@gmail.com</p>
+                    <p className="avatar-name">
+                        {nombre && apellido ? `${nombre} ${apellido}` : "Nombre no disponible"}
+                      </p>
+                    <p className="avatar-email">{correo || "Correo no disponible"}</p>
                   </div>
                 </div>
                 <hr />
                 <Link to="/historial-pagos" className="modal-item">Historial de Pagos</Link>
                 <Link to="/gestion-cuenta" className="modal-item">Gestión de Cuenta</Link>
-                <button className="modal-item">Cerrar Sesión</button>
+                <Link
+                                    to="#"
+                                    className="modal-item"
+                                    onClick={async () => {
+                                      await logout();  // Llamar al logout desde el AuthContext
+                                      navigate("/");  // Redirigir a la página de login
+                                    }}
+                                  >
+                                    Cerrar Sesión
+                                  </Link>
               </div>
             )}
           </div>

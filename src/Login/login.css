@@ -121,3 +121,84 @@
     transform: translateY(0);
   }
 }
+/* Popup para mensajes */
+.message-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 165, 0, 0.3); /* naranja semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.message-popup-content {
+  background-color: #ff7243; /* naranja principal */
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(255, 114, 67, 0.5);
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Modal para recarga documentos con estilo naranja */
+.modal-docs {
+  background-color: #fff3e6; /* fondo claro naranja */
+  color: #ff7243;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 114, 67, 0.3);
+  width: 380px;
+  max-width: 90vw;
+}
+
+.modal-docs h3 {
+  color: #ff7243;
+  margin-bottom: 15px;
+}
+
+.modal-docs input[type="file"] {
+  border: 1px solid #ff7243;
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.modal-docs button.upload-btn {
+  background-color: #ff7243;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.modal-docs button.upload-btn:hover {
+  background-color: #f35520;
+}
+
+.modal-docs button.cancel-btn {
+  background-color: #d46a00;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-docs button.cancel-btn:hover {
+  background-color: #b25100;
+}

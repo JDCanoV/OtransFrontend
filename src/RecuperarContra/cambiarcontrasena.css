@@ -1,0 +1,92 @@
+/* CambiarContrasena.css */
+
+.change-password-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.change-password-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.change-password-form label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.change-password-form input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.change-password-form input:disabled {
+  background-color: #f5f5f5;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle {
+  cursor: pointer;
+  background: transparent; /* ← Quita el color de fondo */
+  border: none;            /* ← Quita el borde */
+  font-size: 20px;         /* Ajusta tamaño del emoji si deseas */
+  padding: 0;              /* Quita relleno */
+  margin-left: 8px;        /* Espacio entre input y el emoji */
+  line-height: 1;
+}
+
+
+.change-password-form .message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.change-password-form button {
+  padding: 12px;
+  background-color: #e57143;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.change-password-form button:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.change-password-form button:hover {
+  background-color: #45a049;
+}
+
+.change-password-form .password-toggle {
+  background: transparent !important;
+  border: none !important;
+  color: black; /* o hereda automáticamente */
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+
