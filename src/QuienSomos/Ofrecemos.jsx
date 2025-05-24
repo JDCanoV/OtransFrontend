@@ -81,11 +81,11 @@ const Ofrecemos = () => {
              
             </div>
             <div className={styles.card}>
-              <img src={sostenibilidad} alt="Equipo 2" />
+              <img src={Grupo} alt="Equipo 2" />
              
             </div>
             <div className={styles.card}>
-              <img src={sostenibilidad}alt="Equipo 3" />
+              <img src={Grupo}alt="Equipo 3" />
              
             </div>
           </div>

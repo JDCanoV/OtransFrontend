@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../config/axiosConfig"; // Ya incluye el token con el interceptor
+import axios from "../../config/axiosConfig"; // Ya incluye token con interceptor
 import HeaderEmpresa from "../../Header/HeaderEmpresa";
 import styles from './Viajes.module.css';
 
@@ -17,23 +17,19 @@ const Viajes = () => {
   const [reseña, setReseña] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Traer datos del backend
+  // Obtener viajes al montar componente
   useEffect(() => {
     const obtenerViajes = async () => {
       try {
         const user = JSON.parse(sessionStorage.getItem("user"));
-        const idUsuario = user?.usuario?.idUsuario;  // Obtener el idUsuario del sessionStorage
+        const idUsuario = user?.usuario?.idUsuario;
 
-        console.log("idUsuario desde sessionStorage:", idUsuario);
-        
         if (!idUsuario) {
           console.error("No se encontró el idUsuario en los datos del usuario");
           return;
         }
 
-        const response = await axios.get(`/Empresa/listarViaje/${idUsuario}`);  // Pasamos el idUsuario como parámetro a la API
-        console.log("🔄 Datos de viajes recibidos:", response.data);
-
+        const response = await axios.get(`/Empresa/listarViaje/${idUsuario}`);
         const viajesDesdeApi = response.data.map(v => ({
           id: v.idViaje,
           origen: v.origen,
@@ -51,17 +47,34 @@ const Viajes = () => {
     };
 
     obtenerViajes();
-  }, []); // Se ejecuta una vez cuando el componente se monta
+  }, []);
 
-  // Asocia los valores de los estados a sus respectivos nombres
   const mapearEstado = (idEstado) => {
     switch (idEstado) {
-      case 4: return "solicitados";    // Estado 2 es Solicitado
-      case 5: return "aceptados";      // Estado 3 es Aceptado
-      case 6: return "recoleccion";   // Estado 4 es Recolección
-      case 7: return "encamino";      // Estado 5 es En Camino
-      case 8: return "finalizado";    // Estado 6 es Finalizado
-      default: return "pendiente";    // Cualquier otro valor es pendiente
+      case 4: return "solicitados";
+      case 5: return "aceptados";
+      case 6: return "recoleccion";
+      case 7: return "encamino";
+      case 8: return "finalizado";
+      default: return "pendiente";
+    }
+  };
+
+  // Llama al backend para eliminar viaje y actualiza frontend
+  const eliminarViaje = async () => {
+    if (!viajeAEliminar) return;
+    try {
+      await axios.delete(`/Empresa/${viajeAEliminar}`);
+      setViajes(viajes.filter(v => v.id !== viajeAEliminar));
+      setMostrarConfirmacion(false);
+      setViajeAEliminar(null);
+
+      if (indiceActual >= viajes.length - 1) {
+        setIndiceActual(Math.max(0, viajes.length - 2));
+      }
+    } catch (error) {
+      console.error("Error eliminando viaje:", error);
+      // Aquí puedes mostrar error al usuario si quieres
     }
   };
 
@@ -70,14 +83,9 @@ const Viajes = () => {
     setMostrarConfirmacion(true);
   };
 
-  const cancelarEliminacion = () => setMostrarConfirmacion(false);
-
-  const eliminarViaje = () => {
-    setViajes(viajes.filter((viaje) => viaje.id !== viajeAEliminar));
+  const cancelarEliminacion = () => {
     setMostrarConfirmacion(false);
-    if (indiceActual >= viajes.length - 1) {
-      setIndiceActual(Math.max(0, viajes.length - 2));
-    }
+    setViajeAEliminar(null);
   };
 
   const verMas = (viajeId) => navigate(`/detalle/${viajeId}`);
@@ -117,25 +125,33 @@ const Viajes = () => {
 
         {/* Tabs */}
         <div className={styles.tabs}>
-          <button className={`${styles.tabButton} ${vistaActual === 'solicitados' ? styles.activeTab : ''}`} onClick={() => setVistaActual('solicitados')}>
+          <button
+            className={`${styles.tabButton} ${vistaActual === 'solicitados' ? styles.activeTab : ''}`}
+            onClick={() => setVistaActual('solicitados')}
+          >
             Viajes Solicitados
           </button>
-          <button className={`${styles.tabButton} ${vistaActual === 'aceptados' ? styles.activeTab : ''}`} onClick={() => setVistaActual('aceptados')}>
+          <button
+            className={`${styles.tabButton} ${vistaActual === 'aceptados' ? styles.activeTab : ''}`}
+            onClick={() => setVistaActual('aceptados')}
+          >
             Viajes Aceptados
           </button>
-          <button className={`${styles.tabButton} ${vistaActual === 'estados' ? styles.activeTab : ''}`} onClick={() => setVistaActual('estados')}>
+          <button
+            className={`${styles.tabButton} ${vistaActual === 'estados' ? styles.activeTab : ''}`}
+            onClick={() => setVistaActual('estados')}
+          >
             Estados de mi servicio
           </button>
         </div>
 
-        {/* Contenido de la vista seleccionada */}
+        {/* Contenido */}
         <div className={styles.content}>
           {vistaActual === 'solicitados' && (
             <div className={styles.viajesContainer}>
               {viajes.filter(viaje => viaje.estado === "solicitados").map((viaje) => (
                 <div key={viaje.id} className={styles.card}>
                   <p className={styles.titulo}>Viaje {viaje.id}</p>
-                  
                   <p className={styles.origenDestino}>Origen:</p>
                   <div className={styles.labelInfo}>{viaje.origen || "Por definir..."}</div>
                   <p className={styles.origenDestino}>Destino:</p>
@@ -151,35 +167,30 @@ const Viajes = () => {
 
           {vistaActual === 'aceptados' && (
             <div className={styles.viajesContainer}>
-            {viajes.filter(viaje => viaje.estado === "aceptados").map((viaje) => (
-              <div key={viaje.id} className={styles.card}>
-                <p className={styles.titulo}>Viaje {viaje.id}</p>
-                
-          
-                {/* Mostrar Origen y Destino con el texto antes */}
-                <div className={styles.labelInfo}>
-                  <strong>Origen:</strong> {viaje.origen || "Por definir..."}
+              {viajes.filter(viaje => viaje.estado === "aceptados").map((viaje) => (
+                <div key={viaje.id} className={styles.card}>
+                  <p className={styles.titulo}>Viaje {viaje.id}</p>
+                  <div className={styles.labelInfo}>
+                    <strong>Origen:</strong> {viaje.origen || "Por definir..."}
+                  </div>
+                  <div className={styles.labelInfo}>
+                    <strong>Destino:</strong> {viaje.destino || "Por definir..."}
+                  </div>
+                  <div className={styles.labelInfo}>
+                    <strong>Transportista:</strong> {viaje.nombreT || "Por definir..."}
+                  </div>
+                  <div className={styles.botones}>
+                    <button className={styles.verEstado} onClick={() => abrirModalEstado(viaje)}>
+                      Ver estado de mi viaje
+                    </button>
+                  </div>
                 </div>
-                <div className={styles.labelInfo}>
-                  <strong>Destino:</strong> {viaje.destino || "Por definir..."}
-                </div>
-                <div className={styles.labelInfo}>
-                  <strong>Transportista:</strong> {viaje.nombreT || "Por definir..."}
-                </div>
-          
-                <div className={styles.botones}>
-                  <button className={styles.verEstado} onClick={() => abrirModalEstado(viaje)}>
-                    Ver estado de mi viaje
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          
+              ))}
+            </div>
           )}
+
           {vistaActual === 'estados' && (
             <div className={styles.estadoContainer}>
-              {/* Recolección */}
               <div className={styles.estadoBox}>
                 <div className={styles.estadoHeader}>Recolección</div>
                 {viajes.filter(viaje => viaje.estado === "recoleccion").map((viaje) => (
@@ -190,7 +201,6 @@ const Viajes = () => {
                 ))}
               </div>
 
-              {/* En camino */}
               <div className={styles.estadoBox}>
                 <div className={styles.estadoHeader}>En camino</div>
                 {viajes.filter(viaje => viaje.estado === "encamino").map((viaje) => (
@@ -202,7 +212,6 @@ const Viajes = () => {
                 ))}
               </div>
 
-              {/* Finalizado */}
               <div className={styles.estadoBox}>
                 <div className={styles.estadoHeader}>Finalizado</div>
                 {viajes.filter(viaje => viaje.estado === "finalizado").map((viaje) => (
@@ -215,6 +224,7 @@ const Viajes = () => {
               </div>
             </div>
           )}
+
           {vistaActual === 'calificaciones' && <p>No hay calificaciones disponibles.</p>}
         </div>
       </div>

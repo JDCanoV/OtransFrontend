@@ -34,6 +34,7 @@
 .input-group input,
 .input-group select,
 .input-group textarea {
+    width: 100%; /* Asegura que los inputs, selects y textareas ocupen todo el contenedor */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -195,10 +196,10 @@
 }
 
 #checklist {
-    --background: #fff;
+    --background: #f7f3eb;
     --text: #414856;
-    --check: #4f29f0;
-    --disabled: #c3c8de;
+    --check: #f48c06;
+    --disabled: #f7f3eb;
     --width: 100%;
     --height: auto;
     --border-radius: 10px;
@@ -295,8 +296,6 @@
 .image-container img:hover {
   transform: scale(1.05);
 }
-
-
 
 /* Limitar tamaño máximo y centrar imagen grande en el modal de react-modal-image */
 .ReactModal__Content img {

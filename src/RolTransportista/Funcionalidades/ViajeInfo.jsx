@@ -36,7 +36,7 @@ const ViajeInfo = () => {
     }
 
     try {
-      const response = await axios.get(`/user/${idTransportista}/viaje`);
+      const response = await axios.get(`/Transportista/${idTransportista}/viaje`);
       console.log("Respuesta de viaje:", response.data);
       if (response.data) {
         setViajeData(response.data);
@@ -59,7 +59,6 @@ const ViajeInfo = () => {
     if (viajeData) {
       console.log("Datos del viaje recibidos:", viajeData);
 
-      // Usar directamente viajeData.imagenes que es un array de URLs
       const imgs = Array.isArray(viajeData.imagenes)
         ? viajeData.imagenes.filter((url) => url && url.trim() !== "")
         : [];
@@ -85,7 +84,7 @@ const ViajeInfo = () => {
       <HeaderTrans />
       <div className="solicitar-servicio-container">
         <div className="menu">
-          <label>Viaje Info</label>
+          <label>Informacion del Viaje</label>
         </div>
 
         <div className="form-and-map-container">
@@ -101,7 +100,7 @@ const ViajeInfo = () => {
                   type="text"
                   placeholder="Ingresa origen"
                   value={origen}
-                  readOnly
+                  disabled
                 />
               </div>
               <div className="input-group">
@@ -110,7 +109,7 @@ const ViajeInfo = () => {
                   type="text"
                   placeholder="Ingresa destino"
                   value={destino}
-                  readOnly
+                  disabled
                 />
               </div>
               <div className="input-group">
@@ -147,14 +146,14 @@ const ViajeInfo = () => {
                   type="text"
                   placeholder="Peso del cargamento (kg)"
                   value={peso}
-                  readOnly
+                  disabled
                 />
               </div>
               <div className="input-group">
                 <textarea
                   placeholder="Descripción del cargamento"
                   value={descripcion}
-                  readOnly
+                  disabled
                 />
               </div>
               <div className="input-group">
@@ -162,7 +161,7 @@ const ViajeInfo = () => {
                   type="text"
                   placeholder="Precio estimado"
                   value={precio}
-                  readOnly
+                  disabled
                 />
               </div>
 
@@ -180,6 +179,7 @@ const ViajeInfo = () => {
                   <label htmlFor="03">Entregado</label>
                 </div>
               </div>
+
 
               <div className="image-container">
                 {imagenes.length > 0 ? (

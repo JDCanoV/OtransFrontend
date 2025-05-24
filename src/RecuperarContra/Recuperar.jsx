@@ -23,7 +23,7 @@ const Recuperar = () => {
 
     try {
       // Cambiar la solicitud para enviar solo el correo como string
-      const response = await axios.post("/User/RecuperarContra", email);
+      const response = await axios.post("/Usuario/RecuperarContra", email);
 
       console.log(response); // Verificar respuesta
 

@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   // Función para realizar el login
   const login = async (email, password, remember) => {
-    const URL_LOGIN = process.env.REACT_APP_API_URL + "/User/Login";
+    const URL_LOGIN = process.env.REACT_APP_API_URL + "/Usuario/Login";
     try {
       setLoading(true);
       const response = await axios.post(URL_LOGIN, { correo: email, contrasena: password });

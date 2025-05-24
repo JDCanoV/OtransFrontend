@@ -1,12 +1,13 @@
 /* Contenedor principal del formulario */
 .register-container {
   max-width: 800px; /* Aumenta el ancho para acomodar dos columnas */
-  padding: 2rem; /* Espaciado interno del formulario */
+ 
   background-color: #f9f9f9; /* Fondo claro */
   border-radius: 8px; /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
   font-family: Arial, sans-serif; /* Fuente del formulario */
-  margin-top: 200px; /* Separación desde el header */
+ margin: 200px 0 0 0;
+   padding-top: 200px; /* o la altura que quieras */ 
 }
 
 
@@ -123,8 +124,14 @@
 
 /* Mensaje de error */
 .error-message {
-    color: red; /* Texto rojo */
+    color: rgb(255, 115, 0); /* Texto rojo */
     font-size: 0.9rem; /* Tamaño de fuente */
     margin-bottom: 1rem; /* Espaciado inferior */
     text-align: center; /* Centra el texto */
+}
+.field-error {
+  color: #f88d0a;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 600;
 }

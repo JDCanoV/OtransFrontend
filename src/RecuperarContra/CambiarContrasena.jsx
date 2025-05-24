@@ -33,7 +33,7 @@ const CambiarContrasena = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("/User/CambiarContrasena", {
+      const response = await axios.post("/Usuario/CambiarContrasena", {
         correo: correo,
         contrasena: newPassword,
       });

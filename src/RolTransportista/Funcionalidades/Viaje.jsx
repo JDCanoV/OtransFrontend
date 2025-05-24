@@ -17,33 +17,27 @@ const Viaje = () => {
 
   const navigate = useNavigate();
   const idTransportista = user?.usuario?.idUsuario;
+  console.log(idTransportista);
 
   const fetchViajes = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`/user/viajes-por-carroceria/${idTransportista}`);
+      const response = await axios.get(`/Transportista/viajes-por-carroceria/${idTransportista}`);
       if (response.data) {
         if (response.data.length === 0) {
           setErrorMessage("No se encontraron viajes con el estado 4 para este transportista.");
           setErrorDetails("Este transportista no tiene viajes pendientes con estado 4.");
         } else {
           setViajes(response.data);
+          setErrorMessage("");
+          setErrorDetails("");
         }
       } else {
-        setErrorMessage("No se encontraron viajes para este transportista.");
+        setErrorMessage("No se encontraron viajes para tu vehículo. Por favor, verifica más tarde ");
         setErrorDetails("La respuesta no contiene datos de viajes.");
       }
     } catch (error) {
-      if (error.response) {
-        setErrorMessage(`Error al cargar los viajes. Código de estado: ${error.response.status}`);
-        setErrorDetails(`Detalles del error: ${error.response.data || error.response.statusText}`);
-      } else if (error.request) {
-        setErrorMessage("No se recibió respuesta del servidor.");
-        setErrorDetails(`Detalles del error: ${error.request}`);
-      } else {
-        setErrorMessage("Hubo un problema al realizar la solicitud.");
-        setErrorDetails(`Detalles del error: ${error.message}`);
-      }
+      setErrorMessage("No se encontraron viajes para tu vehículo. Por favor, verifica más tarde");
     } finally {
       setIsLoading(false);
     }
@@ -52,6 +46,29 @@ const Viaje = () => {
   useEffect(() => {
     fetchViajes();
   }, [idTransportista]);
+
+  const asignarTransportista = async (idViaje, idTransportista) => {
+  try {
+    const response = await axios.post('/Transportista/asignar-transportista', {
+      idViaje,
+      idTransportista
+    });
+    return response.data.message;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error al asignar transportista');
+  }
+};
+const manejarAceptarViaje = async (idViaje) => {
+  try {
+    const mensaje = await asignarTransportista(idViaje, idTransportista);
+    alert(mensaje);
+    fetchViajes();
+    navigate('/ViajeInfo');
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
 
   const siguienteViaje = () => {
     if (indiceActual < viajes.length - 1) {
@@ -82,9 +99,7 @@ const Viaje = () => {
     }
   };
 
-  const aceptarViaje = () => {
-    navigate('/GuiaServicio');
-  };
+
 
   if (errorMessage) {
     return (
@@ -129,7 +144,7 @@ const Viaje = () => {
           </button>
 
           <div className={styles.card}>
-            <p className={styles.titulo}>Viaje {viaje.id}</p>
+            <p className={styles.titulo}>Viaje {viaje.idViaje}</p>
 
             {/* Mostrar Imágenes del Viaje */}
             <div className={styles.imagen}>
@@ -161,7 +176,7 @@ const Viaje = () => {
             <div className={styles.labelInfo}>{viaje.destino || "Por definir..."}</div>
 
             <p className={styles.origenDestino}>Empresa:</p>
-            <div className={styles.labelInfo}>{viaje.empresa || "Por definir..."}</div>
+            <div className={styles.labelInfo}>{viaje.nombreEmpresa || "Por definir..."}</div>
 
             <p className={styles.origenDestino}>Precio:</p>
             <div className={styles.labelInfo}>{viaje.precio || "Por definir..."}</div>
@@ -173,7 +188,12 @@ const Viaje = () => {
               <button className={styles.cancelar} onClick={confirmarCancelar}>
                 Cancelar
               </button>
-              <button className={styles.Aceptar} onClick={aceptarViaje}>Aceptar</button>
+              <button
+  className={styles.Aceptar}
+  onClick={() => manejarAceptarViaje(viaje.idViaje)}
+>
+  Aceptar
+</button>
             </div>
           </div>
 

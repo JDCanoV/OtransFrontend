@@ -11,6 +11,7 @@ import RegisterVehiculo from './Register/RegisterVehiculo';
 import RegisterEmpresa from './Register/RegisterEmpresa';
 import Recuperar from './RecuperarContra/Recuperar';
 import IndexEmpresa from './RolEmpresa/Index/IndexEmpresa';
+import InfoEmpresa from './RolEmpresa/Index/InfoEmpresa';
 import SolicitarServicio from './RolEmpresa/Funcionalidades/SolicitarServicio';
 import Viaje from './RolTransportista/Funcionalidades/Viaje';
 import GuiaServicio from './RolTransportista/Funcionalidades/GuiaServicio';
@@ -22,7 +23,9 @@ import CalificacionesT from './RolTransportista/Funcionalidades/CalificacionesT'
 import Detalle from './RolEmpresa/Funcionalidades/Detalle';
 import UsuariosPendientes from './RolAdministrador/Funcionalidades/UsuariosPendientes'; 
 import UsuarioDetalle from './RolAdministrador/Funcionalidades/UsuarioDetalle';
+import Reporte from './RolAdministrador/Funcionalidades/Reporte';
 import IndexTransportista from './RolTransportista/Index/IndexTransportista';
+import InfoTransportista from './RolTransportista/Index/InfoTransportista';
 import ViajeInfo from './RolTransportista/Funcionalidades/ViajeInfo';
 
 
@@ -45,7 +48,9 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/recuperar" element={<Recuperar />} />
           <Route path="/indexTransportista" element={<IndexTransportista />} />
+          <Route path="/infoTransportista" element={<InfoTransportista />} />
           <Route path="/indexEmpresa" element={<IndexEmpresa/>} />
+          <Route path="/infoEmpresa" element={<InfoEmpresa/>} />
           <Route path="/register" element={<RegisterSelection />} />
           <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
           <Route path="/registerTransportista" element={<RegisterCamionero />} />
@@ -55,6 +60,7 @@ root.render(
           <Route path="/viajes" element={<Viajes />} />
           <Route path="/solicitarServicio" element={<SolicitarServicio />} />
           <Route path="/usuariosPendientes" element={<UsuariosPendientes />} />
+          <Route path="/Reporte" element={<Reporte />} />
           <Route path="/usuarioDetalle/:id" element={<UsuarioDetalle />} />     
           <Route path="/ofrecemos" element={<Ofrecemos />} />
           <Route path="/ofertas" element={<Ofertas />} />
@@ -62,6 +68,7 @@ root.render(
           <Route path="/ofrecemos" element={<Ofrecemos />} />
           <Route path="/ofertas" element={<Ofertas />} />
           <Route path="/calificaciones" element={<Calificaciones />} />
+         
           </Route>
 
           {/* Rutas protegidas para 'transportista' */}
@@ -69,6 +76,7 @@ root.render(
             
             <Route path="/calificacionesT" element={<CalificacionesT />} />
             <Route path="/guiaServicio" element={<GuiaServicio />} />
+            <Route path="/viajeInfo" element={<ViajeInfo />} />
           </Route>
 
           {/* Rutas protegidas para 'admin' */}
@@ -87,7 +95,7 @@ root.render(
             <Route path="/register" element={<RegisterSelection />} />
             <Route path="/registerEmpresa" element={<RegisterEmpresa />} />
             <Route path="/registerTransportista" element={<RegisterCamionero />} />
-            <Route path="/viajeInfo" element={<ViajeInfo />} />
+            
           </Route>
 
         </Routes>

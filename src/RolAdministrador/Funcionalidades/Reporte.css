@@ -1,0 +1,76 @@
+.user-report-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: Arial, sans-serif;
+}
+
+.user-report-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.user-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.user-report-table thead tr {
+  background-color: #FF8C00;
+  color: #fff;
+}
+
+.user-report-table th,
+.user-report-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.user-report-table th {
+  text-align: left;
+}
+
+.user-report-table th.center,
+.user-report-table td.center {
+  text-align: center;
+}
+
+.user-report-table tbody tr.even-row {
+  background-color: #fafafa;
+}
+
+.user-report-table tbody tr.odd-row {
+  background-color: #fff;
+}
+
+.pdf-report-button {
+  background-color: #FF8C00;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.pdf-report-button:hover {
+  background-color: #e67e00;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.loading-text,
+.error-text {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.error-text {
+  color: red;
+}

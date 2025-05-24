@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Estilos para mensajes de error */
+.errorMessage {
+  color: #050505;
+  font-weight: 700;
+  text-align: center;
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.errorDetails {
+  color: #050505;
+  background: #fdd;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  max-height: 140px;
+  overflow-y: auto;
+  margin: 0 auto 25px auto;
+  max-width: 600px;
+}
+
+/* Container principal y tipografía */
 .containerPrincipal {
   display: flex;
   flex-direction: column;
@@ -21,9 +44,9 @@ h3 {
 }
 
 .card {
-  background-color: #f8f0ea;
-  padding: 18px;
-  width: 400px;
+  background-color: #f7f3eb;
+  padding: 12px;
+  width: 500px;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
@@ -37,44 +60,81 @@ h3 {
 
 .imagen {
   background-color: #ffdb58;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
-  margin: 0 auto 10px auto;
-  width: 160px;
+  margin: 0 auto 8px auto;
+  width: 350px;
   border-radius: 9px;
   font-size: 13px;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.imageGrid img {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.modal-image {
+  display: inline-block;
+}
+
+.modal-image img {
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.modal-image img:hover {
+  transform: scale(1.05);
 }
 
 .origenDestino {
   font-weight: bold;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .botones {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+}
+
+.cancelar, .Aceptar {
+  padding: 15px 15px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 .cancelar {
   background-color: #ff3c3c;
-  color: white;
-  border: none;
-  padding: 20px 20px 20px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
+}
+
+.cancelar:hover {
+  background-color: #cc3232;
 }
 
 .Aceptar {
   background-color: #f48c06;
-  color: white;
-  border: none;
-  padding: 20px 20px 20px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
+}
+
+.Aceptar:hover {
+  background-color: #c67205;
 }
 
 .arrowLeft,
@@ -121,7 +181,7 @@ h3 {
   font-weight: bold;
   font-size: 16px;
   text-align: center;
-  margin-bottom: 20px; /* Ajuste de margen inferior */
+  margin-bottom: 20px;
 }
 
 .empresa {
@@ -129,12 +189,14 @@ h3 {
 }
 
 .precio {
-  color: #ff8c00; /* Color distintivo para el precio */
+  color: #ff8c00;
 }
 
 .tipoCarga {
-  color: #2a9d8f; /* Color distintivo para el tipo de carga */
+  color: #2a9d8f;
 }
+
+/* Popup confirmación */
 
 .popupOverlay {
   position: fixed;
@@ -186,6 +248,10 @@ h3 {
   cursor: pointer;
 }
 
+.si:hover {
+  background-color: #030303;
+}
+
 .no {
   background-color: #06d6a0;
   color: white;
@@ -196,64 +262,6 @@ h3 {
   cursor: pointer;
 }
 
-/* Ajustes finales de tamaño para la tarjeta */
-.card {
-  background-color: #f7f3eb;
-  padding: 12px;  /* Reducido el padding */
-  width: 500px;   /* Reducido el tamaño */
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-}
-
-.imagen {
-  background-color: #ffdb58;
-  padding: 20px;   /* Reducido el padding */
-  text-align: center;
-  margin: 0 auto 8px auto; /* Reducido el margen inferior */
-  width: 350px;    /* Reducido el tamaño */
-  border-radius: 9px;
-  font-size: 13px;
-}
-
-.origenDestino {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;  /* Reducido el margen inferior */
-}
-
-.botones {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;   /* Reducido el gap entre los botones */
-}
-
-.cancelar, .Aceptar {
-  padding: 15px 15px; /* Reducido el padding */
-}
-.imageGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
-  gap: 10px;
-  justify-content: center;
-  padding: 10px;
-  margin-bottom: 15px;
-}
-
-
-.imageGrid img {
-  width: auto; /* Ajusta el tamaño de las imágenes */
-  height: auto; /* Ajusta el tamaño de las imágenes */
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-
-.modal-image {
-  display: inline-block;
-}
-
-.modal-image img {
-  border-radius: 8px;
+.no:hover {
+  background-color: #04916a;
 }

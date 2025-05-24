@@ -6,8 +6,11 @@ import HeaderEmpresa from "../../Header/HeaderEmpresa";
 import GoogleMapComponent from "../../Components/googlemaps/GoogleMapComponent"; 
 
 const SolicitarServicio = () => {
+   const user = JSON.parse(sessionStorage.getItem("user"));
+        const idUsuario = user?.usuario?.idUsuario; 
   const navigate = useNavigate();
   const [origen, setOrigen] = useState(""); 
+  const [idEmpresa, setidEmpresa] = useState(idUsuario); 
   const [destino, setDestino] = useState(""); 
   const [tipoCarroceria, setTipoCarroceria] = useState("");  
   const [tamanoVeh, setTamanoVeh] = useState("");  
@@ -105,7 +108,7 @@ const SolicitarServicio = () => {
 
     try {
       console.log("Enviando imágenes al backend...");
-      const response = await axios.post("/User/subir-imagenes-carga", formData, {
+      const response = await axios.post("/Empresa/subir-imagenes-carga", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -191,6 +194,7 @@ const SolicitarServicio = () => {
 
     // Creamos el objeto con los datos del viaje, incluyendo distancia y precio calculados
     const viajeData = {
+      idEmpresa,
       origen,
       destino,
       tipoCarroceria,
@@ -206,7 +210,7 @@ const SolicitarServicio = () => {
 
     try {
       // Enviamos los datos al backend
-      const response = await axios.post("/user/registrarViaje", viajeData);
+      const response = await axios.post("/Empresa/registrarViaje", viajeData);
       if (response && response.data) {
         console.log("Viaje registrado con éxito:", response.data);
         navigate("/viajes");  // Redirige a la página de viajes
@@ -375,7 +379,7 @@ const SolicitarServicio = () => {
               </ul>
             )}
 
-            <button type="submit" className="solicitar-btn">SOLICITAR</button>
+            <button type="submit" className="solicitaar-btn">SOLICITAR</button>
           </form>
 
           <div className="map-container">

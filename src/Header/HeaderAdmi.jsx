@@ -25,6 +25,9 @@ const HeaderAdmi = () => {
           <button className="nav-btn" onClick={() => navigate('/UsuariosPendientes')}>
             Revisar Documentos
           </button>
+            <button className="nav-btn" onClick={() => navigate('/Reporte')}>
+            Reportes
+          </button>
           
         </div>
 

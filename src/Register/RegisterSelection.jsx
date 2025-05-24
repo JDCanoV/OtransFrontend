@@ -21,8 +21,8 @@ const RegisterSelection = () => {
       <div className="selection-cards">
         {/* Card para Camionero */}
         <div className="selection-card camionero">
-          <h3>Camionero</h3>
-          <p>Regístrate como camionero para gestionar tus vehículos y servicios.</p>
+          <h3>Transportista</h3>
+          <p>Regístrate como transportista para gestionar tus viajes</p>
           <button
             className="selection-button"
             onClick={() => handleSelection("camionero")}
@@ -34,7 +34,7 @@ const RegisterSelection = () => {
         {/* Card para Empresa */}
         <div className="selection-card empresa">
           <h3>Empresa</h3>
-          <p>Regístrate como empresa para gestionar tus operaciones y empleados.</p>
+          <p>Regístrate como empresa para gestionar tus operaciones </p>
           <button
             className="selection-button"
             onClick={() => handleSelection("empresa")}

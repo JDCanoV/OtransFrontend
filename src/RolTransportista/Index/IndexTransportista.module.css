@@ -1,6 +1,6 @@
 .otransLanding {
   font-family: 'Inter', sans-serif;
-  color: #000;
+  color: #fa9e0b;
   margin: 0;
   padding: 0;
 }
@@ -9,10 +9,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;  /* centra verticalmente */
-  background-color: #f58220;
+  background-color: #5c5c5b;
   padding: 50px 60px;
-  color: #000;
-  margin: 0;
+  color: #f47a10;
+ 
+  margin: 90px 0 0 0; 
 }
 
 .heroText {
@@ -31,21 +32,21 @@
 .heroText span {
   font-weight: 900;
   font-size: 36px;
-  color: #222;
+  color: #f48516;
 }
 
 .sub {
   font-weight: 600;
   margin-top: 15px;
   font-size: 18px;
-  color: #222;
+  color: #000000;
 }
 
 .description {
   margin-top: 15px;
   font-size: 16px;
   max-width: 500px;
-  color: #222;
+  color: #000000;
   line-height: 1.6;
 }
 
@@ -121,4 +122,33 @@
   font-size: 16px;
   line-height: 1.8;
   color: #333;
+}
+.inputGroup {
+  margin-bottom: 16px;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #222;
+}
+
+.inputGroup input,
+.inputGroup select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+.quoteBox {
+  background-color: #fff4e6;
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }

@@ -13,7 +13,7 @@ const UsuariosPendientes = () => {
   useEffect(() => {
     const obtenerUsuarios = async () => {
       try {
-        const response = await axios.get("/User/pendientes-validacion"); // Asegúrate de que esta ruta sea correcta
+        const response = await axios.get("/Administrador/pendientes-validacion"); // Asegúrate de que esta ruta sea correcta
         setUsuarios(response.data); // Establece los datos obtenidos
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
