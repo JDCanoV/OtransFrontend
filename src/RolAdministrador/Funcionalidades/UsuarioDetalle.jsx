@@ -84,7 +84,7 @@ const UsuarioDetalle = () => {
   useEffect(() => {
     const obtenerUsuarioDetalle = async () => {
       try {
-        const response = await axios.get(`/Administrador/detalle/${id}`);
+        const response = await axios.get(`/Usuario/detalle/${id}`);
         setUsuario(response.data);
 
         const docs = response.data.documentos.map((doc) => {
@@ -123,7 +123,7 @@ const UsuarioDetalle = () => {
         observaciones,
       };
 
-      await axios.post(`/Administrador/validar`, payload);
+      await axios.post(`/Usuario/validar`, payload);
       setPopupVisible(true);
       setTimeout(() => {
         setPopupVisible(false);

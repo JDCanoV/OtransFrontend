@@ -1,53 +1,69 @@
 import React, { useState } from "react";
-import "./Recuperar.css"; // Asegúrate de que el estilo esté disponible
-import { useNavigate } from 'react-router-dom';
+import "./Recuperar.css"; 
+import { useNavigate } from "react-router-dom";
 import HeaderLogin from "../Header/HeaderLogin";
-import axios from "../config/axiosConfig"; // Asumiendo que tienes axios configurado
+import axios from "../config/axiosConfig";
 
 const Recuperar = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Para controlar el estado de carga
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleRecoverPassword = async (e) => {
     e.preventDefault();
 
-    if (email === "") {
+    if (email.trim() === "") {
       setMessage("Por favor ingresa tu correo electrónico.");
       return;
     }
 
     setIsLoading(true);
-    setMessage(""); // Limpia el mensaje previo
+    setMessage("");
 
     try {
-      // Cambiar la solicitud para enviar solo el correo como string
-      const response = await axios.post("/Usuario/RecuperarContra", email);
+      // Aquí asegúrate de mandar el objeto con la propiedad que espera el backend
+      const response = await axios.post(`/Usuario/RecuperarContra?correo=${encodeURIComponent(email)}`, {});
 
-      console.log(response); // Verificar respuesta
+
+
+      console.log("Respuesta completa:", response);
 
       if (response.status === 200) {
-        // Accede al mensaje en la respuesta y asegúrate de que sea un string
-        const message = response.data.message; // Aquí se accede a la propiedad 'message' del objeto
-        setMessage(message); // Mostrar el mensaje específico que viene desde la API
+        const msg = response.data.message || "Operación exitosa";
+        setMessage(msg);
 
-        if (message === "Correo enviado con la nueva contraseña") {
-          // Asegúrate de que la redirección se hace después de que el mensaje se haya actualizado
+        if (msg === "Correo enviado con la nueva contraseña") {
           setTimeout(() => {
-            navigate("/login"); // Redirigir a login después de 2 segundos
+            navigate("/login");
           }, 2000);
         }
       } else {
         setMessage(response.data.message || "Hubo un error al enviar el correo.");
       }
     } catch (error) {
-      console.log({ correo: email });  // Verifica que el correo esté bien estructurado
+      console.log({ correo: email });
 
-      console.error("Error al enviar el correo:", error); // Para ver detalles del error
-      setMessage("Hubo un error al enviar el correo. Por favor, intenta nuevamente.");
+      // Manejo más detallado de errores
+      if (error.response) {
+        // El servidor respondió con un status fuera del rango 2xx
+        console.error("Error en la respuesta del servidor:", error.response.data);
+        setMessage(
+          error.response.data?.message ||
+          `Error ${error.response.status}: ${error.response.statusText}`
+        );
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+        console.error("No se recibió respuesta del servidor:", error.request);
+        setMessage("No se recibió respuesta del servidor. Intenta más tarde.");
+      } else {
+        // Algo pasó al configurar la solicitud
+        console.error("Error al configurar la solicitud:", error.message);
+        setMessage("Error en la solicitud. Por favor intenta nuevamente.");
+      }
     }
-    setIsLoading(false); // Finaliza el estado de carga
+
+    setIsLoading(false);
   };
 
   return (
@@ -63,7 +79,7 @@ const Recuperar = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Introduce tu correo"
-            disabled={isLoading} // Deshabilita el input mientras se procesa la solicitud
+            disabled={isLoading}
           />
           
           {message && <p className="message">{message}</p>}

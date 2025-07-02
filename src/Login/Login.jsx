@@ -43,6 +43,7 @@ function Login() {
   const [files, setFiles] = useState({});
   const [loginUserId, setLoginUserId] = useState(null);
   const [messagePopup, setMessagePopup] = useState(null);
+  const [dataInReview, setDataInReview] = useState(false);  // Nuevo estado para mostrar el popup de "en revisión"
 
   const modalRef = useRef(null);
 
@@ -68,6 +69,13 @@ function Login() {
       if (response.status === 200) {
         const idRol = response.data.idRol;
         let redirectPath = "";
+
+        // Verificamos si el usuario tiene idEstado igual a 1 (en revisión)
+        if (response.data.usuario.idEstado === 1) {
+          setDataInReview(true);  // Mostramos el popup de datos en revisión
+          setLoading(false);
+          return;  // No redirigimos a otra vista
+        }
 
         if (idRol === 1) {
           redirectPath = "/UsuariosPendientes";
@@ -178,6 +186,22 @@ function Login() {
             </button>
           </div>
         </form>
+
+        {/* Popup de "Datos en revisión" */}
+        {dataInReview && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-1000">
+            <div className="modal-docs">
+              <h3>Tus datos están en revisión</h3>
+              <p>Por favor espera mientras tus datos son verificados.</p>
+              <button
+                onClick={() => setDataInReview(false)}
+                className="cancel-btn"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        )}
 
         {showModal && (
           <div

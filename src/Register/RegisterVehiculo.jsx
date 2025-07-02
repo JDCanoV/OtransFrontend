@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import "./registervehiculo.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
+import axios from "../config/axiosConfig";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Obtenemos el idTransportista pasado desde la vista anterior (puede venir como numIdentificacion)
+  const idTrans = location.state?.numIdentificacion || "";
+console.log(idTrans);
   const [formData, setFormData] = useState({
     placa: "",
     capacidadCarga: "",
@@ -14,6 +21,7 @@ const Register = () => {
     nombreDueño: "",
     numIdentDueño: "",
     telDueño: "",
+    idTransportista:idTrans,
   });
 
   const [uploadedFiles, setUploadedFiles] = useState({
@@ -26,12 +34,10 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
     setError("");
   };
 
@@ -39,12 +45,12 @@ const Register = () => {
     const { name } = e.target;
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
-      setFormData({ ...formData, [name]: file });
-      setUploadedFiles({ ...uploadedFiles, [name]: file.name });
-      setErrors({ ...errors, [name]: "" });
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      setUploadedFiles((prev) => ({ ...prev, [name]: file.name }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
       setError("");
     } else {
-      setErrors({ ...errors, [name]: "Por favor, sube un archivo PDF válido." });
+      setErrors((prev) => ({ ...prev, [name]: "Por favor, sube un archivo PDF válido." }));
     }
   };
 
@@ -102,7 +108,7 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validate()) {
@@ -113,18 +119,42 @@ const Register = () => {
     setIsLoading(true);
     setError("");
 
-    // Aquí debes enviar la data real al backend. Ejemplo:
-    // const data = new FormData();
-    // ...data.append...
-    // axios.post(...) ...
+    try {
+      const envioFormData = new FormData();
 
-    console.log("Datos registrados:", formData);
+      envioFormData.append("placa", formData.placa);
+      envioFormData.append("capacidadCarga", formData.capacidadCarga);
+      envioFormData.append("carroceria", formData.carroceria);
+      envioFormData.append("nombreDueño", formData.nombreDueño);
+      envioFormData.append("numIdentDueño", formData.numIdentDueño);
+      envioFormData.append("telDueño", formData.telDueño);
 
-    // Simulación de navegación después de registro
-    setTimeout(() => {
-      setIsLoading(false);
+      envioFormData.append("soat", formData.soat);
+      envioFormData.append("tecnicomecanica", formData.tecnicomecanica);
+      envioFormData.append("licenciaTransito", formData.licenciaTransito);
+
+      // Agregar idTransportista al formData para enviar al backend
+      envioFormData.append("idTransportista", formData.idTransportista);
+
+      const response = await axios.post("/Usuario/registerVehiculo", envioFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      
+      console.log("✅ Registro exitoso:", response.data.message);
       navigate("/login");
-    }, 1500);
+    } catch (error) {
+      if (error.response) {
+        console.error("❌ Error del servidor:", error.response.data);
+        setError("Error al registrar. Revisa los campos.");
+      } else {
+        console.error("❌ Error de conexión:", error.message);
+        setError("No se pudo conectar con el servidor.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

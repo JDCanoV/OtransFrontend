@@ -153,7 +153,8 @@ const RegisterCamionero = () => {
         },
       });
       console.log("✅ Registro exitoso:", response.data.message);
-      navigate("/registervehiculo");
+      navigate("/registervehiculo", { state: { numIdentificacion: formData.numIdentificacion } });
+
     } catch (error) {
       if (error.response) {
         console.error("❌ Error del servidor:", error.response.data);
